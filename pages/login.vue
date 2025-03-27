@@ -30,10 +30,10 @@ const active_tab = ref(0);
           <div class="wsus__sign_form_area">
             <ul class="nav nav-pills" id="pills-tab" role="tablist">
               <li @click="active_tab = 0" class="nav-item" role="presentation">
-                <button class="nav-link active">Student</button>
+                  <button :class="{'active': active_tab === 0}" class="nav-link">Student</button>
               </li>
               <li @click="active_tab = 1" class="nav-item" role="presentation">
-                <button class="nav-link">Instructor</button>
+                <button :class="{'active': active_tab === 1}" class="nav-link">Instructor</button>
               </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
