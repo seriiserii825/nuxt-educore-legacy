@@ -191,7 +191,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="common_btn" href="#">Sign Up</a>
+                        <nuxt-link class="common_btn" to="/login">Sign in</nuxt-link>
                     </li>
                 </ul>
             </div>

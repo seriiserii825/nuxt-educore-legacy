@@ -11,6 +11,7 @@ async function submitForm() {
   try {
     const response = await axiosInstance.post("/login", form.value);
     localStorage.setItem("token", response.data.token);
+    localStorage.setItem("user", JSON.stringify(response.data.user));
     router.push("/");
   } catch (error) {
     errors.value = error.response.data.errors;
