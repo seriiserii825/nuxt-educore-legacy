@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import {useAuthStore} from '~/store/useAuthStore';
+
+const auth_store = useAuthStore();
 </script>
 
 <template>
@@ -182,16 +185,19 @@
                             <b>06</b>
                         </a>
                     </li>
-                    <li>
-                        <a class="admin" href="#">
+                    <li if="auth_store.user && auth_store.user.email">
+                        <span class="admin d-flex">
                             <span>
                                 <img src="/images/user_icon_black.png" alt="user" class="img-fluid">
                             </span>
-                            admin
-                        </a>
+                            <span style="text-transform: lowercase; width: auto;">{{ auth_store.user && auth_store.user.email }}</span>
+                        </span>
                     </li>
-                    <li>
-                        <nuxt-link class="common_btn" to="/login">Sign in</nuxt-link>
+                    <li v-if="auth_store.user && auth_store.user.email">
+                        <nuxt-link class="common_btn" to="/logout">Logout</nuxt-link>
+                    </li>
+                    <li v-else>
+                        <nuxt-link class="common_btn" to="/logout">Sign in</nuxt-link>
                     </li>
                 </ul>
             </div>
