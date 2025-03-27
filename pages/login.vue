@@ -17,13 +17,13 @@ const active_tab = ref(0);
               alt="login"
               class="img-fluid"
             />
-            <a href="index.html">
+            <nuxt-link to="/">
               <img
                 src="/admin/images/logo.png"
                 alt="EduCore"
                 class="img-fluid"
-              />
-            </a>
+                />
+            </nuxt-link>
           </div>
         </div>
         <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-9 m-auto wow fadeInRight">
@@ -47,7 +47,7 @@ const active_tab = ref(0);
           </div>
         </div>
       </div>
-      <a class="back_btn" href="index.html">Back to Home</a>
+      <nuxt-link class="back_btn" to="/">Back to Home</nuxt-link>
     </section>
   </div>
 </template>

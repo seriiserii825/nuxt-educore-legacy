@@ -7,9 +7,9 @@ const auth_store = useAuthStore();
 <template>
   <div class="main-menu">
     <nav class="navbar navbar-expand-lg main_menu main_menu_3">
-        <a class="navbar-brand" href="index_3.html">
+        <nuxt-link class="navbar-brand" to="/">
             <img src="/images/logo.png" alt="EduCore" class="img-fluid">
-        </a>
+        </nuxt-link>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
