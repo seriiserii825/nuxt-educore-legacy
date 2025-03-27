@@ -41,20 +41,25 @@ function changeHandler(e) {
 </script>
 <template>
   <div class="input">
-    <label v-if="label" :for="id">{{ label }}</label>
+    <label v-if="label">{{ label }}</label>
     <input
-      :id="id"
       :type="type"
       :placeholder="placeholder !== undefined ? placeholder : null"
       :value="propsValue"
       :name="name"
       @input="changeHandler"
+      :class="{ 'input--error': errors && errors.length }"
     />
     <div
       v-if="errors && errors.length"
       class="input__message input__message--error"
     >
-      <p v-for="error in errors" :key="error.$uid">{{ error.$message }}</p>
+      <p class="text-danger" v-for="(error, index) in errors" :key="index">{{ error }}</p>
     </div>
   </div>
 </template>
+<style>
+.input--error {
+  border-color: red !important;
+}
+</style>
