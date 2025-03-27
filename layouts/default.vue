@@ -15,6 +15,7 @@ useHead({
   <div class="default-layout">
     <FrontHeader />
     <MainMenu />
+    <MenuMobile />
     <slot />
   </div>
 </template>
