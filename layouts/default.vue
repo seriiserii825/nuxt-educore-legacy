@@ -12,15 +12,6 @@ useHead({
   ],
 });
 
-async function getUser() {
-  const data = await axiosInstance.get("/user");
-  const user = data.data;
-  auth_store.setUser(user);
-}
-
-onMounted(async () => {
-  await getUser();
-});
 </script>
 
 <template>

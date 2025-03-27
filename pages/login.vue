@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 definePageMeta({
   layout: "auth",
 });
@@ -22,18 +23,24 @@ const active_tab = ref(0);
                 src="/admin/images/logo.png"
                 alt="EduCore"
                 class="img-fluid"
-                />
+              />
             </nuxt-link>
           </div>
         </div>
-        <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-9 m-auto wow fadeInRight">
+        <div
+          class="col-xxl-4 col-xl-5 col-lg-6 col-md-9 m-auto wow fadeInRight"
+        >
           <div class="wsus__sign_form_area">
             <ul class="nav nav-pills" id="pills-tab" role="tablist">
               <li @click="active_tab = 0" class="nav-item" role="presentation">
-                  <button :class="{'active': active_tab === 0}" class="nav-link">Student</button>
+                <button :class="{ active: active_tab === 0 }" class="nav-link">
+                  Student
+                </button>
               </li>
               <li @click="active_tab = 1" class="nav-item" role="presentation">
-                <button :class="{'active': active_tab === 1}" class="nav-link">Instructor</button>
+                <button :class="{ active: active_tab === 1 }" class="nav-link">
+                  Instructor
+                </button>
               </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
