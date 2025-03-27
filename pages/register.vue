@@ -16,36 +16,6 @@ definePageMeta({
       </div>
       <div class="m-auto col-xxl-4 col-xl-5 col-lg-6 col-md-9 wow fadeInRight">
         <div class="wsus__sign_form_area">
-          <ul class="nav nav-pills" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link active"
-                id="pills-home-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-home"
-                type="button"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="true"
-              >
-                Student
-              </button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button
-                class="nav-link"
-                id="pills-profile-tab"
-                data-bs-toggle="pill"
-                data-bs-target="#pills-profile"
-                type="button"
-                role="tab"
-                aria-controls="pills-profile"
-                aria-selected="false"
-              >
-                Instructor
-              </button>
-            </li>
-          </ul>
           <div class="tab-content" id="pills-tabContent">
             <div
               class="tab-pane fade show active"
@@ -57,7 +27,7 @@ definePageMeta({
               <form action="#">
                 <h2>Sign Up<span>!</span></h2>
                 <p class="new_user">
-                  Already have an account? <a href="sign_in.html">Sign In</a>
+                  Already have an account? <a href="/login">Sign In</a>
                 </p>
                 <div class="row">
                   <div class="col-xl-12">
