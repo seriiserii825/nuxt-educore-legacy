@@ -11,11 +11,15 @@ useHead({
     { rel: "stylesheet", href: "/css/responsive.css" },
   ],
 });
-onMounted(() => {
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  if (user) {
-    auth_store.setUser(user);
-  }
+
+async function getUser() {
+  const data = await axiosInstance.get("/user");
+  const user = data.data;
+  auth_store.setUser(user);
+}
+
+onMounted(async () => {
+  await getUser();
 });
 </script>
 
