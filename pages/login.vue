@@ -32,13 +32,6 @@ definePageMeta({
               <li class="nav-item" role="presentation">
                 <button
                   class="nav-link active"
-                  id="pills-home-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#pills-home"
-                  type="button"
-                  role="tab"
-                  aria-controls="pills-home"
-                  aria-selected="true"
                 >
                   Student
                 </button>
@@ -46,26 +39,13 @@ definePageMeta({
               <li class="nav-item" role="presentation">
                 <button
                   class="nav-link"
-                  id="pills-profile-tab"
-                  data-bs-toggle="pill"
-                  data-bs-target="#pills-profile"
-                  type="button"
-                  role="tab"
-                  aria-controls="pills-profile"
-                  aria-selected="false"
                 >
                   Instructor
                 </button>
               </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
-              <div
-                class="tab-pane fade show active"
-                id="pills-home"
-                role="tabpanel"
-                aria-labelledby="pills-home-tab"
-                tabindex="0"
-              >
+              <div class="tab-pane fade show active">
                 <form action="#">
                   <h2>Log in<span>!</span></h2>
                   <p class="new_user">
@@ -128,13 +108,7 @@ definePageMeta({
                   <a href="sign_up.html">Create free account</a>
                 </p>
               </div>
-              <div
-                class="tab-pane fade"
-                id="pills-profile"
-                role="tabpanel"
-                aria-labelledby="pills-profile-tab"
-                tabindex="0"
-              >
+              <div class="tab-pane fade">
                 <form action="#">
                   <h2>Log in<span>!</span></h2>
                   <p class="new_user">
