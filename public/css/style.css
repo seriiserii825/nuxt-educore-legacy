@@ -50,12 +50,6 @@ body {
     font-family: var(--bodyFont);
 }
 
-img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-}
-
 input,
 textarea {
     width: 100%;
@@ -15656,4 +15650,10 @@ footer {
     -moz-border-radius: 0px !important;
     -ms-border-radius: 0px !important;
     -o-border-radius: 0px !important;
+}
+.page {
+    min-height: 100vh;
+}
+.footer-admin {
+    margin-top: auto;
 }

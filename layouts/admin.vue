@@ -11,6 +11,7 @@ useHead({
     },
     { rel: "stylesheet", href: "/dist/css/tabler-vendors.min.css?1692870487" },
     { rel: "stylesheet", href: "/dist/css/demo.min.css?1692870487" },
+    { rel: "stylesheet", href: "/css/style.css" },
   ],
   script: [
     // { src: "/dist/js/demo-theme.min.js?1692870487" },
@@ -20,8 +21,8 @@ useHead({
 });
 </script>
 <template>
-  <div class="layout-boxed">
-    <div class="page">
+  <div class="page">
+    <div class="page-wrapper">
       <HeaderAdmin />
       <slot />
       <FooterAdmin />

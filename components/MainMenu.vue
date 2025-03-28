@@ -197,7 +197,10 @@ const auth_store = useAuthStore();
                         <nuxt-link class="common_btn" to="/logout">Logout</nuxt-link>
                     </li>
                     <li v-else>
-                        <nuxt-link class="common_btn" to="/logout">Sign in</nuxt-link>
+                        <nuxt-link class="common_btn" to="/login">Sign in</nuxt-link>
+                    </li>
+                    <li>
+                        <nuxt-link class="common_btn_2" to="/admin">Admin</nuxt-link>
                     </li>
                 </ul>
             </div>
