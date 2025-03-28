@@ -1,19 +1,15 @@
-import {useAuthStore} from "~/store/useAuthStore";
+import { useAuthStore } from "~/store/useAuthStore";
 
 export default defineNuxtRouteMiddleware((to, from) => {
   const auth_store = useAuthStore();
+  const { user } = storeToRefs(auth_store);
+  console.log(user.value, "user.value");
 
-  if (!auth_store.user && to.path === "/admin") {
-    return navigateTo("/admin/login");
+  if (!user.value || user.value.role !== "admin") {
+    return navigateTo("/"); // Redirect unauthorized users
   }
 
-  // if (to.params.id === "1") {
-  //   return abortNavigation();
-  // }
-  // // In a real app you would probably not redirect every route to `/`
-  // // however it is important to check `to.path` before redirecting or you
-  // // might get an infinite redirect loop
-  // if (to.path !== "/") {
-  //   return navigateTo("/");
-  // }
+  if (to.path === "/admin/login") {
+    return navigateTo("/admin"); // Prevent logged-in admin from accessing login
+  }
 });

@@ -4,7 +4,6 @@
 .nuxt
 .nitro
 .cache
-dist
 yarn.lock
 
 # Node dependencies

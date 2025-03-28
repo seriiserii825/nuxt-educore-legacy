@@ -1,10 +1,6 @@
 <script setup>
 import { useHead } from "@unhead/vue";
 
-definePageMeta({
-  middleware: ["admin"]
-})
-
 useHead({
   link: [
     { rel: "stylesheet", href: "/dist/css/tabler.min.css?1692870487" },

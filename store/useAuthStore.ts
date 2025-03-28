@@ -5,6 +5,7 @@ export const useAuthStore = defineStore("auth", () => {
     id: number;
     name: string;
     email: string;
+    role: "admin" | "student" | "instructor";
   };
   const user = ref<TUser | null>(null);
   function setUser(new_user: TUser | null) {
