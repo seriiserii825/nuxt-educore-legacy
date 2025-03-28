@@ -8,7 +8,7 @@ definePageMeta({
 <template>
   <section
     class="wsus__breadcrumb"
-    style="background: url(images/breadcrumb_bg.jpg)"
+    style="background: url(/images/breadcrumb_bg.jpg)"
   >
     <div class="wsus__breadcrumb_overlay">
       <div class="container">
@@ -17,8 +17,8 @@ definePageMeta({
             <div class="wsus__breadcrumb_text">
               <h1>Overview</h1>
               <ul>
-                <li><a href="#">Home</a></li>
-                <li>Overview</li>
+                <li><a href="#">Instructor</a></li>
+                <li>Dashboard</li>
               </ul>
             </div>
           </div>
@@ -57,30 +57,9 @@ definePageMeta({
               <p>Instructor</p>
             </div>
             <ul class="wsus__dashboard_sidebar_menu">
-              <li>
-                <a href="dashboard.html" class="active">
-                  <div class="img">
-                    <img
-                      src="/images/dash_icon_8.png"
-                      alt="icon"
-                      class="img-fluid w-100"
-                    />
-                  </div>
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="dashboard_profile.html">
-                  <div class="img">
-                    <img
-                      src="/images/dash_icon_1.png"
-                      alt="icon"
-                      class="img-fluid w-100"
-                    />
-                  </div>
-                  Profile
-                </a>
-              </li>
+              <UiMenuLink to="/instructor/dashboard" icon="fas fa-tachometer-alt" text="Dashboard" />
+              <UiMenuLink to="/" icon="fas fa-book" text="Courses" />
+              <UiMenuLink to="/logout" icon="fas fa-sign-out-alt" text="Logout" />
             </ul>
           </div>
         </div>
