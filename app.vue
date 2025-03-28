@@ -7,14 +7,14 @@ async function getUser() {
   try {
     const data = await axiosInstance.get("/user");
     const user = data.data;
-    console.log("user", user);
     auth_store.setUser(user);
+    const user_cookie = useCookie("user");
+    user_cookie.value = JSON.stringify(user);
   } catch (error) {
     console.log(error.status, "error.status");
     if (error.status === 401) {
       auth_store.setUser(null);
       localStorage.removeItem("token");
-      localStorage.removeItem("user");
       // router.push("/login");
     }
   }
