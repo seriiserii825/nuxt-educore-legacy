@@ -12,6 +12,9 @@ useHead({
 </script>
 <template>
   <div>
+    <FrontHeader />
+    <MainMenu />
+    <MenuMobile />
     <slot />
   </div>
 </template>
