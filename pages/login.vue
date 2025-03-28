@@ -2,6 +2,7 @@
 
 definePageMeta({
   layout: "auth",
+  middleware: ["instructor"]
 });
 
 const active_tab = ref(0);
