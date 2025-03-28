@@ -3,6 +3,7 @@ const router = useRouter();
 const form = ref({
   email: "",
   password: "",
+  role: 'student'
 });
 
 const errors = ref();

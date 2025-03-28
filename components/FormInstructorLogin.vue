@@ -1,8 +1,24 @@
 <script setup lang="ts">
+const router = useRouter();
 const form = ref({
   email: "",
   password: "",
+  role: 'student'
 });
+
+const errors = ref();
+
+async function submitForm() {
+  try {
+    const response = await axiosInstance.post("/login", form.value);
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("user", JSON.stringify(response.data.user));
+    router.push("/");
+  } catch (error) {
+    errors.value = error.response.data.errors;
+  }
+  console.log(form.value);
+}
 </script>
 
 <template>
@@ -20,7 +36,7 @@ const form = ref({
               placeholder="Email or Username"
               name="email"
               v-model:value="form.email"
-              :errors="[]"
+              :errors="errors ? errors.email : []"
             />
           </div>
         </div>
@@ -30,14 +46,21 @@ const form = ref({
               label="Password*"
               placeholder="Password"
               name="password"
+              type="password"
               v-model:value="form.password"
-              :errors="[]"
+              :errors="errors ? errors.password : []"
             />
           </div>
         </div>
         <div class="col-xl-12">
           <div class="wsus__login_form_input">
-            <button type="submit" class="common_btn">Sign In</button>
+            <button
+              @click.prevent="submitForm"
+              type="button"
+              class="common_btn"
+            >
+              Sign In
+            </button>
           </div>
         </div>
       </div>
