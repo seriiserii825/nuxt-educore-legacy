@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { useHead } from "@unhead/vue";
-import { useAuthStore } from "~/store/useAuthStore";
-const auth_store = useAuthStore();
 
 useHead({
   link: [

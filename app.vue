@@ -15,7 +15,7 @@ async function getUser() {
       auth_store.setUser(null);
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      router.push("/login");
+      // router.push("/login");
     }
   }
 }
