@@ -14,11 +14,10 @@ async function submitForm() {
     localStorage.setItem("token", response.data.token);
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);
-    router.push("/");
+    window.location.href = "/";
   } catch (error) {
     errors.value = error.response.data.errors;
   }
-  console.log(form.value);
 }
 </script>
 
@@ -27,14 +26,14 @@ async function submitForm() {
     <form action="#">
       <h2>Log in as student<span>!</span></h2>
       <p class="new_user">
-        New Student ? <a href="sign_up.html">Create an Account</a>
+        New Student ? <nuxt-link to="/register">Create an Account</nuxt-link>
       </p>
       <div class="row">
         <div class="col-xl-12">
           <div class="wsus__login_form_input">
             <InputComponent
               label="Email*"
-              placeholder="Email or Username"
+              placeholder="Email"
               name="email"
               v-model:value="form.email"
               :errors="errors ? errors.email : []"

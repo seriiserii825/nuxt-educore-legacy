@@ -14,7 +14,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
   }
 
 // If the user is logged in and does not have the admin role, redirect to home
-  if (to.path.startsWith("/admin") && admin_user.value?.role !== "admin") {
+  if (to.path.startsWith("/admin") && admin_user.value && admin_user.value?.role !== "admin") {
     return navigateTo("/");
   }
 });

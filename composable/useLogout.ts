@@ -5,12 +5,12 @@ export default function useLogout() {
     .then(() => {
       const cookie_user = useCookie("user");
       cookie_user.value = "";
-      router.push("/");
+      window.location.href = "/";
     })
     .catch(() => {
       localStorage.removeItem("token");
       const cookie_user = useCookie("user");
       cookie_user.value = "";
-      router.push("/");
+      window.location.href = "/";
     });
 }

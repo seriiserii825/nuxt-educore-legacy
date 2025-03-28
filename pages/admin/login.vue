@@ -18,7 +18,7 @@ async function submitForm() {
     localStorage.setItem("token", response.data.token);
     const user = useCookie("user");
     user.value = JSON.stringify(response.data.user);
-    router.push("/admin");
+    window.location.href = "/admin";
   } catch (error) {
     errors.value = error.response.data.errors;
   }
