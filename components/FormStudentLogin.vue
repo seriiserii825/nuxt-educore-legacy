@@ -14,7 +14,7 @@ async function submitForm() {
     localStorage.setItem("token", response.data.token);
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);
-    window.location.href = "/";
+    window.location.href = "/student/dashboard";
   } catch (error) {
     errors.value = error.response.data.errors;
   }
