@@ -15,17 +15,17 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <h1 class="navbar-brand navbar-brand-autodark">
-        <a href=".">
+        <nuxt-link to="/">
           <img
-            src="./static/logo.svg"
+            src="/static/logo.svg"
             width="110"
             height="32"
             alt="Tabler"
             class="navbar-brand-image"
-          />
-        </a>
+            />
+        </nuxt-link>
       </h1>
-      <div class="navbar-nav flex-row d-lg-none">
+      <div class="flex-row navbar-nav d-lg-none">
         <div class="nav-item d-none d-lg-flex me-3">
           <div class="btn-list">
             <a
@@ -85,7 +85,7 @@
         <div class="d-none d-lg-flex">
           <a
             href="?theme=dark"
-            class="nav-link px-0 hide-theme-dark"
+            class="px-0 nav-link hide-theme-dark"
             title="Enable dark mode"
             data-bs-toggle="tooltip"
             data-bs-placement="bottom"
@@ -111,7 +111,7 @@
           </a>
           <a
             href="?theme=light"
-            class="nav-link px-0 hide-theme-light"
+            class="px-0 nav-link hide-theme-light"
             title="Enable light mode"
             data-bs-toggle="tooltip"
             data-bs-placement="bottom"
@@ -139,7 +139,7 @@
           <div class="nav-item dropdown d-none d-md-flex me-3">
             <a
               href="#"
-              class="nav-link px-0"
+              class="px-0 nav-link"
               data-bs-toggle="dropdown"
               tabindex="-1"
               aria-label="Show notifications"
@@ -327,7 +327,7 @@
         <div class="nav-item dropdown">
           <a
             href="#"
-            class="nav-link d-flex lh-1 text-reset p-0"
+            class="p-0 nav-link d-flex lh-1 text-reset"
             data-bs-toggle="dropdown"
             aria-label="Open user menu"
           >

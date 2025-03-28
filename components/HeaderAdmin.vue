@@ -28,7 +28,7 @@
             />
           </a>
         </h1>
-        <div class="navbar-nav flex-row order-md-last">
+        <div class="flex-row navbar-nav order-md-last">
           <div class="nav-item d-none d-md-flex me-3">
             <div class="btn-list">
               <a
@@ -88,7 +88,7 @@
           <div class="d-none d-md-flex">
             <a
               href="?theme=dark"
-              class="nav-link px-0 hide-theme-dark"
+              class="px-0 nav-link hide-theme-dark"
               title="Enable dark mode"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
@@ -114,7 +114,7 @@
             </a>
             <a
               href="?theme=light"
-              class="nav-link px-0 hide-theme-light"
+              class="px-0 nav-link hide-theme-light"
               title="Enable light mode"
               data-bs-toggle="tooltip"
               data-bs-placement="bottom"
@@ -142,7 +142,7 @@
             <div class="nav-item dropdown d-none d-md-flex me-3">
               <a
                 href="#"
-                class="nav-link px-0"
+                class="px-0 nav-link"
                 data-bs-toggle="dropdown"
                 tabindex="-1"
                 aria-label="Show notifications"
@@ -354,7 +354,7 @@
           <div class="nav-item dropdown">
             <a
               href="#"
-              class="nav-link d-flex lh-1 text-reset p-0"
+              class="p-0 nav-link d-flex lh-1 text-reset"
               data-bs-toggle="dropdown"
               aria-label="Open user menu"
             >
@@ -373,7 +373,7 @@
               <a href="#" class="dropdown-item">Feedback</a>
               <div class="dropdown-divider"></div>
               <a href="./settings.html" class="dropdown-item">Settings</a>
-              <a href="./sign-in.html" class="dropdown-item">Logout</a>
+              <nuxt-link to="/logout" class="dropdown-item">Logout</nuxt-link>
             </div>
           </div>
         </div>

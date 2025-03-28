@@ -1,24 +1,10 @@
 <script setup lang="ts">
-const router = useRouter();
+import useLogout from '~/composable/useLogout';
 onMounted(() => {
-  axiosInstance.post('/logout')
-    .then(() => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      router.push({ name: 'login' });
-    })
-    .catch(() => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      router.push({ name: 'login' });
-    });
-  // localStorage.removeItem('token');
-  // router.push({ name: 'login' });
+  useLogout();
 });
 </script>
 
 <template>
-  <div class="logout">
-
-  </div>
+  <div class="logout"></div>
 </template>

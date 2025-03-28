@@ -1,15 +1,13 @@
-import { useAuthStore } from "~/store/useAuthStore";
-
 export default defineNuxtRouteMiddleware((to, from) => {
-  const auth_store = useAuthStore();
-  const { user } = storeToRefs(auth_store);
-  console.log(user.value, "user.value");
+  const admin_user = useCookie("user");
 
-  if (!user.value || user.value.role !== "admin") {
-    return navigateTo("/"); // Redirect unauthorized users
+  if (!admin_user.value) {
+    if (to.path !== "/admin/login") {
+      return navigateTo("/");
+    }
   }
 
-  if (to.path === "/admin/login") {
-    return navigateTo("/admin"); // Prevent logged-in admin from accessing login
+  if (to.path === "/admin/login" && admin_user.value) {
+    return navigateTo("/admin");
   }
 });

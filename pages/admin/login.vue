@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "admin-auth",
+  middleware: ["admin"],
 });
 
 const router = useRouter();
@@ -15,12 +16,12 @@ async function submitForm() {
   try {
     const response = await axiosInstance.post("/admin/login", form.value);
     localStorage.setItem("token", response.data.token);
-    localStorage.setItem("user", JSON.stringify(response.data.user));
-    router.push("/");
+    const user = useCookie("user");
+    user.value = JSON.stringify(response.data.user);
+    router.push("/admin");
   } catch (error) {
     errors.value = error.response.data.errors;
   }
-  console.log(form.value);
 }
 </script>
 
@@ -63,7 +64,11 @@ async function submitForm() {
                 />
               </div>
               <div class="form-footer">
-                <button type="button" @click="submitForm"  class="btn btn-primary w-100">
+                <button
+                  type="button"
+                  @click="submitForm"
+                  class="btn btn-primary w-100"
+                >
                   Sign in
                 </button>
               </div>

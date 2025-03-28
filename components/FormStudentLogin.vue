@@ -12,7 +12,9 @@ async function submitForm() {
   try {
     const response = await axiosInstance.post("/login", form.value);
     localStorage.setItem("token", response.data.token);
-    localStorage.setItem("user", JSON.stringify(response.data.user));
+    const cookie_user = useCookie("user");
+    cookie_user.value = JSON.stringify(response.data.user);
+
     router.push("/");
   } catch (error) {
     errors.value = error.response.data.errors;
