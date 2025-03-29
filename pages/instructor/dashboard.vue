@@ -15,7 +15,7 @@ const user = useGetUser();
           <div class="wsus__dashboard_sidebar">
             <UiSidebarTop
               v-if="user"
-              image="/images/dashboard_profile_img.png"
+              :image="user.image"
               :name="user.name"
               :role="user.role"
             />

@@ -3,4 +3,5 @@ export type TUser = {
   name: string;
   email: string;
   role: "admin" | "student" | "instructor";
+  image: string;
 };
