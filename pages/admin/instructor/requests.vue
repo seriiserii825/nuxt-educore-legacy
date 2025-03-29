@@ -37,15 +37,14 @@ onMounted(async () => {
               <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
-                <td>{{ user.approve_status }}</td>
+                <td><span class="badge bg-yellow-lt">{{ user.approve_status }}</span></td>
                 <td>
                   <a href="#" download>
                     <i class="fa fa-download"></i>
                   </a>
                 </td>
                 <td>
-                  <button class="btn btn-primary">Approve</button>
-                  <button class="btn btn-danger">Reject</button>
+                  <button class="btn btn-outline-info">Approve</button>
                 </td>
               </tr>
             </template>
