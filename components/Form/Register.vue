@@ -1,17 +1,4 @@
 <script setup lang="ts">
-import Swal from 'sweetalert2'
-
-Swal.fire({
-  position: 'top-end',
-  timer: 3000,
-  timerProgressBar: true,
-  toast: true,
-  title: 'Error!',
-  text: 'Do you want to continue',
-  icon: 'error',
-  confirmButtonText: 'Cool'
-})
-
 const props = defineProps({
   title: String as PropType<"Student" | "Instructor">,
   role: String as PropType<"student" | "instructor">,
@@ -50,8 +37,10 @@ async function submitForm() {
     localStorage.setItem("token", response.data.token);
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);
+    useSweetAlert("success", "Success", "You have successfully registered");
     router.push("/student/dashboard");
   } catch (error) {
+    useSweetAlert("error", "Error", "Something went wrong");
     errors.value = error.response.data.errors;
   }
 }
