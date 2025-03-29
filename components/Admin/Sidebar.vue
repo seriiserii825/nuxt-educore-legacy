@@ -29,10 +29,10 @@
         <ul class="navbar-nav pt-lg-3">
           <UiMenuItem title="Dashboard" icon="fa fa-home" url="/admin" />
           <UiMenuItemDropdown 
-            title="Interface" 
+            title="Requests" 
             icon="fa fa-cube" 
             :items="[ 
-            { title: 'Alerts', link: '/' },
+            { title: 'All', link: '/admin/instructor/requests' },
             { title: 'Accordion', link: '/' } 
             ]"/>
         </ul>

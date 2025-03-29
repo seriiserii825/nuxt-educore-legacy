@@ -12,4 +12,9 @@ export default defineNuxtConfig({
   },
 
   modules: ["@pinia/nuxt"],
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+    layoutTransition: { name: "layout", mode: "out-in" },
+  },
 });
+
