@@ -49,7 +49,7 @@ const active_tab = ref(0);
               }`"
               tabindex="0"
             >
-              <FormRegisterStudent title="Student" role="student" />
+              <FormRegister title="Student" role="student" />
             </div>
 
             <div
@@ -58,12 +58,12 @@ const active_tab = ref(0);
               }`"
               tabindex="0"
             >
-              <FormRegisterStudent title="Instructor" role="instructor" />
+              <FormRegister title="Instructor" role="instructor" />
             </div>
           </div>
         </div>
       </div>
     </div>
-    <a class="back_btn" href="index.html">Back to Home</a>
+    <nuxt-link class="back_btn" to="/">Back to Home</nuxt-link>
   </section>
 </template>

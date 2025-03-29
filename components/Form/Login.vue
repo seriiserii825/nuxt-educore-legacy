@@ -1,9 +1,15 @@
 <script setup lang="ts">
-const router = useRouter();
+const props = defineProps({
+  title: String as PropType<"Student" | "Instructor">,
+  role: {
+    type: String as PropType<"student" | "instructor">,
+    required: true,
+  },
+});
 const form = ref({
   email: "",
   password: "",
-  role: 'student'
+  role: props.role,
 });
 
 const errors = ref();
@@ -14,27 +20,28 @@ async function submitForm() {
     localStorage.setItem("token", response.data.token);
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);
-    window.location.href = "/instructor/dashboard";
+    window.location.href = "/student/dashboard";
   } catch (error) {
+    console.log(error, "error");
     errors.value = error.response.data.errors;
   }
-  console.log(form.value);
 }
 </script>
 
 <template>
-  <div class="form-instructor-login">
+  <div class="form-student-login">
     <form action="#">
-      <h2>Log in as instructor<span>!</span></h2>
+      <h2>Log in as {{ role }}<span>!</span></h2>
       <p class="new_user">
-        New Instructor ? <nuxt-link to="/register">Create an Account</nuxt-link>
+        New {{ title }} ?
+        <nuxt-link to="/register">Create an Account</nuxt-link>
       </p>
       <div class="row">
         <div class="col-xl-12">
           <div class="wsus__login_form_input">
             <InputComponent
               label="Email*"
-              placeholder="Email or Username"
+              placeholder="Email"
               name="email"
               v-model:value="form.email"
               :errors="errors ? errors.email : []"

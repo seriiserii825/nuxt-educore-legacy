@@ -46,10 +46,10 @@ const active_tab = ref(0);
             </ul>
             <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" v-if="active_tab === 0">
-                <FormStudentLogin />
+                <FormLogin title="Student" role="student" />
               </div>
               <div class="tab-pane fade show active" v-if="active_tab === 1">
-                <FormInstructorLogin />
+                <FormLogin title="Instructor" role="instructor" />
               </div>
             </div>
           </div>
