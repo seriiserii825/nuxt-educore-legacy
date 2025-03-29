@@ -37,7 +37,7 @@ async function submitForm() {
     localStorage.setItem("token", response.data.token);
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);
-    useSweetAlert("success", "Success", "You have successfully registered");
+    useSweetAlert("success", "Success", `Welcome ${response.data.user.name}`);
     router.push("/student/dashboard");
   } catch (error) {
     useSweetAlert("error", "Error", "Something went wrong");
