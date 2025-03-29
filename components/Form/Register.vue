@@ -1,4 +1,17 @@
 <script setup lang="ts">
+import Swal from 'sweetalert2'
+
+Swal.fire({
+  position: 'top-end',
+  timer: 3000,
+  timerProgressBar: true,
+  toast: true,
+  title: 'Error!',
+  text: 'Do you want to continue',
+  icon: 'error',
+  confirmButtonText: 'Cool'
+})
+
 const props = defineProps({
   title: String as PropType<"Student" | "Instructor">,
   role: String as PropType<"student" | "instructor">,
