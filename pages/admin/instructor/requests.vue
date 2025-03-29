@@ -7,17 +7,26 @@ definePageMeta({
   middleware: ["admin"],
 });
 
+const is_loading = ref<boolean>(true);
 const users = ref<TRequestsUser[]>([]);
+
+function stopLoading() {
+  setTimeout(() => {
+    is_loading.value = false;
+  }, 300);
+}
 
 onMounted(async () => {
   try {
     const data = await axiosInstance.get("/admin/instructor/requests");
     users.value = data.data;
+    stopLoading();
   } catch (error) {
-    if(error.response.data.message) {
+    if (error.response.data.message) {
       console.log(error.response.data.message);
       useSweetAlert("error", "Error", error.response.data.message);
     }
+    stopLoading();
   }
 });
 </script>
@@ -30,14 +39,19 @@ onMounted(async () => {
           <h4 class="card-title">Form elements</h4>
         </div>
         <div class="card-body">
+          <UiLoading v-if="is_loading" />
           <FormTable
             :headers="['Id', 'Title', 'Approve Status', 'Download', 'Action']"
-            >
+          >
             <template v-for="(user, index) in users" :key="index">
               <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
-                <td><span class="badge bg-yellow-lt">{{ user.approve_status }}</span></td>
+                <td>
+                  <span class="badge bg-yellow-lt">{{
+                    user.approve_status
+                  }}</span>
+                </td>
                 <td>
                   <a href="#" download>
                     <i class="fa fa-download"></i>
