@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <section class="wsus__category_4 mt_190 xs_mt_100">
+  <section class="wsus__category_4 mt_190 pb-8 xs_mt_100">
     <div class="container">
       <div class="row">
         <div class="col-xl-6 m-auto wow fadeInUp">

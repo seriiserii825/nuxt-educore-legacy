@@ -4878,7 +4878,7 @@ footer {
 
 .wsus__banner_features {
     position: absolute;
-    bottom: -65px;
+    bottom: 43px;
     left: 50%;
     width: 1250px;
     justify-content: space-between;
@@ -15661,4 +15661,41 @@ footer {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 1520px;
     }
+}
+
+.pt-5 {
+    padding-top: 5rem !important;
+}
+.pt-6 {
+    padding-top: 6rem !important;
+}
+.pt-7 {
+    padding-top: 7rem !important;
+}
+.pt-8 {
+    padding-top: 8rem !important;
+}
+.pt-9 {
+    padding-top: 9rem !important;
+}
+.pt-10 {
+    padding-top: 10rem !important;
+}
+.pb-5 {
+    padding-bottom: 5rem !important;
+}
+.pb-6 {
+    padding-bottom: 6rem !important;
+}
+.pb-7 {
+    padding-bottom: 7rem !important;
+}
+.pb-8 {
+    padding-bottom: 8rem !important;
+}
+.pb-9 {
+    padding-bottom: 9rem !important;
+}
+.pb-10 {
+    padding-bottom: 10rem !important;
 }
