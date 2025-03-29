@@ -4511,7 +4511,7 @@ footer {
 /* menu  3 start */
 .main_menu_3 {
     top: 40px;
-    padding: 0px 160px;
+    padding: 0px 30px;
     box-shadow: 0px 2px 10px 0px rgba(30, 30, 47, 0.10), 0px 4px 3px 0px rgba(30, 30, 47, 0.12);
     animation: none !important;
 }

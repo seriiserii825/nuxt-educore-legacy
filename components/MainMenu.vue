@@ -2,6 +2,12 @@
 import {useAuthStore} from '~/store/useAuthStore';
 
 const auth_store = useAuthStore();
+const dashboard_link = ref('');
+
+onMounted(() => {
+  dashboard_link.value = auth_store.user && auth_store.user.role === 'student' ? '/student/dashboard' : '/instructor/dashboard';
+});
+
 </script>
 
 <template>
@@ -176,15 +182,7 @@ const auth_store = useAuthStore();
                 <div class="menu_search_btn">
                     <img src="/images/search_icon.png" alt="Search" class="img-fluid">
                 </div>
-                <ul>
-                    <li>
-                        <a class="menu_signin" href="#">
-                            <span>
-                                <img src="/images/cart_icon_black.png" alt="user" class="img-fluid">
-                            </span>
-                            <b>06</b>
-                        </a>
-                    </li>
+                <ul class="d-flex gap-3">
                     <li if="auth_store.user && auth_store.user.email">
                         <span class="admin d-flex">
                             <span>
@@ -194,13 +192,16 @@ const auth_store = useAuthStore();
                         </span>
                     </li>
                     <li v-if="auth_store.user && auth_store.user.email">
+                        <nuxt-link class="common_btn" :to="dashboard_link">Dashboard</nuxt-link>
+                    </li>
+                    <li>
+                        <nuxt-link class="common_btn_2" to="/admin">Admin</nuxt-link>
+                    </li>
+                    <li v-if="auth_store.user && auth_store.user.email">
                         <nuxt-link class="common_btn" to="/logout">Logout</nuxt-link>
                     </li>
                     <li v-else>
                         <nuxt-link class="common_btn" to="/login">Sign in</nuxt-link>
-                    </li>
-                    <li>
-                        <nuxt-link class="common_btn_2" to="/admin">Admin</nuxt-link>
                     </li>
                 </ul>
             </div>
