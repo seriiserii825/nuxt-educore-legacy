@@ -6,33 +6,7 @@ definePageMeta({
 </script>
 
 <template>
-  <section
-    class="wsus__breadcrumb"
-    style="background: url(/images/breadcrumb_bg.jpg)"
-  >
-    <div class="wsus__breadcrumb_overlay">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 wow fadeInUp">
-            <div class="wsus__breadcrumb_text">
-              <h1>Overview</h1>
-              <ul>
-                <li><a href="#">Student</a></li>
-                <li>Dashboard</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--===========================
-        BREADCRUMB END
-    ============================-->
-
-  <!--===========================
-        DASHBOARD OVERVIEW START
-    ============================-->
+  <UiBreadcrumb image="/images/breadcrumb_bg.jpg" title="Student" />
   <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
     <div class="container">
       <div class="row">
