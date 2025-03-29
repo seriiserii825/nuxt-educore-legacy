@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { FormTable } from "#components";
 import type { TRequestsUser } from "~/types/TRequestUser";
+import type {TSelectOption} from "~/types/TSelectOption";
 
 definePageMeta({
   layout: "admin",
@@ -9,7 +10,12 @@ definePageMeta({
 
 const is_loading = ref<boolean>(true);
 const users = ref<TRequestsUser[]>([]);
-
+const approve_status_options: TSelectOption[] = [
+  { key: "initial", value: "Initial" },
+  { key: "pending", value: "Pending" },
+  { key: "approved", value: "Approved" },
+  { key: "rejected", value: "Rejected" },
+];
 function stopLoading() {
   setTimeout(() => {
     is_loading.value = false;
@@ -58,7 +64,11 @@ onMounted(async () => {
                   </a>
                 </td>
                 <td>
-                  <button class="btn btn-outline-info">Approve</button>
+                  <FormSelect
+                    name="approve_status"
+                    :options="approve_status_options"
+                    :value="user.approve_status"
+                  />
                 </td>
               </tr>
             </template>

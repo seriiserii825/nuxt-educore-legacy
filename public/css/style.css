@@ -15799,3 +15799,6 @@ footer {
 .btn {
   --tblr-btn-padding-y: 0.3625rem;
 }
+.form-select {
+  cursor: pointer;
+}
