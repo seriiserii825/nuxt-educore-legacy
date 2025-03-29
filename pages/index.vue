@@ -3,6 +3,7 @@
 
 <template>
   <HomeBanner />
+  <HomeCategories />
 </template>
 
 <style lang="scss">
