@@ -6,6 +6,7 @@ const props = defineProps({
     required: true,
   },
 });
+const router = useRouter();
 const form = ref({
   email: "",
   password: "",
@@ -21,7 +22,12 @@ async function submitForm() {
     localStorage.setItem("token", response.data.token);
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);
-    window.location.href = "/student/dashboard";
+    if (response.data.user.role === "student") {
+      router.push("/student/dashboard");
+    } else {
+      router.push("/instructor/dashboard");
+    }
+
   } catch (error) {
     console.log(error, "error");
     errors.value = error.response.data.errors;

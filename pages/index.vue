@@ -1,9 +1,10 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <HomeBanner />
-  <HomeCategories />
+  <div class="home">
+    <HomeBanner />
+    <HomeCategories />
+  </div>
 </template>
 
 <style lang="scss">

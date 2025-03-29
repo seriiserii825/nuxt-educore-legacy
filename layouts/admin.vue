@@ -3,6 +3,7 @@ import { useHead } from "@unhead/vue";
 
 useHead({
   link: [
+    { rel: "stylesheet", href: "/css/fontawesome.min.css" },
     { rel: "stylesheet", href: "/dist/css/tabler.min.css?1692870487" },
     { rel: "stylesheet", href: "/dist/css/tabler-flags.min.css?1692870487" },
     {
