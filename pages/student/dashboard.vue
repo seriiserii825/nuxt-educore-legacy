@@ -3,7 +3,7 @@ definePageMeta({
   layout: "student",
   middleware: ["student"],
 });
-const user = useCookie("user");
+const user = useGetUser();
 </script>
 
 <template>
@@ -21,7 +21,8 @@ const user = useCookie("user");
             />
             <ul class="wsus__dashboard_sidebar_menu">
               <UiMenuLink
-                to="/instructor/dashboard"
+                v-if="user"
+                :to="user.role === 'student' ? '/student/dashboard' : '/instructor/dashboard'"
                 icon="fas fa-tachometer-alt"
                 text="Dashboard"
               />
