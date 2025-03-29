@@ -3,6 +3,7 @@ definePageMeta({
   layout: "student",
   middleware: ["student"],
 });
+const user = useCookie("user");
 </script>
 
 <template>
@@ -12,28 +13,24 @@ definePageMeta({
       <div class="row">
         <div class="col-xl-3 col-md-4 wow fadeInLeft">
           <div class="wsus__dashboard_sidebar">
-            <div class="wsus__dashboard_sidebar_top">
-              <div class="dashboard_banner">
-                <img
-                  src="/images/single_topic_sidebar_banner.jpg"
-                  alt="img"
-                  class="img-fluid"
-                />
-              </div>
-              <div class="img">
-                <img
-                  src="/images/dashboard_profile_img.png"
-                  alt="profile"
-                  class="img-fluid w-100"
-                />
-              </div>
-              <h4>Norman Gordon</h4>
-              <p>Instructor</p>
-            </div>
+            <UiSidebarTop
+              v-if="user"
+              image="/images/dashboard_profile_img.png"
+              :name="user.name"
+              :role="user.role"
+            />
             <ul class="wsus__dashboard_sidebar_menu">
-              <UiMenuLink to="/instructor/dashboard" icon="fas fa-tachometer-alt" text="Dashboard" />
+              <UiMenuLink
+                to="/instructor/dashboard"
+                icon="fas fa-tachometer-alt"
+                text="Dashboard"
+              />
               <UiMenuLink to="/" icon="fas fa-book" text="Courses" />
-              <UiMenuLink to="/logout" icon="fas fa-sign-out-alt" text="Logout" />
+              <UiMenuLink
+                to="/logout"
+                icon="fas fa-sign-out-alt"
+                text="Logout"
+              />
             </ul>
           </div>
         </div>
