@@ -9,14 +9,31 @@ const form = ref({
   email: "",
   password: "",
   password_confirmation: "",
-  role: props.role,
+  role: '',
 });
 
 const errors = ref();
+const document = ref();
 
 async function submitForm() {
   try {
-    const response = await axiosInstance.post("/register", form.value);
+    const role = props.role;
+    const formData = new FormData();
+    formData.append("name", form.value.name);
+    formData.append("email", form.value.email);
+    formData.append("password", form.value.password);
+    formData.append("role", role as string);
+
+    if (props.role === "instructor") {
+      formData.append("document", document.value);
+    }
+
+    const response = await axiosInstance.post("/register", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    // const response = await axiosInstance.post("/register", form.value);
     localStorage.setItem("token", response.data.token);
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);
@@ -54,6 +71,16 @@ async function submitForm() {
             name="email"
             v-model:value="form.email"
             :errors="errors ? errors.email : []"
+          />
+        </div>
+      </div>
+      <div v-if="role === 'instructor'" class="col-xl-12">
+        <div class="wsus__login_form_input">
+          <FormFileUpload
+            label="Document (pdf, doc, docx)"
+            name="document"
+            @emit_file="document = $event"
+            :errors="errors ? errors.document : []"
           />
         </div>
       </div>
