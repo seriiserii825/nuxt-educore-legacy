@@ -17,6 +17,7 @@ const errors = ref();
 async function submitForm() {
   try {
     const response = await axiosInstance.post("/login", form.value);
+    console.log("response", response);
     localStorage.setItem("token", response.data.token);
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);
