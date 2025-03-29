@@ -9,7 +9,7 @@ const form = ref({
   email: "",
   password: "",
   password_confirmation: "",
-  role: '',
+  role: "",
 });
 
 const errors = ref();
@@ -38,7 +38,11 @@ async function submitForm() {
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);
     useSweetAlert("success", "Success", `Welcome ${response.data.user.name}`);
-    router.push("/student/dashboard");
+    if (role === "instructor") {
+      router.push("/instructor/dashboard");
+    } else {
+      router.push("/student/dashboard");
+    }
   } catch (error) {
     useSweetAlert("error", "Error", "Something went wrong");
     errors.value = error.response.data.errors;
