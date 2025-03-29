@@ -9,7 +9,7 @@ async function getUser() {
     console.log(error.status, "error.status");
     if (error.status === 401) {
       const user_cookie = useCookie("user");
-      user_cookie.value = "";
+      user_cookie.value = null;
       localStorage.removeItem("token");
     }
   }
