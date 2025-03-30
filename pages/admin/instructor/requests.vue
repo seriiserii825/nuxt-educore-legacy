@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FormTable } from "#components";
 import type { TRequestsUser } from "~/types/TRequestUser";
-import type {TSelectOption} from "~/types/TSelectOption";
+import type { TSelectOption } from "~/types/TSelectOption";
 
 definePageMeta({
   layout: "admin",
@@ -22,7 +22,29 @@ function stopLoading() {
   }, 300);
 }
 
-onMounted(async () => {
+function onChange(value: string, id: number) {
+  updateRequestStatus(id, value);
+}
+
+async function updateRequestStatus(id: number, status: string) {
+  is_loading.value = true;
+  try {
+    const data = await axiosInstance.put(`/admin/instructor/requests/${id}`, {
+      approve_status: status,
+    });
+    useSweetAlert("success", "Success", data.data.message);
+    await getRequests();
+    stopLoading();
+  } catch (error) {
+    if (error.response.data.message) {
+      console.log(error.response.data.message);
+      useSweetAlert("error", "Error", error.response.data.message);
+    }
+    stopLoading();
+  }
+}
+
+async function getRequests() {
   try {
     const data = await axiosInstance.get("/admin/instructor/requests");
     users.value = data.data;
@@ -34,6 +56,10 @@ onMounted(async () => {
     }
     stopLoading();
   }
+}
+
+onMounted(async () => {
+  await getRequests();
 });
 </script>
 
@@ -68,6 +94,7 @@ onMounted(async () => {
                     name="approve_status"
                     :options="approve_status_options"
                     :value="user.approve_status"
+                    @emit_select="onChange($event, user.id)"
                   />
                 </td>
               </tr>
