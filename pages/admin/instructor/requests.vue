@@ -27,7 +27,6 @@ function onChange(value: string, id: number) {
 }
 
 async function updateRequestStatus(id: number, status: string) {
-  is_loading.value = true;
   try {
     const data = await axiosInstance.put(`/admin/instructor/requests/${id}`, {
       approve_status: status,
@@ -45,6 +44,7 @@ async function updateRequestStatus(id: number, status: string) {
 }
 
 async function getRequests() {
+  is_loading.value = true;
   try {
     const data = await axiosInstance.get("/admin/instructor/requests");
     users.value = data.data;
@@ -75,17 +75,20 @@ onMounted(async () => {
           <FormTable
             :headers="['Id', 'Title', 'Approve Status', 'Download', 'Action']"
           >
-            <template v-for="(user, index) in users" :key="index">
+            <template v-for="(user) in users" :key="user.id">
               <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
                 <td>
-                  <span class="badge bg-yellow-lt">{{
+                  <span v-if="user.approve_status === 'pending'" class="badge bg-yellow-lt">{{
+                    user.approve_status
+                  }}</span>
+                  <span v-if="user.approve_status === 'rejected'" class="badge bg-red-lt">{{
                     user.approve_status
                   }}</span>
                 </td>
                 <td>
-                  <a href="#" download>
+                  <a target="_blank" :href="user.document">
                     <i class="fa fa-download"></i>
                   </a>
                 </td>
