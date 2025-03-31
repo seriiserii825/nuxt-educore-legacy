@@ -41,6 +41,9 @@ const user = useGetUser();
           </div>
           <div class="pt-4 col-xl-9 col-md-8">
             <UiAlertSuccess v-if="user?.approve_status === 'pending'" message="Your status for instructor request is pending, wait an email response from admin..."/>
+            <div v-if="user?.approve_status === 'initial'" class="d-flex justify-content-end">
+              <a href="#" class="btn btn-primary">Become an Instructor</a>
+            </div>
           </div>
         </div>
       </div>
