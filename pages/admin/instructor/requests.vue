@@ -67,29 +67,34 @@ onMounted(async () => {
 <template>
   <div class="page-body">
     <div class="container-xl">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Form elements</h4>
-        </div>
+      <UiCard title="Requests">
         <div class="card-body">
           <UiLoading v-if="is_loading" />
           <FormTable
+            v-else
             :headers="['Id', 'Title', 'Approve Status', 'Download', 'Action']"
           >
-            <template v-for="(user) in users" :key="user.id">
+            <template v-for="user in users" :key="user.id">
               <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
                 <td>
-                  <span v-if="user.approve_status === 'pending'" class="badge bg-yellow-lt">{{
-                    user.approve_status
-                  }}</span>
-                  <span v-if="user.approve_status === 'rejected'" class="badge bg-red-lt">{{
-                    user.approve_status
-                  }}</span>
+                  <span
+                    v-if="user.approve_status === 'pending'"
+                    class="badge bg-yellow-lt"
+                    >{{ user.approve_status }}</span
+                  >
+                  <span
+                    v-if="user.approve_status === 'rejected'"
+                    class="badge bg-red-lt"
+                    >{{ user.approve_status }}</span
+                  >
                 </td>
                 <td>
-                  <a target="_blank" :href="`${runtimeConfig.public.apiBase}${user.document}`">
+                  <a
+                    target="_blank"
+                    :href="`${runtimeConfig.public.apiBase}${user.document}`"
+                  >
                     <i class="fa fa-download"></i>
                   </a>
                 </td>
@@ -105,7 +110,7 @@ onMounted(async () => {
             </template>
           </FormTable>
         </div>
-      </div>
+      </UiCard>
     </div>
   </div>
 </template>
