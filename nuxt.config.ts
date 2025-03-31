@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     apiSecretKey: "NUXT_API_SECRET_KEY",
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE,
+      apiBase: process.env.NUXT_PUBLIC_API_BASE ? process.env.NUXT_PUBLIC_API_BASE : "http://localhost:8888",
     },
   },
   postcss: {
