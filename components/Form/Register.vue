@@ -33,7 +33,6 @@ async function submitForm() {
         "Content-Type": "multipart/form-data",
       },
     });
-    // const response = await axiosInstance.post("/register", form.value);
     localStorage.setItem("token", response.data.token);
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);

@@ -78,6 +78,7 @@ onMounted(async () => {
               <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
                 <td>
                   <span
                     v-if="user.approve_status === 'pending'"
