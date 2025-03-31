@@ -8,6 +8,7 @@ definePageMeta({
   middleware: ["admin"],
 });
 
+const runtimeConfig = useRuntimeConfig();
 const is_loading = ref<boolean>(true);
 const users = ref<TRequestsUser[]>([]);
 const approve_status_options: TSelectOption[] = [
@@ -88,7 +89,7 @@ onMounted(async () => {
                   }}</span>
                 </td>
                 <td>
-                  <a target="_blank" :href="user.document">
+                  <a target="_blank" :href="`${runtimeConfig.public.apiBase}${user.document}`">
                     <i class="fa fa-download"></i>
                   </a>
                 </td>
