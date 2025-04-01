@@ -23,15 +23,14 @@ function fileChange(event: any) {
         "Content-Type": "multipart/form-data",
       },
     })
-    .then((response) => {
+    .then(async (response) => {
       current_image.value = response.data.image;
-      const user = useGetUser();
-      if (user && current_image.value) {
-        user.image = current_image.value;
+      if (current_image.value) {
+        await useGetUserApi();
         setTimeout(() => {
           useSweetAlert("success", "Update", "Profile updated successfully");
           loading.value = false;
-        }, 2000);
+        }, 200);
       } else {
         useSweetAlert("error", "Update", "Profile updated failed");
         loading.value = false;
