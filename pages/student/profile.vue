@@ -16,12 +16,7 @@ const loading = ref(false);
         <div class="row">
           <div class="col-xl-3 col-md-4 wow fadeInLeft">
             <div class="wsus__dashboard_sidebar">
-              <UiSidebarTop
-                v-if="user"
-                :image="user.image"
-                :name="user.name"
-                :role="user.role"
-              />
+              <UiSidebarTop/>
               <NavStudentSidebarMenu />
             </div>
           </div>

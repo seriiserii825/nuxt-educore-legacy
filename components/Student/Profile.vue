@@ -87,27 +87,7 @@ onMounted(async () => {
           </p>
         </div>
       </div>
-      <div class="wsus__dashboard_profile wsus__dashboard_profile_avatar">
-        <div class="img">
-          <img
-            src="/images/dashboard_profile_img.png"
-            alt="profile"
-            class="img-fluid w-100"
-          />
-          <label for="profile_photo">
-            <img
-              src="/images/dash_camera.png"
-              alt="camera"
-              class="img-fluid w-100"
-            />
-          </label>
-          <input type="file" id="profile_photo" hidden="" />
-        </div>
-        <div class="text">
-          <h6>Your avatar</h6>
-          <p>PNG or JPG no bigger than 400px wide and tall.</p>
-        </div>
-      </div>
+      <UiStudentAvatar v-if="user" :api_url="`/profile/${user.id}/update-image`" :image="user.image" />
       <div  v-if="loading" style="min-height: 60vh;">
         <UiLoading />
       </div>

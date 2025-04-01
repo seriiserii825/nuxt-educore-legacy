@@ -1,13 +1,16 @@
 <script setup lang="ts">
-const props = defineProps({
-  image: String,
-  name: String,
-  role: String,
+import type {TUser} from '~/types/TUser';
+const user = ref<TUser | null>(null);
+
+const runtimeConfig = useRuntimeConfig();
+
+onMounted(() => {
+  user.value = useGetUser();
 });
 </script>
 
 <template>
-  <div class="wsus__dashboard_sidebar_top">
+  <div v-if="user" class="wsus__dashboard_sidebar_top">
     <div class="dashboard_banner">
       <img
         src="/images/single_topic_sidebar_banner.jpg"
@@ -17,12 +20,12 @@ const props = defineProps({
     </div>
     <div class="img">
       <img
-        :src="image"
+        :src="`${runtimeConfig.public.apiBase}/${user?.image}`"
         alt="profile"
         class="img-fluid w-100"
       />
     </div>
-    <h4>{{ name }}</h4>
-    <p>{{ role }}</p>
+    <h4>{{ user.name }}</h4>
+    <p>{{ user.role }}</p>
   </div>
 </template>
