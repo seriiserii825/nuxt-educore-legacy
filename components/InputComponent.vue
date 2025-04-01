@@ -76,7 +76,7 @@ function togglePassword(){
 .input .fa-eye {
   position: absolute;
   right: 10px;
-  bottom: 1.1rem;
+  top: 2.5rem;
   cursor: pointer;
 }
 .input .fa-eye.disabled {
