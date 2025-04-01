@@ -13,7 +13,7 @@ useHead({
 </script>
 
 <template>
-  <div class="default-layout">
+  <div class="layout">
     <FrontHeader />
     <MainMenu />
     <MenuMobile />

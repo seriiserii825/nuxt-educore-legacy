@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import {useUserStore} from '~/store/useUserStore';
+
+const user_store = useUserStore();
 const props = defineProps({
   title: String as PropType<"Student" | "Instructor">,
   role: {
@@ -22,6 +25,7 @@ async function submitForm() {
     localStorage.setItem("token", response.data.token);
     const cookie_user = useCookie("user");
     cookie_user.value = JSON.stringify(response.data.user);
+    user_store.setUser(response.data.user);
     if (response.data.user.role === "student") {
       router.push("/student/dashboard");
     } else {

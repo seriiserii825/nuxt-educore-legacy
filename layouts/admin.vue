@@ -22,7 +22,7 @@ useHead({
 });
 </script>
 <template>
-  <div class="page">
+  <div class="layout">
     <AdminSidebar />
     <div class="page-wrapper">
       <HeaderAdmin />

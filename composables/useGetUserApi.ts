@@ -13,7 +13,6 @@ export default async function useGetUserApi() {
     if (error.status === 401) {
       const user_cookie = useCookie("user");
       user_cookie.value = null;
-      localStorage.removeItem("token");
     }
   }
 }

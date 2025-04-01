@@ -1,6 +1,5 @@
 <script setup>
-import { useHead } from '@unhead/vue'
-
+import { useHead } from "@unhead/vue";
 useHead({
   link: [
     { rel: "stylesheet", href: "/dist/css/tabler.min.css?1692870487" },
@@ -11,12 +10,14 @@ useHead({
     { rel: "stylesheet", href: "/css/all.min.css" },
     { rel: "stylesheet", href: "/css/bootstrap.min.css" },
     { rel: "stylesheet", href: "/css/style.css" },
-    { rel: "stylesheet", href: "/css/responsive.css" }
-  ]
+    { rel: "stylesheet", href: "/css/responsive.css" },
+  ],
 });
 </script>
 <template>
-  <div  class="d-flex justify-content-center align-items-center">
-    <slot />
+  <div class="layout">
+    <div class="d-flex justify-content-center align-items-center">
+      <slot />
+    </div>
   </div>
 </template>
