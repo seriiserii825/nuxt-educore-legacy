@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import type { TUser } from "~/types/TUser";
 definePageMeta({
   layout: "student",
   middleware: ["student"],
 });
-const user = ref<TUser | null>(null);
-user.value = useGetUser();
 const loading = ref(false);
 </script>
 <template>

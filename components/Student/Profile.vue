@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { InputComponent, UiLoading } from "#components";
+import {useUserStore} from "~/store/useUserStore";
 import type { TSelectOption } from "~/types/TSelectOption";
-import type { TUser } from "~/types/TUser";
-
+const user_store = useUserStore();
+const {user} = storeToRefs(user_store);
 const loading = ref(false);
-const user = ref<TUser | null>(null);
 
 const form = ref({
   name: "",
@@ -58,7 +58,6 @@ async function onSubmit() {
 
 onMounted(async () => {
   await useGetUserApi();
-  user.value = useGetUser();
   if (!user.value) return;
   form.value.name = user.value.name;
   form.value.email = user.value.email;

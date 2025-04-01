@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type {TUser} from '~/types/TUser';
-
-const user = ref<TUser | null>(null);
-user.value = useGetUser();
+import {useUserStore} from '~/store/useUserStore';
+const user_store = useUserStore();
+const {user} = storeToRefs(user_store);
 </script>
 
 <template>

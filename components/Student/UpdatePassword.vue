@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { TUser } from "~/types/TUser";
+import {useUserStore} from '~/store/useUserStore';
 
+const user_store = useUserStore();
+const {user} = storeToRefs(user_store);
 const form = ref({
   current_password: "",
   password: "",
   password_confirmation: "",
 });
 const errors = ref();
-const user = ref<TUser | null>(null);
 
 async function onSubmit() {
-  user.value = useGetUser();
   if (!user.value) return;
   try {
     await axiosInstance.put(

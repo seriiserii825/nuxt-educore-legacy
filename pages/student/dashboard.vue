@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import type { TUser } from "~/types/TUser";
+import {useUserStore} from "~/store/useUserStore";
 definePageMeta({
   layout: "student",
   middleware: ["student"],
 });
-const runtimeConfig = useRuntimeConfig();
-const router = useRouter();
-const user = ref<TUser | null>(null);
-user.value = useGetUser();
+const user_store = useUserStore();
+const {user} = storeToRefs(user_store);
 const active = ref(false);
 const document = ref<File | null>(null);
 const loading = ref(false);
@@ -31,7 +29,6 @@ function onSubmit() {
         active.value = false;
         document.value = null;
         await useGetUserApi();
-        user.value = useGetUser();
         loading.value = false;
       })
       .catch((err) => {

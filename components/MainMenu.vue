@@ -1,11 +1,13 @@
 <script setup lang="ts">
-const dashboard_link = ref("");
+import {useUserStore} from '~/store/useUserStore';
 
-const user = useGetUser();
+const user_store = useUserStore();
+const {user} = storeToRefs(user_store);
+const dashboard_link = ref("");
 
 onMounted(() => {
   dashboard_link.value =
-    user && user.role === "student"
+    user.value && user.value.role === "student"
       ? "/student/dashboard"
       : "/instructor/dashboard";
 });
