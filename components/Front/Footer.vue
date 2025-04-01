@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <footer class="footer_3" style="background: url(images/footer_3_bg.jpg)">
+  <footer class="footer_3" style="background: url(/images/footer_3_bg.jpg)">
     <div class="footer_3_overlay pt_120 xs_pt_100">
-      <div class="wsus__footer_bottom pt-4">
+      <div class="pt-6 pb-6 wsus__footer_bottom">
         <div class="container">
           <div class="row">
             <div class="col-lg-3 wow fadeInUp">
@@ -20,7 +20,7 @@
                   porttitor.
                 </p>
                 <h2>Follow Us On</h2>
-                <ul class="d-flex flex-wrap">
+                <ul class="flex-wrap d-flex">
                   <li>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                   </li>

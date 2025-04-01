@@ -16,3 +16,10 @@ const props = defineProps({
     </nuxt-link>
   </li>
 </template>
+<style>
+.router-link-active.router-link-exact-active {
+  color: white;
+  background: var(--colorPrimary);
+  border-color: #a6bef8;
+}
+</style>

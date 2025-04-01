@@ -29,7 +29,7 @@ function onSubmit() {}
           <div class="pt-4 col-xl-9 col-md-8">
             <UiLoading v-if="loading" />
             <template v-else>
-              Profile
+              <StudentProfile />
             </template>
           </div>
         </div>

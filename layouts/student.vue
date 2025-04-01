@@ -16,5 +16,7 @@ useHead({
     <MainMenu />
     <MenuMobile />
     <slot />
+    <div class="pb-6"></div>
+    <FrontFooter />
   </div>
 </template>
