@@ -195,7 +195,7 @@ onMounted(async () => {
                       :errors="errors ? errors.website : []"
                     />
                   </div>
-                  <div class="mb-3 col-xl-6">
+                  <div class="mb-3 col-xl-12">
                     <InputComponent
                       label="Github"
                       name="github"
@@ -207,7 +207,7 @@ onMounted(async () => {
               </div>
             </UiCard>
           </div>
-          <div class="col-xl-12">
+          <div class="mb-4 col-xl-12">
             <div class="wsus__dashboard_profile_update_btn">
               <button @click="onSubmit" type="button" class="common_btn">
                 Update Profile
@@ -215,6 +215,7 @@ onMounted(async () => {
             </div>
           </div>
         </div>
+        <StudentUpdatePassword />
       </div>
     </div>
   </div>
