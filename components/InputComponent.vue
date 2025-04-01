@@ -33,23 +33,31 @@ const propsValue = computed(() => {
 });
 
 const emits = defineEmits(["update:value"]);
+const input_type = ref(props.type);
 
 function changeHandler(e) {
   let value = e.target.value;
   emits("update:value", value);
 }
+
+function togglePassword(){
+  if (props.type === 'password') {
+    input_type.value = input_type.value === 'password' ? 'text' : 'password';
+  }
+}
 </script>
 <template>
-  <div class="input">
+  <div class="input" :class="[{'input--password': type === 'password'}]">
     <label v-if="label">{{ label }}</label>
     <input
-      :type="type"
+      :type="input_type"
       :placeholder="placeholder !== undefined ? placeholder : null"
       :value="propsValue"
       :name="name"
       @input="changeHandler"
       :class="{ 'input--error': errors && errors.length }"
     />
+    <i v-if="type === 'password'" class="fa fa-eye" :class="[{'disabled': input_type === 'password'}]" @click="togglePassword"></i>
     <div
       v-if="errors && errors.length"
       class="input__message input__message--error"
@@ -61,5 +69,17 @@ function changeHandler(e) {
 <style>
 .input--error {
   border-color: red !important;
+}
+.input {
+  position: relative;
+}
+.input .fa-eye {
+  position: absolute;
+  right: 10px;
+  bottom: 1.1rem;
+  cursor: pointer;
+}
+.input .fa-eye.disabled {
+  opacity: 0.5;
 }
 </style>
