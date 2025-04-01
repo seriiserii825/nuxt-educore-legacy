@@ -7,7 +7,6 @@ definePageMeta({
 const user = ref<TUser | null>(null);
 user.value = useGetUser();
 const loading = ref(false);
-function onSubmit() {}
 </script>
 <template>
   <div>
@@ -29,7 +28,7 @@ function onSubmit() {}
           <div class="pt-4 col-xl-9 col-md-8">
             <UiLoading v-if="loading" />
             <template v-else>
-              <StudentProfile />
+              <StudentProfile/>
             </template>
           </div>
         </div>
