@@ -8,6 +8,10 @@ const props = defineProps({
   label: String,
   options: Array as PropType<TSelectOption[]>,
   value: String,
+  errors: {
+    type: Array,
+    required: false,
+  },
 });
 
 function onChange(event: Event) {
@@ -29,5 +33,11 @@ function onChange(event: Event) {
         {{ option.value }}
       </option>
     </select>
+    <div
+      v-if="errors && errors.length"
+      class="input__message input__message--error"
+    >
+      <p class="text-danger" v-for="(error, index) in errors" :key="index">{{ error }}</p>
+    </div>
   </div>
 </template>

@@ -40,12 +40,12 @@ async function onSubmit() {
       form.value
     );
     setTimeout(() => {
-      loading.value = false;
       useSweetAlert("success", "Update", "Profile updated successfully");
       setTimeout(() => {
         const profile = document.querySelector("#js-profile");
         console.log("profile", profile);
         profile.scrollIntoView({ behavior: "smooth" });
+        loading.value = false;
       }, 1000);
     }, 10);
     console.log(response, "response");
@@ -62,7 +62,9 @@ onMounted(async () => {
   if (!user.value) return;
   form.value.name = user.value.name;
   form.value.email = user.value.email;
-  form.value.gender = user.value.gender;
+  form.value.gender = user.value.gender
+    ? user.value.gender
+    : gender_options[0].key;
   form.value.bio = user.value.bio;
   form.value.headline = user.value.headline;
   form.value.facebook = user.value.facebook;
@@ -74,8 +76,7 @@ onMounted(async () => {
 </script>
 <template>
   <div>
-    <UiLoading v-if="loading" />
-    <div v-else class="wsus__dashboard_contant" id="js-profile">
+    <div class="wsus__dashboard_contant" id="js-profile">
       <div
         class="flex-wrap wsus__dashboard_contant_top d-flex justify-content-between"
       >
@@ -84,9 +85,6 @@ onMounted(async () => {
           <p>
             Manage your courses and its update like live, draft and insight.
           </p>
-        </div>
-        <div class="wsus__dashboard_profile_delete">
-          <a href="#" class="common_btn">Delete Profile</a>
         </div>
       </div>
       <div class="wsus__dashboard_profile wsus__dashboard_profile_avatar">
@@ -110,7 +108,10 @@ onMounted(async () => {
           <p>PNG or JPG no bigger than 400px wide and tall.</p>
         </div>
       </div>
-      <div class="p-4">
+      <div  v-if="loading" style="min-height: 60vh;">
+        <UiLoading />
+      </div>
+      <div v-else class="p-4">
         <div class="row">
           <div class="col-xl-6">
             <div class="wsus__dashboard_profile_update_info">
@@ -154,6 +155,7 @@ onMounted(async () => {
                 :options="gender_options"
                 :value="gender"
                 @emit_select="onChange($event)"
+                :errors="errors ? errors.gender : []"
               />
             </div>
           </div>
