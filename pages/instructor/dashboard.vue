@@ -19,24 +19,7 @@ const user = useGetUser();
                 :name="user.name"
                 :role="user.role"
               />
-              <ul class="wsus__dashboard_sidebar_menu">
-                <UiMenuLink
-                  v-if="user"
-                  :to="
-                    user.role === 'student'
-                      ? '/student/dashboard'
-                      : '/instructor/dashboard'
-                  "
-                  icon="fas fa-tachometer-alt"
-                  text="Dashboard"
-                />
-                <UiMenuLink to="/" icon="fas fa-book" text="Courses" />
-                <UiMenuLink
-                  to="/logout"
-                  icon="fas fa-sign-out-alt"
-                  text="Logout"
-                />
-              </ul>
+              <NavInstructorSidebarMenu />
             </div>
           </div>
           <div class="col-xl-9 col-md-8"></div>
