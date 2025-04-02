@@ -50,7 +50,7 @@ onMounted(() => {
               <td>
                 <div class="d-flex gap-2">
                   <nuxt-link
-                    to="/admin/courses/languages/edit"
+                    :to="`/admin/courses/languages/edit/${lang.id}`"
                     class="fa fa-edit text-primary"
                   >
                   </nuxt-link>
