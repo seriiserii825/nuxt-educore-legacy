@@ -27,6 +27,27 @@ async function getLanguages() {
   }
 }
 
+async function onDelete(id: number) {
+  const agree = await useSweetAlertConfirm(
+    "Confirm",
+    "Are you sure you want to delete this language?"
+  );
+  if (agree) {
+    loading.value = true;
+    try {
+      await axiosInstance.delete(`/admin/courses/languages/${id}`);
+      useSweetAlert("success", "Success", "Language deleted successfully");
+      await getLanguages();
+      loading.value = false;
+    } catch (error: any) {
+      if (error.response.data.message) {
+        useSweetAlert("error", "Error", error.response.data.message);
+      }
+      loading.value = false;
+    }
+  }
+}
+
 onMounted(() => {
   getLanguages();
 });
@@ -54,7 +75,10 @@ onMounted(() => {
                     class="fa fa-edit text-primary"
                   >
                   </nuxt-link>
-                  <span class="fa fa-trash text-danger"></span>
+                  <span
+                    @click="onDelete(lang.id)"
+                    class="fa fa-trash text-danger cursor-pointer"
+                  ></span>
                 </div>
               </td>
             </tr>
