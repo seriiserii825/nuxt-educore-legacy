@@ -33,7 +33,12 @@
             icon="fa fa-cube" 
             :items="[ 
             { title: 'All', link: '/admin/instructor/requests' },
-            { title: 'Accordion', link: '/' } 
+            ]"/>
+          <UiMenuItemDropdown 
+            title="Course" 
+            icon="fa fa-cube" 
+            :items="[ 
+            { title: 'Languages', link: '/admin/courses/languages' },
             ]"/>
         </ul>
       </div>
