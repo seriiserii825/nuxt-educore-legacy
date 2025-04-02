@@ -28,19 +28,29 @@ onMounted(() => {
 <template>
   <div class="page-body">
     <div class="container-xl">
-      <FormTable :headers="['Id', 'Name', 'Slug', 'Action']">
-        <tr v-for="lang in languages" :key="lang.id">
-          <td>{{ lang.id }}</td>
-          <td>{{ lang.name }}</td>
-          <td>{{ lang.slug }}</td>
-          <td>
-            <div class="d-flex gap-2">
-              <span class="fa fa-edit text-primary"></span>
-              <span class="fa fa-trash text-danger"></span>
-            </div>
-          </td>
-        </tr>
-      </FormTable>
+      <UiCard
+        title="Languages"
+        link_url="/admin/courses/languages/create"
+        link_text="Create Language"
+      >
+        <FormTable :headers="['Id', 'Name', 'Slug', 'Action']">
+          <tr v-for="lang in languages" :key="lang.id">
+            <td>{{ lang.id }}</td>
+            <td>{{ lang.name }}</td>
+            <td>{{ lang.slug }}</td>
+            <td>
+              <div class="d-flex gap-2">
+                <nuxt-link
+                  to="/admin/courses/languages/edit"
+                  class="fa fa-edit text-primary"
+                >
+                </nuxt-link>
+                <span class="fa fa-trash text-danger"></span>
+              </div>
+            </td>
+          </tr>
+        </FormTable>
+      </UiCard>
     </div>
   </div>
 </template>
