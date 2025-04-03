@@ -113,6 +113,7 @@ onMounted(() => {
                 name="icon"
                 v-model:value="form.icon"
                 :errors="errors ? errors.icon: []"
+                :fontawesome="true"
               />
             </div>
           </div>

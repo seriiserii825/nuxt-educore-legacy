@@ -26,6 +26,10 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  fontawesome: {
+    type: Boolean,
+    required: false,
+  },
 });
 
 const propsValue = computed(() => {
@@ -40,14 +44,14 @@ function changeHandler(e) {
   emits("update:value", value);
 }
 
-function togglePassword(){
-  if (props.type === 'password') {
-    input_type.value = input_type.value === 'password' ? 'text' : 'password';
+function togglePassword() {
+  if (props.type === "password") {
+    input_type.value = input_type.value === "password" ? "text" : "password";
   }
 }
 </script>
 <template>
-  <div class="input" :class="[{'input--password': type === 'password'}]">
+  <div class="input" :class="[{ 'input--password': type === 'password' }]">
     <label v-if="label">{{ label }}</label>
     <input
       :type="input_type"
@@ -57,13 +61,29 @@ function togglePassword(){
       @input="changeHandler"
       :class="{ 'input--error': errors && errors.length }"
     />
-    <i v-if="type === 'password'" class="fa fa-eye" :class="[{'disabled': input_type === 'password'}]" @click="togglePassword"></i>
+    <i
+      v-if="type === 'password'"
+      class="fa fa-eye"
+      :class="[{ disabled: input_type === 'password' }]"
+      @click="togglePassword"
+    ></i>
     <div
       v-if="errors && errors.length"
       class="input__message input__message--error"
     >
-      <p class="text-danger" v-for="(error, index) in errors" :key="index">{{ error }}</p>
+      <p class="text-danger" v-for="(error, index) in errors" :key="index">
+        {{ error }}
+      </p>
     </div>
+    <a
+      href="https://fontawesome.com/search?q=home&o=r&ic=free"
+      target="_blank"
+      v-if="fontawesome"
+      class="mt-2 text-sm fs-6 gap-2 d-flex align-items-center"
+    >
+      <i class="fa fa-home"></i>
+      <span class="fs-6 text-primary fst-italic">https://fontawesome.com/search?q=home&o=r&ic=free</span>
+    </a>
   </div>
 </template>
 <style>

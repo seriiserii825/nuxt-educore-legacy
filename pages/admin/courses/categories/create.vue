@@ -92,6 +92,7 @@ async function submitForm() {
                 name="icon"
                 v-model:value="form.icon"
                 :errors="errors ? errors.name : []"
+                :fontawesome="true"
               />
             </div>
           </div>

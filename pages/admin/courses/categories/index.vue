@@ -72,6 +72,7 @@ onMounted(() => {
         <FormTable
           :headers="[
             'Id',
+            'Icon',
             'Name',
             'Slug',
             'Parent Id',
@@ -84,6 +85,9 @@ onMounted(() => {
           <template v-else>
             <tr v-for="category in categories" :key="category.id">
               <td>{{ category.id }}</td>
+              <td>
+                <span v-if="category.icon" :class="category.icon"></span>
+              </td>
               <td>{{ category.name }}</td>
               <td>{{ category.slug }}</td>
               <td>{{ category.parent_id }}</td>
