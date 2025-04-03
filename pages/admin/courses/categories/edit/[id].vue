@@ -12,7 +12,7 @@ const form = ref({
   show_at_tranding: 0,
   status: 1,
   image: null as File | null,
-  icon: null as File | null,
+  icon: '',
 });
 
 const errors = ref();
@@ -25,6 +25,7 @@ async function getCategory() {
     form.value.name = data.data.name;
     form.value.show_at_tranding = data.data.show_at_tranding;
     form.value.status = data.data.status;
+    form.value.icon = data.data.icon;
   } catch (error) {
     useSweetAlert("error", "Error", "Something went wrong");
   }
@@ -32,9 +33,6 @@ async function getCategory() {
 
 function emitImage(file: File) {
   form.value.image = file;
-}
-function emitIcon(file: File) {
-  form.value.icon = file;
 }
 
 function emitTrending(checked: boolean) {
@@ -51,9 +49,7 @@ async function submitForm() {
   if (form.value.image) {
     formData.append("image", form.value.image);
   }
-  if (form.value.icon) {
-    formData.append("icon", form.value.icon);
-  }
+  formData.append("icon", form.value.icon);
   formData.append("show_at_tranding", form.value.show_at_tranding);
   formData.append("status", form.value.status);
 
@@ -111,11 +107,12 @@ onMounted(() => {
           </div>
           <div class="mb-3 col-xl-3">
             <div class="wsus__login_form_input">
-              <FormFileUpload
+              <InputComponent
                 label="Icon"
+                placeholder="icon"
                 name="icon"
-                @emit_file="emitIcon"
-                :errors="errors ? errors.icon : []"
+                v-model:value="form.icon"
+                :errors="errors ? errors.icon: []"
               />
             </div>
           </div>
