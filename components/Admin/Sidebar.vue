@@ -38,7 +38,8 @@
             title="Course" 
             icon="fa fa-cube" 
             :items="[ 
-            { title: 'Languages', link: '/admin/courses/languages' },
+            { title: 'Languages', link: '/admin/courses/languages' }, 
+            { title: 'Levels', link: '/admin/courses/levels' }, 
             ]"/>
         </ul>
       </div>
