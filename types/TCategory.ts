@@ -7,4 +7,5 @@ export type TCategory = {
   parent_id?: number;
   show_at_tranding?: 1 | 0;
   status?: 1 | 0;
+  subcategories?: TCategory[];
 }

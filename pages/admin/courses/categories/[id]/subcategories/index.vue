@@ -6,6 +6,8 @@ definePageMeta({
   middleware: ["admin"],
 });
 
+const route = useRoute();
+
 const loading = ref<boolean>(false);
 
 const categories = ref<TCategory[]>([]);
@@ -13,7 +15,9 @@ const categories = ref<TCategory[]>([]);
 async function getLanguages() {
   loading.value = true;
   try {
-    const data = await axiosInstance.get("/admin/courses/categories");
+    const data = await axiosInstance.get(
+      `/admin/courses/categories/${route.params.id}/subcategories`
+    );
     categories.value = data.data;
     setTimeout(() => {
       loading.value = false;
@@ -63,11 +67,18 @@ onMounted(() => {
 <template>
   <div class="page-body">
     <div class="container-xl">
-      <UiCard
-        title="Categories"
-        link_url="/admin/courses/categories/create"
-        link_text="Create Category"
-      >
+      <UiCard title="Subcategories">
+        <template #header>
+          <nuxt-link :to="`/admin/courses/categories`" class="btn btn-success">
+            Back
+          </nuxt-link>
+          <nuxt-link
+            :to="`/admin/courses/categories/${route.params.id}/subcategories/create`"
+            class="btn btn-primary"
+          >
+            New Subcategory
+          </nuxt-link>
+        </template>
         <FormTable
           :headers="[
             'Id',
@@ -113,12 +124,12 @@ onMounted(() => {
                     @click="onDelete(category.id)"
                     class="cursor-pointer fa fa-trash text-danger"
                   ></span>
-                  <nuxt-link
-                    v-if="category.subcategories && category.subcategories.length"
-                    :to="`/admin/courses/categories/${category.id}/subcategories`"
-                  >
-                    <i class="fa-solid fa-list text-success"></i>
-                  </nuxt-link>
+                  <i
+                    v-if="
+                      category.subcategories && category.subcategories.length
+                    "
+                    class="fa-solid fa-list text-success"
+                  ></i>
                 </div>
               </td>
             </tr>

@@ -10,6 +10,9 @@ const props = defineProps({
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <h4 class="card-title">{{ title }}</h4>
+      <div class="card-row">
+        <slot name="header" />
+      </div>
       <nuxt-link
         v-if="link_url && link_text"
         :to="link_url"
@@ -22,3 +25,9 @@ const props = defineProps({
     </div>
   </div>
 </template>
+<style>
+.card-row {
+  display: flex;
+  gap: 10px;
+}
+</style>
