@@ -65,9 +65,9 @@ onMounted(() => {
   <div class="page-body">
     <div class="container-xl">
       <UiCard
-        title="Languages"
+        title="Categories"
         link_url="/admin/courses/categories/create"
-        link_text="Create Level"
+        link_text="Create Category"
       >
         <FormTable
           :headers="[

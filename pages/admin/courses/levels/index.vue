@@ -59,7 +59,7 @@ onMounted(() => {
   <div class="page-body">
     <div class="container-xl">
       <UiCard
-        title="Languages"
+        title="Levels"
         link_url="/admin/courses/levels/create"
         link_text="Create Level"
       >
@@ -79,7 +79,7 @@ onMounted(() => {
                   </nuxt-link>
                   <span
                     @click="onDelete(lang.id)"
-                    class="fa fa-trash text-danger cursor-pointer"
+                    class="cursor-pointer fa fa-trash text-danger"
                   ></span>
                 </div>
               </td>

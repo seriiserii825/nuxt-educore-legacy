@@ -37,11 +37,11 @@ async function submitForm() {
   <div class="page-body">
     <div class="container-xl">
       <UiCard
-        title="Create Language"
+        title="Create Level"
         link_text="back"
         link_url="/admin/courses/levels"
       >
-        <div class="col-xl-6 mb-3">
+        <div class="mb-3 col-xl-6">
           <div class="wsus__login_form_input">
             <InputComponent
               label="Name"
