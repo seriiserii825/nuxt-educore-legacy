@@ -10,7 +10,7 @@ const form = ref({
   name: "",
   image: null as File | null,
   icon: null as File | null,
-  show_at_tranding: 0,
+  show_at_tranding: 1,
   status: 1,
 });
 
@@ -89,6 +89,16 @@ async function submitForm() {
                 name="icon"
                 @emit_file="emitIcon"
                 :errors="errors ? errors.icon : []"
+              />
+            </div>
+          </div>
+          <div class="mb-3 col-xl-3">
+            <div class="wsus__login_form_input">
+              <FormSwitch 
+                label="Show at trending"
+                name="show_at_tranding"
+                :checked="Boolean(form.show_at_tranding)"
+                :errors="errors ? errors.show_at_tranding : []"
               />
             </div>
           </div>
