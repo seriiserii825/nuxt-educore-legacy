@@ -5,6 +5,7 @@ definePageMeta({
 });
 
 const router = useRouter();
+const route = useRoute();
 
 const form = ref({
   name: "",
@@ -30,6 +31,7 @@ function emitStatus(checked: boolean) {
 async function submitForm() {
   const formData = new FormData();
   formData.append("name", form.value.name);
+  formData.append("parent_id", route.params.id);
   if (form.value.image) {
     formData.append("image", form.value.image);
   }
@@ -38,13 +40,13 @@ async function submitForm() {
   formData.append("status", form.value.status);
 
   try {
-    await axiosInstance.post("/admin/courses/categories", formData, {
+    await axiosInstance.post(`/admin/courses/categories/${route.params.id}/subcategories`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
     useSweetAlert("success", "Success", "Language created successfully");
-    router.push("/admin/courses/categories");
+    router.push(`/admin/courses/categories/${route.params.id}/subcategories`);
   } catch (error) {
     errors.value = error.response.data.errors;
     for (const key in errors.value) {

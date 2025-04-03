@@ -12,7 +12,7 @@ const form = ref({
   show_at_tranding: 0,
   status: 1,
   image: null as File | null,
-  icon: '',
+  icon: "",
 });
 
 const errors = ref();
@@ -20,7 +20,7 @@ const errors = ref();
 async function getCategory() {
   try {
     const data = await axiosInstance.get(
-      `/admin/courses/categories/${route.params.id}`
+      `/admin/courses/categories/${route.params.id}/subcategories/${route.params.subcategory_id}`
     );
     form.value.name = data.data.name;
     form.value.show_at_tranding = data.data.show_at_tranding;
@@ -54,14 +54,14 @@ async function submitForm() {
   formData.append("status", form.value.status);
 
   try {
-    const url = `/admin/courses/categories/${route.params.id}`;
+    const url = `/admin/courses/categories/${route.params.id}/subcategories/${route.params.subcategory_id}`;
     await axiosInstance.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
     useSweetAlert("success", "Success", "Category updated successfully");
-    router.push("/admin/courses/categories");
+    router.push(`/admin/courses/categories/${route.params.id}/subcategories`);
   } catch (error) {
     errors.value = error.response.data.errors;
     for (const key in errors.value) {
@@ -112,7 +112,7 @@ onMounted(() => {
                 placeholder="icon"
                 name="icon"
                 v-model:value="form.icon"
-                :errors="errors ? errors.icon: []"
+                :errors="errors ? errors.icon : []"
                 :fontawesome="true"
               />
             </div>

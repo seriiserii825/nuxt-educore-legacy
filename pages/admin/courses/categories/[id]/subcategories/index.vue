@@ -116,7 +116,7 @@ onMounted(() => {
               <td>
                 <div class="d-flex gap-2">
                   <nuxt-link
-                    :to="`/admin/courses/categories/edit/${category.id}`"
+                    :to="`/admin/courses/categories/${route.params.id}/subcategories/edit/${category.id}`"
                     class="fa fa-edit text-primary"
                   >
                   </nuxt-link>
