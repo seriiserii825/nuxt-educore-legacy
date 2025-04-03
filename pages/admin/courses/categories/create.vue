@@ -8,10 +8,10 @@ const router = useRouter();
 
 const form = ref({
   name: "",
+  show_at_tranding: 0,
+  status: 1,
   image: null as File | null,
   icon: null as File | null,
-  show_at_tranding: 1,
-  status: 1,
 });
 
 const errors = ref();
@@ -23,6 +23,13 @@ function emitIcon(file: File) {
   form.value.icon = file;
 }
 
+function emitTrending(checked: boolean) {
+  form.value.show_at_tranding = checked ? 1 : 0;
+}
+
+function emitStatus(checked: boolean) {
+  form.value.status = checked ? 1 : 0;
+}
 async function submitForm() {
   const formData = new FormData();
   formData.append("name", form.value.name);
@@ -32,17 +39,17 @@ async function submitForm() {
   if (form.value.icon) {
     formData.append("icon", form.value.icon);
   }
-  // formData.append("show_at_tranding", form.value.show_at_tranding);
-  // formData.append("status", form.value.status);
+  formData.append("show_at_tranding", form.value.show_at_tranding);
+  formData.append("status", form.value.status);
 
   try {
-    await axiosInstance.post("/admin/courses/levels", formData, {
+    await axiosInstance.post("/admin/courses/categories", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
     useSweetAlert("success", "Success", "Language created successfully");
-    router.push("/admin/courses/levels");
+    router.push("/admin/courses/categories");
   } catch (error) {
     errors.value = error.response.data.errors;
     for (const key in errors.value) {
@@ -58,7 +65,7 @@ async function submitForm() {
       <UiCard
         title="Create Category"
         link_text="back"
-        link_url="/admin/courses/levels"
+        link_url="/admin/courses/categories"
       >
         <div class="row">
           <div class="mb-3 col-xl-6">
@@ -94,11 +101,23 @@ async function submitForm() {
           </div>
           <div class="mb-3 col-xl-3">
             <div class="wsus__login_form_input">
-              <FormSwitch 
+              <FormSwitch
                 label="Show at trending"
                 name="show_at_tranding"
                 :checked="Boolean(form.show_at_tranding)"
                 :errors="errors ? errors.show_at_tranding : []"
+                @emit_checked="emitTrending"
+              />
+            </div>
+          </div>
+          <div class="mb-3 col-xl-3">
+            <div class="wsus__login_form_input">
+              <FormSwitch
+                label="Status"
+                name="status"
+                :checked="Boolean(form.status)"
+                :errors="errors ? errors.status : []"
+                @emit_checked="emitStatus"
               />
             </div>
           </div>
