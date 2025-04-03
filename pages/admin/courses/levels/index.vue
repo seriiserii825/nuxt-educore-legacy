@@ -36,8 +36,9 @@ async function onDelete(id: number) {
   if (agree) {
     loading.value = true;
     try {
+      const level_name = levels.value.find((lang) => lang.id === id)?.name;
       await axiosInstance.delete(`/admin/courses/levels/${id}`);
-      useSweetAlert("success", "Success", "Language deleted successfully");
+      useSweetAlert("success", "Success", `${level_name} deleted successfully`);
       await getLanguages();
       loading.value = false;
     } catch (error: any) {
