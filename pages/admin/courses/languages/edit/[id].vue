@@ -69,7 +69,7 @@ onMounted(() => {
           </div>
         </div>
         <div class="col-xl-12">
-          <button @click="submitForm" class="btn btn-primary">Create</button>
+          <button @click="submitForm" class="btn btn-primary">Update</button>
         </div>
       </UiCard>
     </div>

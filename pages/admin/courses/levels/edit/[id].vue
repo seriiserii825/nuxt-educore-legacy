@@ -15,7 +15,7 @@ const errors = ref();
 
 async function getLanguage() {
   try {
-    const data = await axiosInstance.get(`/admin/courses/languages/${route.params.id}`);
+    const data = await axiosInstance.get(`/admin/courses/levels/${route.params.id}`);
     form.value.name = data.data.name;
   } catch (error) {
     useSweetAlert("error", "Error", "Something went wrong");
@@ -28,14 +28,14 @@ async function submitForm() {
   formData.append("_method", "PUT"); // Laravel will interpret this as a PUT request
 
   try {
-    const url = `/admin/courses/languages/${route.params.id}`;
+    const url = `/admin/courses/levels/${route.params.id}`;
     await axiosInstance.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
     useSweetAlert("success", "Success", "Language updated successfully");
-    router.push("/admin/courses/languages");
+    router.push("/admin/courses/levels");
   } catch (error) {
     errors.value = error.response.data.errors;
     for (const key in errors.value) {
@@ -55,7 +55,7 @@ onMounted(() => {
       <UiCard
         title="Edit Language"
         link_text="back"
-        link_url="/admin/courses/languages"
+        link_url="/admin/courses/levels"
       >
         <div class="col-xl-6 mb-3">
           <div class="wsus__login_form_input">
@@ -69,7 +69,7 @@ onMounted(() => {
           </div>
         </div>
         <div class="col-xl-12">
-          <button @click="submitForm" class="btn btn-primary">Create</button>
+          <button @click="submitForm" class="btn btn-primary">Update</button>
         </div>
       </UiCard>
     </div>
