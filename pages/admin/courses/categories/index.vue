@@ -87,17 +87,17 @@ onMounted(() => {
               <td>{{ category.name }}</td>
               <td>{{ category.slug }}</td>
               <td>{{ category.parent_id }}</td>
-              <td>{{ category.show_at_tranding }}</td>
               <td>
-                <span
-                  class="badge"
-                  :class="{
-                    'badge bg-green text-green-fg': category.status,
-                    'badge bg-red text-red-fg': category.status === 0,
-                  }"
-                >
-                  {{ category.status ? 'Active' : 'Inactive' }}
-                </span>
+                <UiBadge
+                  :text="category.show_at_tranding === 1 ? 'Yes' : 'No'"
+                  :type="category.show_at_tranding === 1 ? 'success' : 'error'"
+                />
+              </td>
+              <td>
+                <UiBadge
+                  :text="category.status === 1 ? 'Active' : 'Inactive'"
+                  :type="category.status === 1 ? 'success' : 'error'"
+                />
               </td>
               <td>
                 <div class="d-flex gap-2">
