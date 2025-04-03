@@ -28,19 +28,20 @@
       <div class="collapse navbar-collapse" id="sidebar-menu">
         <ul class="navbar-nav pt-lg-3">
           <UiMenuItem title="Dashboard" icon="fa fa-home" url="/admin" />
-          <UiMenuItemDropdown 
-            title="Requests" 
-            icon="fa fa-cube" 
-            :items="[ 
-            { title: 'All', link: '/admin/instructor/requests' },
-            ]"/>
-          <UiMenuItemDropdown 
-            title="Course" 
-            icon="fa fa-cube" 
-            :items="[ 
-            { title: 'Languages', link: '/admin/courses/languages' }, 
-            { title: 'Levels', link: '/admin/courses/levels' }, 
-            ]"/>
+          <UiMenuItemDropdown
+            title="Requests"
+            icon="fa fa-cube"
+            :items="[{ title: 'All', link: '/admin/instructor/requests' }]"
+          />
+          <UiMenuItemDropdown
+            title="Course"
+            icon="fa fa-cube"
+            :items="[
+              { title: 'Languages', link: '/admin/courses/languages' },
+              { title: 'Levels', link: '/admin/courses/levels' },
+              { title: 'Categories', link: '/admin/courses/categories' },
+            ]"
+          />
         </ul>
       </div>
     </div>
