@@ -36,7 +36,6 @@ const current_tab = ref(0);
                   </p>
                 </div>
               </div>
-
               <div class="dashboard_add_courses">
                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                   <li class="nav-item" role="presentation">
