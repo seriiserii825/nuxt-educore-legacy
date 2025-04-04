@@ -5,7 +5,7 @@
     <div class="relative wsus__dashboard_heading">
       <h5>Courses</h5>
       <p>Manage your courses and its update like live, draft and insight.</p>
-      <a class="common_btn" href="dashboard_add_courses.html">+ add course</a>
+      <nuxt-link class="common_btn" to="/instructor/course/create">+ add course</nuxt-link>
     </div>
   </div>
 </template>
