@@ -1,17 +1,12 @@
 <script setup lang="ts">
 import type { TCategory } from "~/types/TCategory";
-
 definePageMeta({
   layout: "admin",
   middleware: ["admin"],
 });
-
 const route = useRoute();
-
 const loading = ref<boolean>(false);
-
 const categories = ref<TCategory[]>([]);
-
 async function getLanguages() {
   loading.value = true;
   try {
@@ -30,7 +25,6 @@ async function getLanguages() {
     }
   }
 }
-
 async function onDelete(id: number) {
   const agree = await useSweetAlertConfirm(
     "Confirm",
@@ -58,12 +52,10 @@ async function onDelete(id: number) {
     }
   }
 }
-
 onMounted(() => {
   getLanguages();
 });
 </script>
-
 <template>
   <div class="page-body">
     <div class="container-xl">
