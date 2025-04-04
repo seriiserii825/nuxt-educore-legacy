@@ -41,7 +41,7 @@ async function submitForm() {
 
   try {
     loading.value = true;
-    await axiosInstance.post("/instructor/course", formData, {
+    await axiosInstance.post("/instructor/courses", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

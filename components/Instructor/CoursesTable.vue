@@ -1,4 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { TCourse } from "~/types/TCourse";
+
+const loading = ref(false);
+const courses = ref<TCourse[]>([]);
+async function getCourses() {
+  try {
+    loading.value = true;
+    const response = await axiosInstance.get("/instructor/courses");
+    courses.value = response.data;
+    loading.value = false;
+  } catch (error) {
+    loading.value = false;
+    useSweetAlert("error", "Error", error.response.data.message);
+    console.error("Error fetching courses:", error);
+  }
+}
+onMounted(async () => {
+  await getCourses();
+});
+</script>
 
 <template>
   <div class="wsus__dash_course_table">
@@ -14,108 +34,47 @@
                 <th class="status">STATUS</th>
                 <th class="action">ACTION</th>
               </tr>
-              <tr>
-                <td class="image">
-                  <div class="image_category">
-                    <img
-                      src="/images/courses_3_img_1.jpg"
-                      alt="img"
-                      class="img-fluid w-100"
-                    />
-                  </div>
-                </td>
-                <td class="details">
-                  <p class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star-half-alt" aria-hidden="true"></i>
-                    <i class="far fa-star" aria-hidden="true"></i>
-                    <span>(5.0)</span>
-                  </p>
-                  <a class="title" href="#"
-                    >Complete Blender Creator Learn 3D Modelling.</a
-                  >
-                </td>
-                <td class="sale">
-                  <p>3400</p>
-                </td>
-                <td class="status">
-                  <p class="active">Active</p>
-                </td>
-                <td class="action">
-                  <a class="edit" href="#"><i class="far fa-edit"></i></a>
-                  <a class="del" href="#"><i class="fas fa-trash-alt"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td class="image">
-                  <div class="image_category">
-                    <img
-                      src="/images/courses_3_img_2.jpg"
-                      alt="img"
-                      class="img-fluid w-100"
-                    />
-                  </div>
-                </td>
-                <td class="details">
-                  <p class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star-half-alt" aria-hidden="true"></i>
-                    <i class="far fa-star" aria-hidden="true"></i>
-                    <span>(5.0)</span>
-                  </p>
-                  <a class="title" href="#"
-                    >Complete Blender Creator Learn 3D Modelling.</a
-                  >
-                </td>
-                <td class="sale">
-                  <p>5400</p>
-                </td>
-                <td class="status">
-                  <p class="Pending">Pending</p>
-                </td>
-                <td class="action">
-                  <a class="edit" href="#"><i class="far fa-edit"></i></a>
-                  <a class="del" href="#"><i class="fas fa-trash-alt"></i></a>
-                </td>
-              </tr>
-              <tr>
-                <td class="image">
-                  <div class="image_category">
-                    <img
-                      src="/images/courses_3_img_3.jpg"
-                      alt="img"
-                      class="img-fluid w-100"
-                    />
-                  </div>
-                </td>
-                <td class="details">
-                  <p class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star-half-alt" aria-hidden="true"></i>
-                    <i class="far fa-star" aria-hidden="true"></i>
-                    <span>(5.0)</span>
-                  </p>
-                  <a class="title" href="#"
-                    >Complete Blender Creator Learn 3D Modelling.</a
-                  >
-                </td>
-                <td class="sale">
-                  <p>34</p>
-                </td>
-                <td class="status">
-                  <p class="delete">Deleted</p>
-                </td>
-                <td class="action">
-                  <a class="edit" href="#"><i class="far fa-edit"></i></a>
-                  <a class="del" href="#"><i class="fas fa-trash-alt"></i></a>
-                </td>
-              </tr>
+              <template v-if="courses && courses.length">
+                <tr v-for="course in courses" :key="course.id">
+                  <td class="image">
+                    <div class="image_category">
+                      <img
+                        :src="`${useRuntimeConfig().public.apiBase}/${course.thumbnail}`"
+                        alt="img"
+                        class="img-fluid w-100"
+                      />
+                    </div>
+                  </td>
+                  <td class="details">
+                    <p class="rating">
+                      <i class="fas fa-star" aria-hidden="true"></i>
+                      <i class="fas fa-star" aria-hidden="true"></i>
+                      <i class="fas fa-star" aria-hidden="true"></i>
+                      <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                      <i class="far fa-star" aria-hidden="true"></i>
+                      <span>(5.0)</span>
+                    </p>
+                    <a class="title" href="#">{{ course.title }}</a>
+                  </td>
+                  <td class="sale">
+                    <p>{{ course.price }}</p>
+                  </td>
+                  <td class="status">
+                    <p class="active">{{ course.status }}</p>
+                  </td>
+                  <td class="action">
+                    <a class="edit" href="#"><i class="far fa-edit"></i></a>
+                    <a class="del" href="#"><i class="fas fa-trash-alt"></i></a>
+                  </td>
+                </tr>
+              </template>
+              <template v-else>
+                <tr>
+                  <td colspan="5" class="text-center">
+                    <p>No courses found.</p>
+                  </td>
+                </tr>
+              </template>
             </tbody>
           </table>
         </div>
