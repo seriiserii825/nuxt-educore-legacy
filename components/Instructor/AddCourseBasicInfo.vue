@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { demo_video_storage_options } from "../data/demo_video_storage_options";
+const router = useRouter();
 const form = ref({
   title: "",
   seo_description: "",
   thumbnail: "",
   demo_video_storage: "",
-  demo_video_source: "",
+  video_file: "",
+  video_input: "",
   price: 0,
   discount: 0,
 });
@@ -24,12 +26,18 @@ async function submitForm() {
   formData.append("seo_description", form.value.seo_description);
   formData.append("price", form.value.price);
   formData.append("discount", form.value.discount);
+  formData.append("demo_video_storage", form.value.demo_video_storage);
+  formData.append("thumbnail", form.value.thumbnail);
 
   if (form.value.demo_video_storage === "upload") {
-    formData.append("thumbnail", form.value.thumbnail);
+    formData.append("video_file", form.value.video_file);
   } else {
-    formData.append("demo_video_source", form.value.demo_video_source);
+    formData.append("video_input", form.value.video_input);
   }
+
+  // for (const key in form.value) {
+  //   console.log(key, form.value[key]);
+  // }
 
   try {
     loading.value = true;
@@ -40,6 +48,7 @@ async function submitForm() {
     });
     loading.value = false;
     useSweetAlert("success", "Success", "Course created successfully");
+    router.push('/instructor/dashboard');
   } catch (error: any) {
     console.log(error, "error");
     errors.value = error.response.data.errors;
@@ -88,29 +97,41 @@ onMounted(() => {
       <div class="mb-3 col-xl-6">
         <FormFileUpload
           v-if="form.demo_video_storage === 'upload'"
+          label="Video File *"
+          name="video_file"
+          v-model:value="form.video_file"
+          :errors="errors ? errors.video_file : []"
+          @emit_file="form.video_file = $event"
+        />
+        <InputComponent
+          v-else
+          label="Video Source"
+          type="url"
+          v-model:value="form.video_input"
+          :errors="errors ? errors.video_input : []"
+        />
+      </div>
+      <div class="mb-3 col-xl-4">
+        <FormFileUpload
           label="Thumbnail *"
           name="thumbnail"
           v-model:value="form.thumbnail"
           :errors="errors ? errors.thumbnail : []"
           @emit_file="form.thumbnail = $event"
         />
-        <InputComponent
-          v-else
-          label="Video Source"
-          v-model:value="form.demo_video_source"
-          :errors="errors ? errors.demo_video_source : []"
-        />
       </div>
-      <div class="mb-3 col-xl-6">
+      <div class="mb-3 col-xl-4">
         <InputComponent
           label="Price"
           v-model:value="form.price"
+          type="number"
           :errors="errors ? errors.price : []"
         />
       </div>
-      <div class="mb-3 col-xl-6">
+      <div class="mb-3 col-xl-4">
         <InputComponent
           label="Discount"
+          type="number"
           v-model:value="form.discount"
           :errors="errors ? errors.discount : []"
         />
