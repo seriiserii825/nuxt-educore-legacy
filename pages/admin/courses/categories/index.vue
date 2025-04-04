@@ -114,7 +114,9 @@ onMounted(() => {
                     class="cursor-pointer fa fa-trash text-danger"
                   ></span>
                   <nuxt-link
-                    v-if="category.subcategories && category.subcategories.length"
+                    v-if="
+                      category.subcategories && category.subcategories.length
+                    "
                     :to="`/admin/courses/categories/${category.id}/subcategories`"
                   >
                     <i class="fa-solid fa-list text-success"></i>
