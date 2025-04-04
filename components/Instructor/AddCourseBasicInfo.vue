@@ -1,71 +1,35 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+//            $table->string('seo_description')->nullable();
+////           $table->string('thumbnail')->nullable();
+////         $table->enum('demo_video_storage', ['upload', 'youtube', 'vimeo', 'external_link'])->default('upload');
+//       $table->string('demo_video_source')->nullable();
+//      $table->double('price')->default(0);
+//     $table->double('discount')->default(0);
+//    $table->text('description')->nullable();
+const form = ref({
+  title: "",
+  seo_description: "",
+  thumbnail: "",
+  demo_video_storage: "",
+  demo_video_source: "",
+  price: 0,
+  discount: 0,
+});
+const errors = ref({});
+</script>
 
 <template>
   <div class="add_course_basic_info">
     <form action="#">
       <div class="row">
         <div class="col-xl-12">
-          <div class="add_course_basic_info_imput">
-            <label for="#">Title *</label>
-            <input type="text" placeholder="Title" />
-          </div>
-        </div>
-        <div class="col-xl-12">
-          <div class="add_course_basic_info_imput">
-            <label for="#">Slug *</label>
-            <input type="text" placeholder="Slug" />
-          </div>
-        </div>
-        <div class="col-xl-12">
-          <div class="add_course_basic_info_imput">
-            <label for="#">Seo description</label>
-            <input type="text" placeholder="Seo description" />
-          </div>
-        </div>
-        <div class="col-xl-12">
-          <div class="add_course_basic_info_imput">
-            <label for="#">Thumbnail *</label>
-            <input type="file" />
-          </div>
-        </div>
-        <div class="col-xl-6">
-          <div class="add_course_basic_info_imput">
-            <label for="#">Demo Video Storage <b>(optional)</b></label>
-            <select class="select_js">
-              <option value="">Please Select</option>
-              <option value="">Red</option>
-              <option value="">Black</option>
-              <option value="">Orange</option>
-              <option value="">Rose Gold</option>
-              <option value="">Pink</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-xl-6">
-          <div class="add_course_basic_info_imput">
-            <label for="#">Path</label>
-            <input type="file" />
-          </div>
-        </div>
-        <div class="col-xl-6">
-          <div class="add_course_basic_info_imput">
-            <label for="#">Price *</label>
-            <input type="text" placeholder="Price" />
-            <p>Put 0 for free</p>
-          </div>
-        </div>
-        <div class="col-xl-6">
-          <div class="add_course_basic_info_imput">
-            <label for="#">Discount Price</label>
-            <input type="text" placeholder="Price" />
-          </div>
-        </div>
-        <div class="col-xl-12">
-          <div class="mb-0 add_course_basic_info_imput">
-            <label for="#">Description</label>
-            <textarea rows="8" placeholder="Description"></textarea>
-            <button type="submit" class="common_btn mt_20">Save</button>
-          </div>
+          <InputComponent
+            v-model="form.title"
+            label="Title *"
+            placeholder="Title"
+            v-model:value="form.title"
+            :errors="errors ? errors.title : []"
+          />
         </div>
       </div>
     </form>
