@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import { demo_video_storage_options } from '../data/demo_video_storage_options';
-//            $table->string('seo_description')->nullable();
-////           $table->string('thumbnail')->nullable();
-////         $table->enum('demo_video_storage', ['upload', 'youtube', 'vimeo', 'external_link'])->default('upload');
-//       $table->string('demo_video_source')->nullable();
-//      $table->double('price')->default(0);
-//     $table->double('discount')->default(0);
-//    $table->text('description')->nullable();
+import { demo_video_storage_options } from "../data/demo_video_storage_options";
 const form = ref({
   title: "",
   seo_description: "",
@@ -23,8 +16,12 @@ function videoStorageChange(value: string) {
   form.value.demo_video_storage = value;
 }
 
+function submitForm(){
+
+}
+
 onMounted(() => {
-  form.value.demo_video_storage = demo_video_storage_options[0].value;
+  form.value.demo_video_storage = demo_video_storage_options[0].key;
 });
 </script>
 
@@ -32,22 +29,21 @@ onMounted(() => {
   <div class="add_course_basic_info">
     <form action="#">
       <div class="row">
-        <div class="col-xl-6">
+        <div class="mb-3 col-xl-6">
           <InputComponent
             label="Title *"
-            placeholder="Title"
             v-model:value="form.title"
             :errors="errors ? errors.title : []"
           />
         </div>
-        <div class="col-xl-6">
+        <div class="mb-3 col-xl-6">
           <FormTextarea
             label="SEO Description *"
             v-model:value="form.seo_description"
             :errors="errors ? errors.seo_description : []"
           />
         </div>
-        <div class="col-xl-6">
+        <div class="mb-3 col-xl-6">
           <FormSelect
             label="Storage"
             name="demo_video_storage"
@@ -57,14 +53,38 @@ onMounted(() => {
             :errors="errors ? errors.gender : []"
           />
         </div>
-        <div class="col-xl-6">
+        <div class="mb-3 col-xl-6">
           <FormFileUpload
+            v-if="form.demo_video_storage === 'upload'"
             label="Thumbnail *"
             name="thumbnail"
             v-model:value="form.thumbnail"
             :errors="errors ? errors.thumbnail : []"
             @emit_file="form.thumbnail = $event"
           />
+          <InputComponent
+            v-else
+            label="Video Source"
+            v-model:value="form.demo_video_source"
+            :errors="errors ? errors.demo_video_source : []"
+          />
+        </div>
+        <div class="mb-3 col-xl-6">
+          <InputComponent
+            label="Price"
+            v-model:value="form.price"
+            :errors="errors ? errors.price : []"
+          />
+        </div>
+        <div class="mb-3 col-xl-6">
+          <InputComponent
+            label="Discount"
+            v-model:value="form.discount"
+            :errors="errors ? errors.discount : []"
+          />
+        </div>
+        <div class="col-xl-12">
+          <button @click="submitForm" class="btn btn-primary">Create</button>
         </div>
       </div>
     </form>
