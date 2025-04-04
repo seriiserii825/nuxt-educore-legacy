@@ -10,7 +10,7 @@ const loading = ref<boolean>(false);
 
 const categories = ref<TCategory[]>([]);
 
-async function getLanguages() {
+async function getCategories() {
   loading.value = true;
   try {
     const data = await axiosInstance.get("/admin/courses/categories");
@@ -44,7 +44,7 @@ async function onDelete(id: number) {
         "Success",
         `${category_name} deleted successfully`
       );
-      await getLanguages();
+      await getCategories();
       loading.value = false;
     } catch (error: any) {
       if (error.response.data.message) {
@@ -56,7 +56,7 @@ async function onDelete(id: number) {
 }
 
 onMounted(() => {
-  getLanguages();
+  getCategories();
 });
 </script>
 
