@@ -62,7 +62,7 @@ onMounted(async () => {
                   <td class="status">
                     <p class="active">{{ course.status }}</p>
                   </td>
-                  <td class="action">
+                  <td class="action d-flex gap-2">
                     <a class="edit" href="#"><i class="far fa-edit"></i></a>
                     <a class="del" href="#"><i class="fas fa-trash-alt"></i></a>
                   </td>
