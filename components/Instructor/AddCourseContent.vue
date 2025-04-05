@@ -1,11 +1,22 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useModalStore } from "~/store/useModalStore";
+const modal_store = useModalStore();
+const form = ref({
+  chapter_name: "",
+});
+const errors = ref({
+  chapter_name: [],
+});
+</script>
 
 <template>
   <div class="add_course_content">
     <div
       class="flex-wrap add_course_content_btn_area d-flex justify-content-between"
     >
-      <a class="common_btn" href="#">Add New Chapter</a>
+      <button class="common_btn" @click="modal_store.toggleModal">
+        Add New Chapter
+      </button>
       <a class="common_btn" href="#">Short Chapter</a>
     </div>
     <div class="accordion" id="accordionExample">
@@ -420,5 +431,18 @@
         </div>
       </div>
     </div>
+    <PopupModal :show="modal_store.show_modal">
+      <div class="row">
+        <div class="col-md-6">
+          <InputComponent
+            label="Chapter Name"
+            v-model:value="form.chapter_name"
+            type="text"
+            name="chapter_name"
+            :errors="errors ? errors.chapter_name : []"
+          />
+        </div>
+      </div>
+    </PopupModal>
   </div>
 </template>

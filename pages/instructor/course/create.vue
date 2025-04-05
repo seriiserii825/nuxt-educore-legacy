@@ -43,21 +43,6 @@ const current_tab = ref(0);
                       Basic Infos
                     </button>
                   </li>
-                  <li class="nav-item" role="presentation">
-                    <button @click="current_tab = 1" :class="{'active': current_tab == 1}" class="nav-link">
-                      More Infos
-                    </button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button @click="current_tab = 2" :class="{'active': current_tab == 2}" class="nav-link">
-                      Course Contents
-                    </button>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <button @click="current_tab = 3" :class="{'active': current_tab == 3}" class="nav-link">
-                      Finish
-                    </button>
-                  </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                   <div
@@ -66,27 +51,6 @@ const current_tab = ref(0);
                     tabindex="0"
                   >
                     <InstructorAddCourseBasicInfo />
-                  </div>
-                  <div
-                    class="tab-pane fade"
-                    :class="{ 'show active': current_tab === 1 }"
-                    tabindex="0"
-                  >
-                    <InstructorAddCourseMoreInfo />
-                  </div>
-                  <div
-                    class="tab-pane fade"
-                    tabindex="0"
-                    :class="{ 'show active': current_tab === 2 }"
-                  >
-                    <InstructorAddCourseContent />
-                  </div>
-                  <div
-                    class="tab-pane fade"
-                    tabindex="0"
-                    :class="{ 'show active': current_tab === 3 }"
-                  >
-                    <InstructorAddCourseFinish />
                   </div>
                 </div>
               </div>

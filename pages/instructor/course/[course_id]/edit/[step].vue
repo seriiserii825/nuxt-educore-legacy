@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {PopupModal} from '#components';
+
 definePageMeta({
   layout: "instructor",
   middleware: ["instructor"],
