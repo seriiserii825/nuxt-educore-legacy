@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { TSelectOption } from "~/types/TSelectOption";
 
+const emits = defineEmits(['emit_radio']);
+
 const props = defineProps({
   label: {
     type: String,
@@ -23,6 +25,12 @@ const props = defineProps({
     required: false,
   },
 });
+function emitRadio(event: Event, key: number) {
+  const target = event.target as HTMLInputElement;
+  if (target.checked) {
+    emits('emit_radio', key);
+  }
+}
 </script>
 <template>
   <div class="radio">
@@ -35,6 +43,7 @@ const props = defineProps({
           :name="name"
           :id="`js-${name}-${option.key}`"
           :checked="option.key === value"
+          @change="emitRadio($event, option.key)"
         />
         <label class="form-check-label" :for="`js-${name}-${option.key}`">
           {{ option.value }}

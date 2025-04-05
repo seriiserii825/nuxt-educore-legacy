@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const emits = defineEmits(['emit_checkbox'])
 const props = defineProps({
   label: {
     type: String,
@@ -17,6 +18,11 @@ const props = defineProps({
     required: true,
   },
 });
+
+function emitCheckbox(event: Event) {
+  const target = event.target as HTMLInputElement;
+  emits('emit_checkbox', target.checked);
+}
 </script>
 <template>
   <div class="checkbox">
@@ -26,6 +32,7 @@ const props = defineProps({
         :checked="value"
         class="form-check-input"
         type="checkbox"
+        @change="emitCheckbox($event)"
       />
       <span class="form-check-label">{{ label }}</span>
     </label>

@@ -3,6 +3,7 @@ import type { TCategory, TCategoryChildren } from "~/types/TCategory";
 import type { TSelectOption, TSelectOptionGroup } from "~/types/TSelectOption";
 
 const route = useRoute();
+const router = useRouter();
 const loading = ref(false);
 
 const categories = ref<TSelectOptionGroup[]>([]);
@@ -69,6 +70,35 @@ async function getCourse() {
   }
 }
 
+async function onSubmit() {
+  const course_id = route.params.course_id;
+  try {
+    loading.value = true;
+    await axiosInstance.post(
+      `/instructor/courses/${course_id}/step2`,
+      form.value
+    );
+    useSweetAlert(
+      "success",
+      "Course updated successfully",
+      "We have updated your course successfully"
+    );
+    router.push(`/instructor/course/${course_id}/edit/3`);
+    loading.value = false;
+  } catch (error: any) {
+    if (error.response.status === 422) {
+      errors.value = error.response.data.errors;
+      for (const key in errors.value) {
+        useSweetAlert("error", errors.value[key][0], "Please check your input");
+      }
+    }
+    if (error.response.status === 500) {
+      useSweetAlert("error", "Server Error", "Please try again later");
+    }
+    loading.value = false;
+  }
+}
+
 onMounted(async () => {
   await getCourse();
 });
@@ -81,12 +111,14 @@ onMounted(async () => {
         <InputComponent
           label="Course Capacity*"
           v-model:value="form.capacity"
+          type="number"
           :errors="errors ? errors.capacity : []"
         />
       </div>
       <div class="col-xl-6">
         <InputComponent
           label="Course Duration (Minutes)*"
+          type="number"
           v-model:value="form.duration"
           :errors="errors ? errors.duration : []"
         />
@@ -98,12 +130,14 @@ onMounted(async () => {
             v-model:value="form.qna"
             :errors="errors ? errors.qna : []"
             name="qna"
+            @emit_checkbox="form.qna = $event"
           />
           <FormCheckbox
             label="Completion Certificate"
             v-model:value="form.certificate"
             :errors="errors ? errors.certificate : []"
             name="certificate"
+            @emit_checkbox="form.certificate = $event"
           />
         </div>
       </div>
@@ -114,6 +148,7 @@ onMounted(async () => {
             v-model:value="form.category_id"
             :options="categories"
             :errors="errors ? errors.category_id : []"
+            @emit_select="form.category_id = $event"
             name="category_id"
           />
         </div>
@@ -125,6 +160,7 @@ onMounted(async () => {
           :options="levels"
           :errors="errors ? errors.course_level_id : []"
           name="course_level_id"
+          @emit_radio="form.course_level_id = $event"
         />
       </div>
       <div class="col-xl-4">
@@ -134,10 +170,11 @@ onMounted(async () => {
           :options="languages"
           :errors="errors ? errors.course_language_id : []"
           name="course_language_id"
+          @emit_radio="form.course_language_id = $event"
         />
       </div>
       <div class="col-xl-12">
-        <button type="submit" class="common_btn">Save</button>
+        <button type="text" @click="onSubmit" class="common_btn">Save</button>
       </div>
     </div>
   </div>
