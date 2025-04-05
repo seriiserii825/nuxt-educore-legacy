@@ -27,7 +27,7 @@ function videoStorageChange(value: string) {
   form.value.demo_video_storage = value;
 }
 
-async function getCourse(){
+async function getCourse() {
   const course_id = route.params.course_id;
   try {
     loading.value = true;
@@ -64,14 +64,17 @@ async function submitForm() {
 
   try {
     loading.value = true;
-    const data = await axiosInstance.post("/instructor/courses", formData, {
+    const url = props.update
+      ? `/instructor/courses/${route.params.course_id}`
+      : "/instructor/courses";
+    const data = await axiosInstance.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
     const course_id = data.data.id;
     loading.value = false;
-    useSweetAlert("success", "Success", "Course created successfully");
+    useSweetAlert("success", "Success", "Course updated successfully");
     router.push(`/instructor/course/${course_id}/edit/2`);
   } catch (error: any) {
     console.log(error, "error");
@@ -86,7 +89,7 @@ async function submitForm() {
   }
 }
 
-onMounted(async() => {
+onMounted(async () => {
   form.value.demo_video_storage = demo_video_storage_options[0].key;
   if (props.update) {
     await getCourse();
