@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import type { TSelectOption } from "~/types/TSelectOption";
+import type { TCategory, TCategoryChildren } from "~/types/TCategory";
+import type { TSelectOption, TSelectOptionGroup } from "~/types/TSelectOption";
 
 const route = useRoute();
 const loading = ref(false);
 
-const categories = ref([]);
+const categories = ref<TSelectOptionGroup[]>([]);
 const levels = ref<TSelectOption[]>([]);
 const languages = ref<TSelectOption[]>([]);
 const errors = ref<any>(null);
@@ -14,9 +15,9 @@ const form = ref({
   duration: 0,
   qna: false,
   certificate: true,
-  category_id: "",
-  course_level_id: "",
-  course_language_id: "",
+  category_id: 0,
+  course_level_id: 0,
+  course_language_id: 0,
 });
 
 async function getCourse() {
@@ -42,6 +43,27 @@ async function getCourse() {
       key: language.id,
       value: language.name,
     }));
+    let parents_categories: TSelectOptionGroup[] = [];
+    data.data.categories.forEach((category: TCategory) => {
+      if (category.parent_id === null) {
+        let children: TSelectOption[] = [];
+        data.data.categories.forEach((child: TCategory) => {
+          if (child.parent_id === category.id) {
+            children.push({
+              key: child.id,
+              value: child.name,
+            });
+          }
+        });
+        parents_categories.push({
+          key: category.id,
+          value: category.name,
+          options: children,
+        });
+      
+      }
+    });
+    categories.value = parents_categories;
     loading.value = false;
   } catch (error: any) {
     console.log(error, "error");
@@ -86,17 +108,15 @@ onMounted(async () => {
           />
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-6">
         <div class="add_course_more_info_input">
-          <label for="#">Category *</label>
-          <select class="select_2">
-            <option value="">Please Select</option>
-            <option value="">Red</option>
-            <option value="">Black</option>
-            <option value="">Orange</option>
-            <option value="">Rose Gold</option>
-            <option value="">Pink</option>
-          </select>
+          <FormSelectGroup
+            label="Category*"
+            v-model:value="form.category_id"
+            :options="categories"
+            :errors="errors ? errors.category_id : []"
+            name="category_id"
+            />
         </div>
       </div>
       <div class="col-xl-4">

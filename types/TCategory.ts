@@ -9,3 +9,7 @@ export type TCategory = {
   status?: 1 | 0;
   subcategories?: TCategory[];
 }
+
+export type TCategoryChildren = TCategory & {
+  children?: TCategory[]
+}

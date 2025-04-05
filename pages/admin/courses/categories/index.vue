@@ -87,7 +87,7 @@ onMounted(() => {
               <td>
                 <span v-if="category.icon" :class="category.icon"></span>
               </td>
-              <td>{{ category.name }}</td>
+              <td>{{ category.name }}{{ category.subcategories && category.subcategories.length > 0 ? '('+ category.subcategories.length + ')' : '' }}</td>
               <td>{{ category.slug }}</td>
               <td>{{ category.parent_id }}</td>
               <td>
@@ -113,12 +113,7 @@ onMounted(() => {
                     @click="onDelete(category.id)"
                     class="cursor-pointer fa fa-trash text-danger"
                   ></span>
-                  <nuxt-link
-                    v-if="
-                      category.subcategories && category.subcategories.length
-                    "
-                    :to="`/admin/courses/categories/${category.id}/subcategories`"
-                  >
+                  <nuxt-link :to="`/admin/courses/categories/${category.id}/subcategories`">
                     <i class="fa-solid fa-list text-success"></i>
                   </nuxt-link>
                 </div>
