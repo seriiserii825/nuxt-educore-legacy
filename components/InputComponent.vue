@@ -87,6 +87,9 @@ function togglePassword() {
   </div>
 </template>
 <style>
+.input {
+  margin-bottom: 1.6rem;
+}
 .input--error {
   border-color: red !important;
 }

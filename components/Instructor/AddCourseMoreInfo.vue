@@ -1,185 +1,207 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { TSelectOption } from "~/types/TSelectOption";
+
+const route = useRoute();
+const loading = ref(false);
+
+const categories = ref([]);
+const levels = ref<TSelectOption[]>([]);
+const languages = ref<TSelectOption[]>([]);
+const errors = ref<any>(null);
+
+const form = ref({
+  capacity: 0,
+  duration: 0,
+  qna: false,
+  certificate: true,
+  category_id: "",
+  course_level_id: "",
+  course_language_id: "",
+});
+
+async function getCourse() {
+  const course_id = route.params.course_id;
+  try {
+    loading.value = true;
+    const data = await axiosInstance.get(
+      `/instructor/courses/${course_id}/step2`
+    );
+    const course = data.data.course;
+    form.value.capacity = course.capacity;
+    form.value.duration = course.duration;
+    form.value.qna = course.qna === 1 ? true : false;
+    form.value.certificate = course.certificate == 1 ? true : false;
+    form.value.category_id = course.category_id;
+    form.value.course_level_id = course.course_level_id;
+    form.value.course_language_id = course.course_language_id;
+    levels.value = data.data.levels.map((level: any) => ({
+      key: level.id,
+      value: level.name,
+    }));
+    languages.value = data.data.languages.map((language: any) => ({
+      key: language.id,
+      value: language.name,
+    }));
+    loading.value = false;
+  } catch (error: any) {
+    console.log(error, "error");
+  }
+}
+
+onMounted(async () => {
+  await getCourse();
+});
+</script>
 
 <template>
   <div class="add_course_more_info">
-    <form action="#">
-      <div class="row">
-        <div class="col-xl-6">
-          <div class="add_course_more_info_input">
-            <label for="#">Capacity</label>
-            <input type="text" placeholder="Capacity" />
-            <p>leave blank for unlimited</p>
-          </div>
-        </div>
-        <div class="col-xl-6">
-          <div class="add_course_more_info_input">
-            <label for="#">Course Duration (Minutes)*</label>
-            <input type="text" placeholder="300" />
-          </div>
-        </div>
-        <div class="col-xl-6">
-          <div class="add_course_more_info_checkbox">
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
-              />
-              <label class="form-check-label" for="flexCheckDefault">Q&A</label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault2"
-              />
-              <label class="form-check-label" for="flexCheckDefault2"
-                >Completion Certificate</label
-              >
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault3"
-              />
-              <label class="form-check-label" for="flexCheckDefault3"
-                >Patner instructor</label
-              >
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault4"
-              />
-              <label class="form-check-label" for="flexCheckDefault4"
-                >Others</label
-              >
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="add_course_more_info_input">
-            <label for="#">Category *</label>
-            <select class="select_2">
-              <option value="">Please Select</option>
-              <option value="">Red</option>
-              <option value="">Black</option>
-              <option value="">Orange</option>
-              <option value="">Rose Gold</option>
-              <option value="">Pink</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-xl-4">
-          <div class="add_course_more_info_radio_box">
-            <h3>Level</h3>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault1"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                Beginner
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault2"
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                Intermediate
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault3"
-              />
-              <label class="form-check-label" for="flexRadioDefault3">
-                Expert
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault4"
-              />
-              <label class="form-check-label" for="flexRadioDefault4">
-                Expert
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4">
-          <div class="add_course_more_info_radio_box">
-            <h3>Language</h3>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault1"
-                id="flexRadioDefault11"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault11">
-                English
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault1"
-                id="flexRadioDefault12"
-              />
-              <label class="form-check-label" for="flexRadioDefault12">
-                Hindi
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault1"
-                id="flexRadioDefault13"
-              />
-              <label class="form-check-label" for="flexRadioDefault13">
-                Arabic
-              </label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault1"
-                id="flexRadioDefault14"
-              />
-              <label class="form-check-label" for="flexRadioDefault14">
-                Francais
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-12">
-          <button type="submit" class="common_btn">Save</button>
+    <div class="row">
+      <div class="col-xl-6">
+        <InputComponent
+          label="Course Capacity*"
+          v-model:value="form.capacity"
+          :errors="errors ? errors.capacity : []"
+        />
+      </div>
+      <div class="col-xl-6">
+        <InputComponent
+          label="Course Duration (Minutes)*"
+          v-model:value="form.duration"
+          :errors="errors ? errors.duration : []"
+        />
+      </div>
+      <div class="col-xl-6">
+        <div class="add_course_more_info_checkbox">
+          <FormCheckbox
+            label="Q&A"
+            v-model:value="form.qna"
+            :errors="errors ? errors.qna : []"
+            name="qna"
+          />
+          <FormCheckbox
+            label="Completion Certificate"
+            v-model:value="form.certificate"
+            :errors="errors ? errors.certificate : []"
+            name="certificate"
+          />
         </div>
       </div>
-    </form>
+      <div class="col-12">
+        <div class="add_course_more_info_input">
+          <label for="#">Category *</label>
+          <select class="select_2">
+            <option value="">Please Select</option>
+            <option value="">Red</option>
+            <option value="">Black</option>
+            <option value="">Orange</option>
+            <option value="">Rose Gold</option>
+            <option value="">Pink</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-xl-4">
+        <div class="add_course_more_info_radio_box">
+          <h3>Level</h3>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+              checked
+            />
+            <label class="form-check-label" for="flexRadioDefault1">
+              Beginner
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault2"
+            />
+            <label class="form-check-label" for="flexRadioDefault2">
+              Intermediate
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault3"
+            />
+            <label class="form-check-label" for="flexRadioDefault3">
+              Expert
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault4"
+            />
+            <label class="form-check-label" for="flexRadioDefault4">
+              Expert
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4">
+        <div class="add_course_more_info_radio_box">
+          <h3>Language</h3>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault1"
+              id="flexRadioDefault11"
+              checked
+            />
+            <label class="form-check-label" for="flexRadioDefault11">
+              English
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault1"
+              id="flexRadioDefault12"
+            />
+            <label class="form-check-label" for="flexRadioDefault12">
+              Hindi
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault1"
+              id="flexRadioDefault13"
+            />
+            <label class="form-check-label" for="flexRadioDefault13">
+              Arabic
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault1"
+              id="flexRadioDefault14"
+            />
+            <label class="form-check-label" for="flexRadioDefault14">
+              Francais
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12">
+        <button type="submit" class="common_btn">Save</button>
+      </div>
+    </div>
   </div>
 </template>
