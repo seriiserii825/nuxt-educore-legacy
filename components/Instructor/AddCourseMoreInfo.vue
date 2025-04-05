@@ -60,7 +60,6 @@ async function getCourse() {
           value: category.name,
           options: children,
         });
-      
       }
     });
     categories.value = parents_categories;
@@ -116,108 +115,26 @@ onMounted(async () => {
             :options="categories"
             :errors="errors ? errors.category_id : []"
             name="category_id"
-            />
+          />
         </div>
       </div>
       <div class="col-xl-4">
-        <div class="add_course_more_info_radio_box">
-          <h3>Level</h3>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault1"
-              checked
-            />
-            <label class="form-check-label" for="flexRadioDefault1">
-              Beginner
-            </label>
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault2"
-            />
-            <label class="form-check-label" for="flexRadioDefault2">
-              Intermediate
-            </label>
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault3"
-            />
-            <label class="form-check-label" for="flexRadioDefault3">
-              Expert
-            </label>
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault4"
-            />
-            <label class="form-check-label" for="flexRadioDefault4">
-              Expert
-            </label>
-          </div>
-        </div>
+        <FormRadio
+          label="Course Level*"
+          v-model:value="form.course_level_id"
+          :options="levels"
+          :errors="errors ? errors.course_level_id : []"
+          name="course_level_id"
+        />
       </div>
       <div class="col-xl-4">
-        <div class="add_course_more_info_radio_box">
-          <h3>Language</h3>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault1"
-              id="flexRadioDefault11"
-              checked
-            />
-            <label class="form-check-label" for="flexRadioDefault11">
-              English
-            </label>
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault1"
-              id="flexRadioDefault12"
-            />
-            <label class="form-check-label" for="flexRadioDefault12">
-              Hindi
-            </label>
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault1"
-              id="flexRadioDefault13"
-            />
-            <label class="form-check-label" for="flexRadioDefault13">
-              Arabic
-            </label>
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault1"
-              id="flexRadioDefault14"
-            />
-            <label class="form-check-label" for="flexRadioDefault14">
-              Francais
-            </label>
-          </div>
-        </div>
+        <FormRadio
+          label="Course Language*"
+          v-model:value="form.course_language_id"
+          :options="languages"
+          :errors="errors ? errors.course_language_id : []"
+          name="course_language_id"
+        />
       </div>
       <div class="col-xl-12">
         <button type="submit" class="common_btn">Save</button>

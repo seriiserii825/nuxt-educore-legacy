@@ -24,6 +24,9 @@ function onChange(event: Event) {
   <div class="select">
     <label v-if="label" class="form-label">{{ label }}</label>
     <select class="select_2 form-select" :name="name" @change="onChange">
+      <option value="" disabled selected hidden>
+        Select an option
+      </option>j
       <optgroup
         v-for="(option, index) in options"
         :key="index"
