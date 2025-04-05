@@ -63,7 +63,7 @@ onMounted(async () => {
                     <p class="active">{{ course.status }}</p>
                   </td>
                   <td class="action d-flex gap-2">
-                    <a class="edit" href="#"><i class="far fa-edit"></i></a>
+                    <nuxt-link class="edit" :to="`/instructor/course/${course.id}/edit/1`"><i class="far fa-edit"></i></nuxt-link>
                     <a class="del" href="#"><i class="fas fa-trash-alt"></i></a>
                   </td>
                 </tr>

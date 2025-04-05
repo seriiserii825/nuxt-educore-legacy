@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TCategory, TCategoryChildren } from "~/types/TCategory";
+import type { TCategory } from "~/types/TCategory";
 import type { TSelectOption, TSelectOptionGroup } from "~/types/TSelectOption";
 
 const route = useRoute();
