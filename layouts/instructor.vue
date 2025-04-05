@@ -1,5 +1,5 @@
 <script setup>
-import { useHead } from "@unhead/vue";
+import { useHead } from "#imports";
 
 useHead({
   link: [
@@ -15,7 +15,9 @@ useHead({
     <FrontHeader />
     <MainMenu />
     <MenuMobile />
-    <slot />
+    <div class="content-wrapper">
+      <slot />
+    </div>
     <FrontFooter />
   </div>
 </template>

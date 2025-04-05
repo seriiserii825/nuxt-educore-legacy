@@ -1,5 +1,5 @@
 <script setup>
-import { useHead } from '@unhead/vue'
+import { useHead } from "#imports";
 
 useHead({
   link: [

@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { demo_video_storage_options } from "../data/demo_video_storage_options";
+const props = defineProps({
+  update: {
+    type: Boolean,
+    default: false,
+  },
+});
 const router = useRouter();
+const route = useRoute();
 const form = ref({
   title: "",
   seo_description: "",
@@ -20,6 +27,26 @@ function videoStorageChange(value: string) {
   form.value.demo_video_storage = value;
 }
 
+async function getCourse(){
+  const course_id = route.params.course_id;
+  try {
+    loading.value = true;
+    const data = await axiosInstance.get(`/instructor/courses/${course_id}`);
+    const course = data.data;
+    form.value.title = course.title;
+    form.value.seo_description = course.seo_description;
+    form.value.thumbnail = course.thumbnail;
+    form.value.demo_video_storage = course.demo_video_storage;
+    form.value.video_file = course.demo_video_source;
+    form.value.video_input = course.demo_video_source;
+    form.value.price = course.price;
+    form.value.discount = course.discount;
+    loading.value = false;
+  } catch (error: any) {
+    console.log(error, "error");
+  }
+}
+
 async function submitForm() {
   const formData = new FormData();
   formData.append("title", form.value.title);
@@ -35,20 +62,17 @@ async function submitForm() {
     formData.append("video_input", form.value.video_input);
   }
 
-  // for (const key in form.value) {
-  //   console.log(key, form.value[key]);
-  // }
-
   try {
     loading.value = true;
-    await axiosInstance.post("/instructor/courses", formData, {
+    const data = await axiosInstance.post("/instructor/courses", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
+    const course_id = data.data.id;
     loading.value = false;
     useSweetAlert("success", "Success", "Course created successfully");
-    router.push('/instructor/dashboard');
+    router.push(`/instructor/course/${course_id}/edit/2`);
   } catch (error: any) {
     console.log(error, "error");
     errors.value = error.response.data.errors;
@@ -62,8 +86,11 @@ async function submitForm() {
   }
 }
 
-onMounted(() => {
+onMounted(async() => {
   form.value.demo_video_storage = demo_video_storage_options[0].key;
+  if (props.update) {
+    await getCourse();
+  }
 });
 </script>
 

@@ -1,5 +1,5 @@
 <script setup>
-import { useHead } from "@unhead/vue";
+import { useHead } from "#imports";
 useHead({
   link: [
     { rel: "stylesheet", href: "/dist/css/tabler.min.css?1692870487" },
