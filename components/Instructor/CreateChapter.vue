@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import axios from "axios";
 import { inject } from "vue";
+import { useCourseChaptersStore } from "~/store/useCourseChaptersStore";
+const chapter_store = useCourseChaptersStore();
 const closeModal = inject("closeModal");
 const route = useRoute();
 const course_id = route.params.course_id;
@@ -8,10 +9,10 @@ const title = ref<string>("");
 const errors = ref();
 
 const hideModal = () => {
+  // @ts-ignore
   if (closeModal) closeModal(); // Ensure it's not undefined
 };
 async function emitClick() {
-  console.log("Chapter Created");
   await createChapter();
 }
 async function createChapter() {
@@ -23,6 +24,7 @@ async function createChapter() {
         course_id: course_id,
       }
     );
+    chapter_store.setChapterWasCreated(true);
     useSweetAlert("success", "Success", data.data.message);
     hideModal();
   } catch (error: unknown) {
