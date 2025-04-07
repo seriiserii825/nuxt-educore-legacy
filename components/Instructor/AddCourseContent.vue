@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import { inject } from "vue";
-
+import CreateChapter from "./CreateChapter.vue";
+import type { TCourseChapter } from "~/types/TCourseChapter";
+import { useCourseChaptersStore } from "~/store/useCourseChaptersStore";
+import EditChapter from "./EditChapter.vue";
 const chapter_store = useCourseChaptersStore();
-
 const route = useRoute();
 const course_id = route.params.course_id;
 const openModal = inject("openModal");
-import ModalContent from "./CreateChapter.vue";
-import type { TCourseChapter } from "~/types/TCourseChapter";
-import { useCourseChaptersStore } from "~/store/useCourseChaptersStore";
-
 const showModal = () => {
   // @ts-ignore
-  openModal(ModalContent, { message: "Hello from modal!" });
+  openModal(CreateChapter);
 };
-
+function editChapter(chapter: TCourseChapter) {
+  // @ts-ignore
+  openModal(EditChapter, { chapter });
+}
 async function getChapters() {
   chapter_store.setChaptersLoading(true);
   try {
@@ -29,9 +30,11 @@ async function getChapters() {
     chapter_store.setChaptersLoading(false);
   }
 }
-
 async function deleteChapter(chapter_id: number) {
-  const delete_confirmed = await useSweetAlertConfirm("Are you sure?", "You won't be able to revert this!");
+  const delete_confirmed = await useSweetAlertConfirm(
+    "Are you sure?",
+    "You won't be able to revert this!"
+  );
   if (!delete_confirmed) {
     return;
   }
@@ -47,7 +50,6 @@ async function deleteChapter(chapter_id: number) {
     chapter_store.setChaptersLoading(false);
   }
 }
-
 watch(
   () => chapter_store.chapter_was_created,
   async (newValue) => {
@@ -57,12 +59,10 @@ watch(
     }
   }
 );
-
 onMounted(() => {
   getChapters();
 });
 </script>
-
 <template>
   <div class="add_course_content">
     <div
@@ -82,6 +82,7 @@ onMounted(() => {
         :key="chapter.id"
         :chapter="chapter"
         @emit_delete="deleteChapter"
+        @emit_edit="editChapter"
       />
     </div>
   </div>
