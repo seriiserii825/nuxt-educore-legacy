@@ -1,12 +1,4 @@
 <script setup lang="ts">
-import { useModalStore } from "~/store/useModalStore";
-const modal_store = useModalStore();
-const form = ref({
-  chapter_name: "",
-});
-const errors = ref({
-  chapter_name: [],
-});
 </script>
 
 <template>
@@ -431,18 +423,5 @@ const errors = ref({
         </div>
       </div>
     </div>
-    <PopupModal :show="modal_store.show_modal">
-      <div class="row">
-        <div class="col-md-6">
-          <InputComponent
-            label="Chapter Name"
-            v-model:value="form.chapter_name"
-            type="text"
-            name="chapter_name"
-            :errors="errors ? errors.chapter_name : []"
-          />
-        </div>
-      </div>
-    </PopupModal>
   </div>
 </template>
