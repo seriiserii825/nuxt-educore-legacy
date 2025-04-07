@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import type { TCourseChapter } from "~/types/TCourseChapter";
-
+const emits = defineEmits(['emit_delete'])
 const props = defineProps({
   chapter: {
     type: Object as PropType<TCourseChapter>,
     required: true,
   },
 });
+
+function deleteChapter() {
+  emits('emit_delete', props.chapter.id);
+}
 </script>
 
 <template>
@@ -45,7 +49,7 @@ const props = defineProps({
           </ul>
         </div>
         <a class="edit" href="#"><i class="far fa-edit"></i></a>
-        <a class="del" href="#"><i class="fas fa-trash-alt"></i></a>
+        <a class="del" @click.prevent="deleteChapter" href="#"><i class="fas fa-trash-alt"></i></a>
       </div>
     </h2>
     <div

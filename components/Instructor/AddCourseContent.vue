@@ -30,6 +30,24 @@ async function getChapters() {
   }
 }
 
+async function deleteChapter(chapter_id: number) {
+  const delete_confirmed = await useSweetAlertConfirm("Are you sure?", "You won't be able to revert this!");
+  if (!delete_confirmed) {
+    return;
+  }
+  chapter_store.setChaptersLoading(true);
+  try {
+    await axiosInstance.delete(
+      `/instructor/course/${course_id}/chapters/${chapter_id}`
+    );
+    await getChapters();
+  } catch (error) {
+    handleAxiosError(error, {});
+  } finally {
+    chapter_store.setChaptersLoading(false);
+  }
+}
+
 watch(
   () => chapter_store.chapter_was_created,
   async (newValue) => {
@@ -63,6 +81,7 @@ onMounted(() => {
         v-for="chapter in chapter_store.chapters"
         :key="chapter.id"
         :chapter="chapter"
+        @emit_delete="deleteChapter"
       />
     </div>
   </div>
