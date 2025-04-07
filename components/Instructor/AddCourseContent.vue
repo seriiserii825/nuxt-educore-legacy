@@ -5,6 +5,7 @@ const openModal = inject('openModal');
 import ModalContent from './CreateChapter.vue';
 
 const showModal = () => {
+  // @ts-ignore
   openModal(ModalContent, { message: 'Hello from modal!' });
 };
 </script>

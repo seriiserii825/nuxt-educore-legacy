@@ -1,11 +1,19 @@
 <script lang="ts" setup>
 const modalRef = ref(null);
 
+  // @ts-ignore
 const openModal = (component, props = {}) => {
+  // @ts-ignore
   modalRef.value?.openModal(component, props);
 };
 
+const closeModal = () => {
+  // @ts-ignore
+  modalRef.value?.closeModal();
+};
+
 provide('openModal', openModal);
+provide('closeModal', closeModal);
 
 onMounted(async () => {
   await useGetUserApi();

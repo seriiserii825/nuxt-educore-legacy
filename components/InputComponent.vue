@@ -82,7 +82,9 @@ function togglePassword() {
       class="mt-2 text-sm fs-6 gap-2 d-flex align-items-center"
     >
       <i class="fa fa-home"></i>
-      <span class="fs-6 text-primary fst-italic">https://fontawesome.com/search?q=home&o=r&ic=free</span>
+      <span class="fs-6 text-primary fst-italic"
+        >https://fontawesome.com/search?q=home&o=r&ic=free</span
+      >
     </a>
   </div>
 </template>
@@ -95,6 +97,9 @@ function togglePassword() {
 }
 .input {
   position: relative;
+}
+.input label {
+  margin-bottom: 0.8rem;
 }
 .input .fa-eye {
   position: absolute;
