@@ -1,18 +1,5 @@
-<template>
-  <Teleport to="body">
-    <Transition name="fade">
-      <div v-if="isOpen" class="modal-overlay" @click="closeModal">
-        <div class="modal-content" @click.stop>
-          <button class="close-btn" @click="closeModal">×</button>
-          <component :is="modalContent" v-bind="modalProps" />
-        </div>
-      </div>
-    </Transition>
-  </Teleport>
-</template>
-
-<script setup>
-import { ref, shallowRef, defineExpose } from 'vue';
+<script setup lang="ts">
+import { ref, shallowRef, defineExpose } from "vue";
 
 const isOpen = ref(false);
 const modalContent = shallowRef(null);
@@ -44,6 +31,10 @@ defineExpose({ openModal, closeModal });
   justify-content: center;
   z-index: 1000;
 }
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+}
 .modal-content {
   background: white;
   padding: 20px;
@@ -61,10 +52,35 @@ defineExpose({ openModal, closeModal });
   font-size: 20px;
   cursor: pointer;
 }
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.3s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>
+<template>
+  <Teleport to="body">
+    <Transition name="fade">
+      <div v-if="isOpen" class="modal-overlay" @click="closeModal">
+        <div class="modal-content" @click.stop>
+          <div class="modal-header">
+            <button
+              @click="closeModal"
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <component :is="modalContent" v-bind="modalProps" />
+          </div>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
+</template>
+

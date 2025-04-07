@@ -1,10 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const name = ref<string>("");
+const errors = ref({
+  name: [],
+});
+</script>
 
 <template>
   <div class="chapter">
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit
-    architecto id odio, ratione sequi error aperiam inventore ad, commodi
-    corrupti consectetur dolore corporis delectus. Quisquam earum magni ullam
-    maiores repudiandae.
+    <InputComponent
+      label="Chapter Name"
+      v-model:value="name"
+      type="text"
+      name="name"
+      :errors="errors ? errors.name : []"
+    />
   </div>
 </template>
