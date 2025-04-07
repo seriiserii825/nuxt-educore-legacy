@@ -1,4 +1,12 @@
 <script lang="ts" setup>
+const modalRef = ref(null);
+
+const openModal = (component, props = {}) => {
+  modalRef.value?.openModal(component, props);
+};
+
+provide('openModal', openModal);
+
 onMounted(async () => {
   await useGetUserApi();
 });
@@ -6,6 +14,7 @@ onMounted(async () => {
 <template>
   <NuxtLayout>
     <NuxtPage />
+    <PopupModal ref="modalRef" />
   </NuxtLayout>
 </template>
 <style>

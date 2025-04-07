@@ -1,43 +1,70 @@
-<script setup lang="ts">
-import {useModalStore} from '~/store/useModalStore';
-const props = defineProps({
-  title: {
-    type: String,
-    default: 'Modal Title',
-  }
-});
-const modal_store = useModalStore();
-</script>
-
 <template>
-  <div
-    class="modal modal-blur fade show"
-    tabindex="-1"
-    role="dialog"
-    :style="`display: ${modal_store.show_modal ? 'block' : 'none'}`"
-  >
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{ title }}</h5>
-          <button
-            @click="modal_store.show_modal = false"
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <slot></slot>
+  <Teleport to="body">
+    <Transition name="fade">
+      <div v-if="isOpen" class="modal-overlay" @click="closeModal">
+        <div class="modal-content" @click.stop>
+          <button class="close-btn" @click="closeModal">×</button>
+          <component :is="modalContent" v-bind="modalProps" />
         </div>
       </div>
-    </div>
-  </div>
+    </Transition>
+  </Teleport>
 </template>
-<style>
-.modal {
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1050;
+
+<script setup>
+import { ref, shallowRef, defineExpose } from 'vue';
+
+const isOpen = ref(false);
+const modalContent = shallowRef(null);
+const modalProps = ref({});
+
+const openModal = (component, props = {}) => {
+  modalContent.value = component;
+  modalProps.value = props;
+  isOpen.value = true;
+};
+
+const closeModal = () => {
+  isOpen.value = false;
+};
+
+defineExpose({ openModal, closeModal });
+</script>
+
+<style scoped>
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

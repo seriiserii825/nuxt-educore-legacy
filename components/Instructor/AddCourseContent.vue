@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import { inject } from 'vue';
+
+const openModal = inject('openModal');
+import ModalContent from './CreateChapter.vue';
+
+const showModal = () => {
+  openModal(ModalContent, { message: 'Hello from modal!' });
+};
 </script>
 
 <template>
@@ -6,7 +14,7 @@
     <div
       class="flex-wrap add_course_content_btn_area d-flex justify-content-between"
     >
-      <button class="common_btn" @click="modal_store.toggleModal">
+      <button class="common_btn" @click="showModal">
         Add New Chapter
       </button>
       <a class="common_btn" href="#">Short Chapter</a>
