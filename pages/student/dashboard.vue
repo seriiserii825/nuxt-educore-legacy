@@ -1,41 +1,45 @@
 <script setup lang="ts">
-import {useUserStore} from "~/store/useUserStore";
+import {AxiosHeaders} from "axios";
+import { useUserStore } from "~/store/useUserStore";
 definePageMeta({
   layout: "student",
   middleware: ["student"],
 });
 const user_store = useUserStore();
-const {user} = storeToRefs(user_store);
+const { user } = storeToRefs(user_store);
 const active = ref(false);
-const document = ref<File | null>(null);
 const loading = ref(false);
+const form = ref({
+  document: null as File | null,
+});
+const errors = ref();
 function emitFile(file: File) {
-  document.value = file;
-  console.log(document.value, "document.value");
+  form.value.document = file;
 }
 function onSubmit() {
-  if (document.value && user.value) {
-    loading.value = true;
-    const formData = new FormData();
-    formData.append("document", document.value);
-    axiosInstance
-      .post("/admin/instructor/requests/" + user.value.id, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then(async (res) => {
-        console.log(res.data, "res.data");
-        active.value = false;
-        document.value = null;
-        await useGetUserApi();
-        loading.value = false;
-      })
-      .catch((err) => {
-        console.log(err.response.data, "err.response.data");
-        loading.value = false;
-      });
+  if (!user.value) {
+    useSweetAlert('error', 'No user', 'user not found');
   }
+  loading.value = true;
+  const formData = new FormData();
+  formData.append("document", form.value.document);
+  axiosInstance
+    .post("/admin/instructor/requests/" + user.value.id, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then(async (res) => {
+      console.log(res.data, "res.data");
+      active.value = false;
+      document.value = null;
+      await useGetUserApi();
+      loading.value = false;
+    })
+    .catch((error) => {
+      handleAxiosError(error, errors);
+      loading.value = false;
+    });
 }
 </script>
 <template>
@@ -46,7 +50,7 @@ function onSubmit() {
         <div class="row">
           <div class="col-xl-3 col-md-4 wow fadeInLeft">
             <div class="wsus__dashboard_sidebar">
-              <UiSidebarTop/>
+              <UiSidebarTop />
               <NavStudentSidebarMenu />
             </div>
           </div>
@@ -59,7 +63,7 @@ function onSubmit() {
               />
               <div
                 v-if="user?.approve_status === 'initial'"
-                class="d-flex justify-content-end mb-4"
+                class="mb-4 d-flex justify-content-end"
               >
                 <button @click="active = true" class="btn btn-primary">
                   Become an Instructor
