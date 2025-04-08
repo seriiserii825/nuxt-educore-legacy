@@ -84,6 +84,7 @@ onMounted(() => {
         v-for="chapter in chapter_store.chapters"
         :key="chapter.id"
         :chapter="chapter"
+        :active="chapter.id === chapter_store.chapter_active_id"
         @emit_delete="deleteChapter"
         @emit_edit="editChapter"
         @emit_refresh_chapters="refreshChapters"

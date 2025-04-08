@@ -2,19 +2,29 @@
 import type { TCourseChapter } from "~/types/TCourseChapter";
 import CreateLesson from "./CreateLesson.vue";
 import EditLesson from "./EditLesson.vue";
-import type {TLesson} from "~/types/TLesson";
+import type { TLesson } from "~/types/TLesson";
+import {useCourseChaptersStore} from "~/store/useCourseChaptersStore";
 const openModal = inject("openModal");
 const showModal = () => {
   // @ts-ignore
   openModal(CreateLesson, { chapter_id: props.chapter.id });
 };
+const chapter_store = useCourseChaptersStore();
 const route = useRoute();
-const emits = defineEmits(["emit_delete", "emit_edit", "emit_refresh_chapters"]);
+const emits = defineEmits([
+  "emit_delete",
+  "emit_edit",
+  "emit_refresh_chapters",
+]);
 const props = defineProps({
   chapter: {
     type: Object as PropType<TCourseChapter>,
     required: true,
   },
+  active: {
+    type: Boolean,
+    default: false,
+  }
 });
 const errors = ref();
 const body_status = ref(false);
@@ -52,10 +62,63 @@ function toggleBody() {
   }
   body_status.value = !body_status.value;
 }
+
+let draggedIndex = ref<number | null>(null);
+const items = ref(props.chapter.lessons || []);
+
+const onDragStart = (index: number) => {
+  // console.log("Drag started:", index);
+  draggedIndex.value = index;
+};
+
+const onDragOver = (event: DragEvent) => {
+  // console.log("Dragging over an element");
+  event.preventDefault(); // Must call preventDefault() to allow drop
+};
+
+async function orderLessons(lessons_ids: number[]) {
+  try {
+    const data = await axiosInstance.post(
+      `/instructor/courses/${route.params.course_id}/chapters/${props.chapter.id}/order`,
+      {
+        lessons_ids,
+      }
+    );
+    useSweetAlert("success", "update order", data.data.message);
+  } catch (error) {
+    handleAxiosError(error, errors);
+  }
+}
+
+const onDrop = async (index: number) => {
+  // console.log("Dropped on index:", index);
+  if (draggedIndex.value === null) {
+    return; // No item was dragged
+  }
+  const draggedItem = items.value[draggedIndex.value];
+  // Reorder the list
+  items.value.splice(draggedIndex.value, 1); // Remove dragged item
+  items.value.splice(index, 0, draggedItem); // Insert at new position
+  const lessons_ids = items.value.map((item) => item.id);
+  await orderLessons(lessons_ids);
+  draggedIndex.value = null; // Reset dragged index
+  chapter_store.setChapterActiveId(props.chapter.id);
+  emits("emit_refresh_chapters");
+};
+
+onMounted(() => {
+  lessons_status.value = props.active;
+  if (props.active && props.chapter.lessons && props.chapter.lessons.length > 0) {
+    body_status.value = true;
+  }
+});
 </script>
 
 <template>
-  <div class="accordion-item" :class="{'accordion-item--lesson-open': lessons_status}">
+  <div
+    class="accordion-item"
+    :class="{ 'accordion-item--lesson-open': lessons_status }"
+  >
     <h2 class="accordion-header">
       <button
         class="accordion-button"
@@ -79,9 +142,14 @@ function toggleBody() {
           >
             <i class="fa-solid fa-plus"></i>
           </div>
-          <ul class="dropdown-menu dropdown-menu-end" :class="{'show': lessons_status === true}">
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            :class="{ show: lessons_status === true }"
+          >
             <li>
-              <a @click.prevent="showModal" class="dropdown-item" href="#">Add Lesson</a>
+              <a @click.prevent="showModal" class="dropdown-item" href="#"
+                >Add Lesson</a
+              >
             </li>
             <li>
               <a class="dropdown-item" href="#">Add Document</a>
@@ -107,11 +175,25 @@ function toggleBody() {
       >
         <div class="accordion-body">
           <ul class="item_list">
-            <li v-for="lesson in chapter.lessons" :key="lesson.id">
+            <li
+              v-for="(lesson, index) in chapter.lessons"
+              draggable="true"
+              @dragstart="onDragStart(index)"
+              @dragover.prevent="onDragOver"
+              @drop="onDrop(index)"
+              :key="lesson.id"
+            >
               <span>{{ lesson.title }}</span>
               <div class="add_course_content_action_btn">
-                <a @click.prevent="editLessonModal(lesson)" class="edit" href="#"><i class="far fa-edit"></i></a>
-                <a @click.prevent="deleteLesson(lesson.id)" class="del" href="#"><i class="fas fa-trash-alt"></i></a>
+                <a
+                  @click.prevent="editLessonModal(lesson)"
+                  class="edit"
+                  href="#"
+                  ><i class="far fa-edit"></i
+                ></a>
+                <a @click.prevent="deleteLesson(lesson.id)" class="del" href="#"
+                  ><i class="fas fa-trash-alt"></i
+                ></a>
                 <a class="arrow" href="#"><i class="fas fa-arrows-alt"></i></a>
               </div>
             </li>
