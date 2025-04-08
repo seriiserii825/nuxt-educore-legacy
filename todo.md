@@ -1,1 +1,2 @@
-course became instructor show errors from axiosError function
+chapter lessons finish
+seeder truncate table
