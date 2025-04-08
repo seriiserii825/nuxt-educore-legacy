@@ -37,6 +37,7 @@
             title="Course"
             icon="fa fa-cube"
             :items="[
+              { title: 'Courses', link: '/admin/courses/courses' },
               { title: 'Languages', link: '/admin/courses/languages' },
               { title: 'Levels', link: '/admin/courses/levels' },
               { title: 'Categories', link: '/admin/courses/categories' },
