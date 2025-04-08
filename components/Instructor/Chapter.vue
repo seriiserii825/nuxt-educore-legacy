@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import type { TCourseChapter } from "~/types/TCourseChapter";
 import CreateLesson from "./CreateLesson.vue";
+import EditLesson from "./EditLesson.vue";
+import type {TLesson} from "~/types/TLesson";
 const openModal = inject("openModal");
 const showModal = () => {
   // @ts-ignore
   openModal(CreateLesson, { chapter_id: props.chapter.id });
 };
-const emits = defineEmits(["emit_delete", "emit_edit"]);
+const route = useRoute();
+const emits = defineEmits(["emit_delete", "emit_edit", "emit_refresh_chapters"]);
 const props = defineProps({
   chapter: {
     type: Object as PropType<TCourseChapter>,
     required: true,
   },
 });
+const errors = ref();
 const body_status = ref(false);
 const lessons_status = ref(false);
 function deleteChapter() {
@@ -20,6 +24,27 @@ function deleteChapter() {
 }
 function emitEdit() {
   emits("emit_edit", props.chapter);
+}
+function editLessonModal(lesson: TLesson) {
+  // @ts-ignore
+  openModal(EditLesson, { chapter_id: props.chapter.id, lesson });
+}
+async function deleteLesson(lesson_id: number) {
+  const delete_confirmed = await useSweetAlertConfirm(
+    "Are you sure?",
+    "You won't be able to revert this!"
+  );
+  if (!delete_confirmed) {
+    return;
+  }
+  try {
+    await axiosInstance.delete(
+      `/instructor/courses/${route.params.course_id}/chapters/${props.chapter.id}/lessons/${lesson_id}`
+    );
+    emits("emit_refresh_chapters");
+  } catch (error) {
+    handleAxiosError(error, errors);
+  }
 }
 function toggleBody() {
   if (props.chapter.lessons && props.chapter.lessons.length === 0) {
@@ -85,8 +110,8 @@ function toggleBody() {
             <li v-for="lesson in chapter.lessons" :key="lesson.id">
               <span>{{ lesson.title }}</span>
               <div class="add_course_content_action_btn">
-                <a class="edit" href="#"><i class="far fa-edit"></i></a>
-                <a class="del" href="#"><i class="fas fa-trash-alt"></i></a>
+                <a @click.prevent="editLessonModal(lesson)" class="edit" href="#"><i class="far fa-edit"></i></a>
+                <a @click.prevent="deleteLesson(lesson.id)" class="del" href="#"><i class="fas fa-trash-alt"></i></a>
                 <a class="arrow" href="#"><i class="fas fa-arrows-alt"></i></a>
               </div>
             </li>

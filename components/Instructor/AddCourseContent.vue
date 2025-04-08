@@ -59,6 +59,9 @@ watch(
     }
   }
 );
+async function refreshChapters(){
+  await getChapters();
+}
 onMounted(() => {
   getChapters();
 });
@@ -83,6 +86,7 @@ onMounted(() => {
         :chapter="chapter"
         @emit_delete="deleteChapter"
         @emit_edit="editChapter"
+        @emit_refresh_chapters="refreshChapters"
       />
     </div>
   </div>

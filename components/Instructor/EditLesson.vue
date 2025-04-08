@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { inject } from "vue";
 import {useCourseChaptersStore} from "~/store/useCourseChaptersStore";
+import type {TLesson} from "~/types/TLesson";
 const props = defineProps({
+  lesson: {
+    type: Object as PropType<TLesson>,
+    required: true,
+  },
   chapter_id: {
     type: Number,
     required: true,
@@ -50,9 +55,9 @@ const hideModal = () => {
   if (closeModal) closeModal(); // Ensure it's not undefined
 };
 async function emitClick() {
-  await createLesson();
+  await editLesson();
 }
-async function createLesson() {
+async function editLesson() {
   const formData = new FormData();
   formData.append("title", form.value.title);
   formData.append("description", form.value.description);
@@ -65,9 +70,10 @@ async function createLesson() {
   formData.append("duration", form.value.duration);
   formData.append("downloadable", form.value.downloadable ? 1 : 0);
   formData.append("is_preview", form.value.is_preview ? 1 : 0);
+  formData.append("_method", "PUT");
   try {
     const data = await axiosInstance.post(
-      `/instructor/courses/${course_id}/chapters/${props.chapter_id}/lessons`,
+      `/instructor/courses/${course_id}/chapters/${props.chapter_id}/lessons/${props.lesson.id}`,
       formData,
       {
         headers: {
@@ -83,7 +89,19 @@ async function createLesson() {
   }
 }
 onMounted(() => {
-  form.value.storage = "upload";
+  if (props.lesson) {
+    form.value.title = props.lesson.title;
+    form.value.description = props.lesson.description;
+    form.value.lesson_type = props.lesson.lesson_type;
+    form.value.storage = props.lesson.storage;
+    form.value.video_file = props.lesson.file_path;
+    form.value.video_input = props.lesson.file_path;
+    form.value.file_type = props.lesson.file_type;
+    form.value.volume = props.lesson.volume;
+    form.value.duration = props.lesson.duration;
+    form.value.downloadable = props.lesson.downloadable;
+    form.value.is_preview = props.lesson.is_preview;
+  }
 });
 </script>
 
@@ -138,6 +156,7 @@ onMounted(() => {
         />
       </div>
       <div class="col-md-6">
+        <span class="text-danger" v-if="form.storage == 'upload'">If already have uploaded file change Storage</span>
         <FormFileUpload
           v-if="form.storage === 'upload'"
           label="Video File"
@@ -193,7 +212,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="actions">
-      <FormBtn @emit_click="emitClick">Create</FormBtn>
+      <FormBtn @emit_click="emitClick">Update</FormBtn>
     </div>
   </div>
 </template>

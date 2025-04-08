@@ -24,7 +24,7 @@ async function emitClick() {
 async function createChapter() {
   try {
     const data = await axiosInstance.put(
-      `/instructor/course/${course_id}/chapters/${props.chapter.id}`,
+      `/instructor/courses/${course_id}/chapters/${props.chapter.id}`,
       {
         title: title.value,
         course_id: course_id,
