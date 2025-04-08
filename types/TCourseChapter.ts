@@ -1,3 +1,5 @@
+import type {TLesson} from "./TLesson";
+
 export type TCourseChapter = {
   id: number;
   title: string;
@@ -7,4 +9,5 @@ export type TCourseChapter = {
   status: number;
   created_at: string;
   updated_at: string;
+  lessons?: TLesson[]
 }

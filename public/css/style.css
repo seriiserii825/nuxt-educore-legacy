@@ -15602,6 +15602,9 @@ footer {
   -o-border-radius: 50%;
 }
 
+.add_course_content .accordion-button.hidden-arrow::after {
+  display: none;
+}
 .add_course_content .accordion-button::after {
   background: var(--bs-accordion-btn-icon) !important;
   background-position: center !important;
