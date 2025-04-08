@@ -25,7 +25,7 @@ async function getLessons() {
   loading.value = true;
   try {
     const data = await axiosInstance.get(
-      `/instructor/course/${course_id}/lessons`
+      `/instructor/course/${course_id}/chapters/${props.chapter.id}/lessons`
     );
     lessons.value = data.data;
     setTimeout(() => {
