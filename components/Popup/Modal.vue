@@ -39,9 +39,15 @@ defineExpose({ openModal, closeModal });
   background: white;
   padding: 20px;
   border-radius: 10px;
-  max-width: 500px;
+  max-width: 800px;
   width: 100%;
   position: relative;
+}
+@media screen and (max-width: 992px) {
+  .modal-content {
+    width: 90%;
+    max-width: 100%;
+  }
 }
 .close-btn {
   position: absolute;

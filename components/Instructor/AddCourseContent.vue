@@ -20,7 +20,7 @@ async function getChapters() {
   chapter_store.setChaptersLoading(true);
   try {
     const response = await axiosInstance.get(
-      `/instructor/course/${course_id}/chapters`
+      `/instructor/courses/${course_id}/chapters`
     );
     const chapters: TCourseChapter[] = response.data;
     chapter_store.setChapters(chapters);
@@ -41,7 +41,7 @@ async function deleteChapter(chapter_id: number) {
   chapter_store.setChaptersLoading(true);
   try {
     await axiosInstance.delete(
-      `/instructor/course/${course_id}/chapters/${chapter_id}`
+      `/instructor/courses/${course_id}/chapters/${chapter_id}`
     );
     await getChapters();
   } catch (error) {

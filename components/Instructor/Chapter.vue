@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import type { TCourseChapter } from "~/types/TCourseChapter";
+import CreateLesson from "./CreateLesson.vue";
+const openModal = inject("openModal");
+const showModal = () => {
+  // @ts-ignore
+  openModal(CreateLesson);
+};
 const emits = defineEmits(["emit_delete", "emit_edit"]);
 const props = defineProps({
   chapter: {
@@ -50,7 +56,7 @@ function toggleBody() {
           </div>
           <ul class="dropdown-menu dropdown-menu-end" :class="{'show': lessons_status === true}">
             <li>
-              <a class="dropdown-item" href="#">Add Lesson</a>
+              <a @click.prevent="showModal" class="dropdown-item" href="#">Add Lesson</a>
             </li>
             <li>
               <a class="dropdown-item" href="#">Add Document</a>

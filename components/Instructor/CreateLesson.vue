@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { inject } from "vue";
-import { useCourseChaptersStore } from "~/store/useCourseChaptersStore";
-const chapter_store = useCourseChaptersStore();
 const closeModal = inject("closeModal");
 const route = useRoute();
 const course_id = route.params.course_id;
-const title = ref<string>("");
+const title = ref("");
 const errors = ref();
 
 const hideModal = () => {
@@ -13,9 +11,9 @@ const hideModal = () => {
   if (closeModal) closeModal(); // Ensure it's not undefined
 };
 async function emitClick() {
-  await createChapter();
+  await createLesson();
 }
-async function createChapter() {
+async function createLesson() {
   try {
     const data = await axiosInstance.post(
       `/instructor/courses/${course_id}/chapters`,
@@ -24,7 +22,7 @@ async function createChapter() {
         course_id: course_id,
       }
     );
-    chapter_store.setChapterWasCreated(true);
+    // chapter_store.setLessonWasCreated(true);
     useSweetAlert("success", "Success", data.data.message);
     hideModal();
   } catch (error: unknown) {
@@ -35,13 +33,17 @@ async function createChapter() {
 
 <template>
   <div class="chapter">
-    <InputComponent
-      label="Chapter Name"
-      v-model:value="title"
-      type="text"
-      name="title"
-      :errors="errors ? errors.title : []"
-    />
+    <div class="row">
+      <div class="col-md-6">
+        <InputComponent
+          label="Title"
+          v-model:value="title"
+          type="text"
+          name="title"
+          :errors="errors ? errors.title : []"
+        />
+      </div>
+    </div>
     <div class="actions">
       <FormBtn @emit_click="emitClick">Create</FormBtn>
     </div>
