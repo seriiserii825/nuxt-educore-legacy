@@ -55,114 +55,6 @@ onMounted(() => {
                 <li><a href="#">Graphic Design</a></li>
               </ul>
             </li>
-            <li>
-              <a href="#">
-                <span>
-                  <img
-                    src="/images/menu_category_icon_2.png"
-                    alt="Category"
-                    class="img-fluid"
-                  />
-                </span>
-                Business
-              </a>
-              <ul class="category_sub_menu">
-                <li><a href="#">Web Design</a></li>
-                <li><a href="#">Web Development</a></li>
-                <li><a href="#">UI/UX Design</a></li>
-                <li><a href="#">Graphic Design</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">
-                <span>
-                  <img
-                    src="/images/menu_category_icon_3.png"
-                    alt="Category"
-                    class="img-fluid"
-                  />
-                </span>
-                Marketing
-              </a>
-              <ul class="category_sub_menu">
-                <li><a href="#">Web Design</a></li>
-                <li><a href="#">Web Development</a></li>
-                <li><a href="#">UI/UX Design</a></li>
-                <li><a href="#">Graphic Design</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">
-                <span>
-                  <img
-                    src="/images/menu_category_icon_4.png"
-                    alt="Category"
-                    class="img-fluid"
-                  />
-                </span>
-                Lifestyle
-              </a>
-              <ul class="category_sub_menu">
-                <li><a href="#">Web Design</a></li>
-                <li><a href="#">Web Development</a></li>
-                <li><a href="#">UI/UX Design</a></li>
-                <li><a href="#">Graphic Design</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">
-                <span>
-                  <img
-                    src="/images/menu_category_icon_5.png"
-                    alt="Category"
-                    class="img-fluid"
-                  />
-                </span>
-                Health & Fitness
-              </a>
-              <ul class="category_sub_menu">
-                <li><a href="#">Web Design</a></li>
-                <li><a href="#">Web Development</a></li>
-                <li><a href="#">UI/UX Design</a></li>
-                <li><a href="#">Graphic Design</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">
-                <span>
-                  <img
-                    src="/images/menu_category_icon_6.png"
-                    alt="Category"
-                    class="img-fluid"
-                  />
-                </span>
-                Design
-              </a>
-              <ul class="category_sub_menu">
-                <li><a href="#">Web Design</a></li>
-                <li><a href="#">Web Development</a></li>
-                <li><a href="#">UI/UX Design</a></li>
-                <li><a href="#">Graphic Design</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">
-                <span>
-                  <img
-                    src="/images/menu_category_icon_7.png"
-                    alt="Category"
-                    class="img-fluid"
-                  />
-                </span>
-                Academics
-              </a>
-              <ul class="category_sub_menu">
-                <li><a href="#">Web Design</a></li>
-                <li><a href="#">Web Development</a></li>
-                <li><a href="#">UI/UX Design</a></li>
-                <li><a href="#">Graphic Design</a></li>
-              </ul>
-            </li>
           </ul>
         </div>
         <ul class="navbar-nav m-auto">
@@ -170,7 +62,7 @@ onMounted(() => {
             <a class="nav-link active" href="index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about.html">About Us</a>
+            <nuxt-link class="nav-link" to="/courses">Courses</nuxt-link>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#"
