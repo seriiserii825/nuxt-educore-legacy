@@ -14,7 +14,7 @@ function deleteChapter() {
 function emitEdit() {
   emits("emit_edit", props.chapter);
 }
-function toggleBody(){
+function toggleBody() {
   if (props.chapter.lessons && props.chapter.lessons.length === 0) {
     return;
   }
@@ -27,7 +27,10 @@ function toggleBody(){
     <h2 class="accordion-header">
       <button
         class="accordion-button"
-        :class="{'collapsed': !is_visible, 'hidden-arrow': chapter.lessons && chapter.lessons.length === 0}"
+        :class="{
+          collapsed: !is_visible,
+          'hidden-arrow': chapter.lessons && chapter.lessons.length === 0,
+        }"
         type="button"
         @click="toggleBody"
       >
@@ -41,7 +44,7 @@ function toggleBody(){
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <i class="far fa-plus"></i>
+            <i class="fa-solid fa-plus"></i>
           </div>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
