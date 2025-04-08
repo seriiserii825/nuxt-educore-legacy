@@ -7,7 +7,8 @@ const props = defineProps({
     required: true,
   },
 });
-const is_visible = ref(false);
+const body_status = ref(false);
+const lessons_status = ref(false);
 function deleteChapter() {
   emits("emit_delete", props.chapter.id);
 }
@@ -18,17 +19,17 @@ function toggleBody() {
   if (props.chapter.lessons && props.chapter.lessons.length === 0) {
     return;
   }
-  is_visible.value = !is_visible.value;
+  body_status.value = !body_status.value;
 }
 </script>
 
 <template>
-  <div class="accordion-item">
+  <div class="accordion-item" :class="{'accordion-item--lesson-open': lessons_status}">
     <h2 class="accordion-header">
       <button
         class="accordion-button"
         :class="{
-          collapsed: !is_visible,
+          collapsed: !body_status,
           'hidden-arrow': chapter.lessons && chapter.lessons.length === 0,
         }"
         type="button"
@@ -43,10 +44,11 @@ function toggleBody() {
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
+            @click="lessons_status = !lessons_status"
           >
             <i class="fa-solid fa-plus"></i>
           </div>
-          <ul class="dropdown-menu dropdown-menu-end">
+          <ul class="dropdown-menu dropdown-menu-end" :class="{'show': lessons_status === true}">
             <li>
               <a class="dropdown-item" href="#">Add Lesson</a>
             </li>
@@ -70,7 +72,7 @@ function toggleBody() {
       <div
         id="collapseOne"
         class="accordion-collapse collapse show"
-        v-if="is_visible"
+        v-if="body_status"
       >
         <div class="accordion-body">
           <ul class="item_list">
@@ -89,6 +91,15 @@ function toggleBody() {
   </div>
 </template>
 <style>
+.accordion-item {
+  position: relative;
+}
+.accordion-item.accordion-item--lesson-open .accordion-header {
+  z-index: 10;
+}
+.accordion-header {
+  position: relative;
+}
 /* // before enter */
 .property-enter-from {
   opacity: 0;
