@@ -41,3 +41,8 @@ function onChange(event: Event) {
     </div>
   </div>
 </template>
+<style>
+.select {
+  margin-bottom: 1rem;
+}
+</style>
