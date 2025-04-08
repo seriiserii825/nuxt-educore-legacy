@@ -16,7 +16,7 @@ const props = defineProps({
   },
   accept: {
     type: String,
-    default: "video/*",
+    default: "image/*",
   },
 });
 

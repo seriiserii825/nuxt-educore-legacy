@@ -127,6 +127,7 @@ onMounted(async () => {
           v-if="form.demo_video_storage === 'upload'"
           label="Video File *"
           name="video_file"
+          accept="image/*"
           v-model:value="form.video_file"
           :errors="errors ? errors.video_file : []"
           @emit_file="form.video_file = $event"

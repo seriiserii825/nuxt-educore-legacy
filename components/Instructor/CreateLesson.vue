@@ -143,6 +143,7 @@ onMounted(() => {
           label="Video File"
           name="video_file"
           v-model:value="form.video_file"
+          accept="video/*"
           :errors="errors ? errors.video_file : []"
           @emit_file="form.video_file = $event"
         />
