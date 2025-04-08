@@ -14,6 +14,10 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  accept: {
+    type: String,
+    default: "video/*",
+  },
 });
 
 function changeHandler(e: any) {
@@ -31,6 +35,7 @@ function changeHandler(e: any) {
       :id="name"
       :name="name"
       type="file"
+      :accept="accept"
       @input="changeHandler"
       :class="{ 'input--error': errors && errors.length }"
     />

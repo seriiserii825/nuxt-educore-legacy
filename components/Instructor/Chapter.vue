@@ -4,7 +4,7 @@ import CreateLesson from "./CreateLesson.vue";
 const openModal = inject("openModal");
 const showModal = () => {
   // @ts-ignore
-  openModal(CreateLesson);
+  openModal(CreateLesson, { chapter_id: props.chapter.id });
 };
 const emits = defineEmits(["emit_delete", "emit_edit"]);
 const props = defineProps({

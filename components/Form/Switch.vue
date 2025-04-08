@@ -32,6 +32,7 @@ function onChange(e: any){
 </template>
 <style>
 .switch {
+  margin-bottom: 1.6rem;
   cursor: pointer;
 }
 </style>

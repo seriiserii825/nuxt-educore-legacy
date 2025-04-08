@@ -98,9 +98,9 @@ function togglePassword() {
 .input {
   position: relative;
 }
-.input label {
-  margin-bottom: 0.8rem;
-}
+/* .input label { */
+/*   margin-bottom: 0.8rem; */
+/* } */
 .input .fa-eye {
   position: absolute;
   right: 10px;
