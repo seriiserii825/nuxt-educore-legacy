@@ -8,7 +8,7 @@ const loading = ref(false);
 </script>
 <template>
   <div>
-    <UiBreadcrumb image="/images/breadcrumb_bg.jpg" title="Student Profile" />
+    <UiBreadcrumb image="/images/breadcrumb_bg.jpg" title="Instructor Profile" />
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
       <div class="container">
         <div class="row">

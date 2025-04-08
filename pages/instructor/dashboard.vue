@@ -9,7 +9,7 @@ const user = useGetUser();
 </script>
 <template>
   <div>
-    <UiBreadcrumb image="/images/breadcrumb_bg.jpg" title="Student" />
+    <UiBreadcrumb image="/images/breadcrumb_bg.jpg" title="Instructor Dashboard" />
     <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
       <div class="container">
         <div class="row">
