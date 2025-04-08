@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import type {TCourse} from "~/types/TCourse";
 import { demo_video_storage_options } from "../data/demo_video_storage_options";
 const props = defineProps({
   update: {
     type: Boolean,
     default: false,
+  },
+  course: {
+    type: Object as PropType<TCourse>,
+    required: false,
   },
 });
 const router = useRouter();
@@ -27,24 +32,17 @@ function videoStorageChange(value: string) {
   form.value.demo_video_storage = value;
 }
 
-async function getCourse() {
-  const course_id = route.params.course_id;
-  try {
-    loading.value = true;
-    const data = await axiosInstance.get(`/instructor/courses/${course_id}`);
-    const course = data.data;
-    form.value.title = course.title;
-    form.value.seo_description = course.seo_description;
-    form.value.thumbnail = course.thumbnail;
-    form.value.demo_video_storage = course.demo_video_storage;
-    form.value.video_file = course.demo_video_source;
-    form.value.video_input = course.demo_video_source;
-    form.value.price = course.price;
-    form.value.discount = course.discount;
-    loading.value = false;
-  } catch (error: any) {
-    console.log(error, "error");
-  }
+async function setCourse() {
+  if (!props.course) return;
+  form.value.title = props.course.title;
+  form.value.seo_description = props.course.seo_description;
+  form.value.thumbnail = props.course.thumbnail;
+  form.value.demo_video_storage = props.course.demo_video_storage;
+  form.value.video_file = props.course.demo_video_source;
+  form.value.video_input = props.course.demo_video_source;
+  form.value.price = props.course.price;
+  form.value.discount = props.course.discount;
+  loading.value = false;
 }
 
 async function submitForm() {
@@ -91,8 +89,8 @@ async function submitForm() {
 
 onMounted(async () => {
   form.value.demo_video_storage = demo_video_storage_options[0].key;
-  if (props.update) {
-    await getCourse();
+  if (props.update && props.course) {
+    setCourse();
   }
 });
 </script>

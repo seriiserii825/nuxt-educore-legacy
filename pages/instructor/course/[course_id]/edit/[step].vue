@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {PopupModal} from '#components';
+import type { TCourse } from "~/types/TCourse";
 
 definePageMeta({
   layout: "instructor",
@@ -8,19 +8,45 @@ definePageMeta({
 const user = useGetUser();
 const route = useRoute();
 const router = useRouter();
-
 const course_id: number = parseInt(route.params.course_id as string);
 const step: number = parseInt(route.params.step as string);
+const loading = ref(false);
+const errors = ref();
+const course = ref<TCourse>();
+
+async function getCourse() {
+  loading.value = true;
+  const course_id = route.params.course_id;
+  try {
+    loading.value = true;
+    const data = await axiosInstance.get(
+      `/instructor/courses/${course_id}/step2`
+    );
+    course.value = data.data.course;
+    loading.value = false;
+  } catch (error) {
+    loading.value = false;
+    handleAxiosError(error, errors);
+    loading.value = false;
+  }
+}
 
 function setStep(step: number) {
   router.push(`/instructor/course/${course_id}/edit/${step}`);
 }
+onMounted(async () => {
+  await getCourse();
+});
 </script>
 
 <template>
   <div>
-    <UiBreadcrumb image="/images/breadcrumb_bg.jpg" title="Student" />
-    <section class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
+    <UiBreadcrumb
+      image="/images/breadcrumb_bg.jpg"
+      :title="course ? course.title : 'Create course'"
+    />
+    <UiLoading v-if="loading" />
+    <section v-else class="wsus__dashboard mt_90 xs_mt_70 pb_120 xs_pb_100">
       <div class="container">
         <div class="row">
           <div class="col-xl-3 col-md-4 wow fadeInLeft">
@@ -48,22 +74,38 @@ function setStep(step: number) {
               <div class="dashboard_add_courses">
                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button @click="setStep(1)"  :class="{'active': step == 1}" class="nav-link">
+                    <button
+                      @click="setStep(1)"
+                      :class="{ active: step == 1 }"
+                      class="nav-link"
+                    >
                       Basic Infos
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button @click="setStep(2)" :class="{'active': step == 2}" class="nav-link">
+                    <button
+                      @click="setStep(2)"
+                      :class="{ active: step == 2 }"
+                      class="nav-link"
+                    >
                       More Infos
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button @click="setStep(3)" :class="{'active': step == 3}" class="nav-link">
+                    <button
+                      @click="setStep(3)"
+                      :class="{ active: step == 3 }"
+                      class="nav-link"
+                    >
                       Course Contents
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button @click="setStep(4)" :class="{'active': step == 4}" class="nav-link">
+                    <button
+                      @click="setStep(4)"
+                      :class="{ active: step == 4 }"
+                      class="nav-link"
+                    >
                       Finish
                     </button>
                   </li>
@@ -74,7 +116,7 @@ function setStep(step: number) {
                     :class="{ 'show active': step === 1 }"
                     tabindex="0"
                   >
-                    <InstructorAddCourseBasicInfo :update="true" />
+                    <InstructorAddCourseBasicInfo :course="course" :update="true" />
                   </div>
                   <div
                     class="tab-pane fade"
