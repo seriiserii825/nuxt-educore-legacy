@@ -5,6 +5,8 @@ const course = ref<TCourse>();
 const loading = ref<boolean>(false);
 const slug = route.params.slug;
 
+const current_tab = ref(0);
+
 async function getCourse() {
   loading.value = true;
   try {
@@ -34,19 +36,19 @@ onMounted(async () => {
               <div class="wsus__courses_details_area mt_40">
                 <ul class="nav nav-pills mb_40" id="pills-tab" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link active">
+                    <button class="nav-link" :class="{'active': current_tab === 0}" @click="current_tab = 0">
                       Overview
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" > Instructor </button>
+                    <button class="nav-link"  :class="{'active': current_tab === 1}" @click="current_tab = 1"> Instructor </button>
                   </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-                  <div class="tab-pane fade show active">
+                  <div class="tab-pane fade" :class="{'show active': current_tab === 0}">
                     <CourseDescription :course="course" />
                   </div>
-                  <div class="tab-pane fade">
+                  <div class="tab-pane fade" :class="{'show active': current_tab === 1}">
                     <CourseInstructor :course="course" />
                   </div>
                 </div>
