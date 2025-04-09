@@ -31,7 +31,13 @@ const props = defineProps({
     </div>
     <h3 class="wsus__courses_sidebar_price">
       <del v-if="course.discount">${{ course.discount }}</del>
-      ${{ course.price }}
+      <span v-if="course.price"> ${{ course.price }} </span>
+      <span v-else class="text-success p-2">
+        <UiBadge
+          type="success"
+          text="Free"
+          />
+      </span>
     </h3>
     <div class="wsus__courses_sidebar_list_info">
       <ul>
