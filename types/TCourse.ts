@@ -1,3 +1,5 @@
+import type {TUser} from "./TUser";
+
 export type TCourse = {
   id: number;
   instructor_id: number;
@@ -24,4 +26,5 @@ export type TCourse = {
   course_language_id: null;
   created_at: string;
   updated_at: string;
+  instructor: TUser;
 };
