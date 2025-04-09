@@ -47,7 +47,7 @@ const props = defineProps({
           </p>
           {{ useMinuteToTime(course.duration) }}
         </li>
-        <li>
+        <li v-if="course.level">
           <p>
             <span
               ><img
@@ -57,7 +57,7 @@ const props = defineProps({
             /></span>
             Skill Level
           </p>
-          Medium
+          {{ course.level.name }}
         </li>
         <li>
           <p>
@@ -71,7 +71,7 @@ const props = defineProps({
           </p>
           47
         </li>
-        <li>
+        <li v-if="course.language">
           <p>
             <span
               ><img
@@ -79,7 +79,7 @@ const props = defineProps({
                 alt="Language"
                 class="img-fluid"
             /></span>
-            Language
+            {{ course.language.name }}
           </p>
           English
         </li>

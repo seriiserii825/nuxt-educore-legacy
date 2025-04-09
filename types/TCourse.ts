@@ -1,4 +1,6 @@
 import type {TCategory} from "./TCategory";
+import type {TLanguage} from "./TLanguage";
+import type {TLevel} from "./TLevel";
 import type {TUser} from "./TUser";
 
 export type TCourse = {
@@ -30,4 +32,6 @@ export type TCourse = {
   instructor: TUser;
   lessons_count?: number;
   category?: TCategory;
+  level?: TLevel;
+  language?: TLanguage;
 };
