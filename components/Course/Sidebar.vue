@@ -35,7 +35,7 @@ const props = defineProps({
     </h3>
     <div class="wsus__courses_sidebar_list_info">
       <ul>
-        <li>
+        <li v-if="course.duration">
           <p>
             <span
               ><img
@@ -45,7 +45,7 @@ const props = defineProps({
             /></span>
             Course Duration
           </p>
-          {{ course.duration }}
+          {{ useMinuteToTime(course.duration) }}
         </li>
         <li>
           <p>
