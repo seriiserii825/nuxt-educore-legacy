@@ -68,7 +68,7 @@ const props = defineProps({
           </div>
           <a class="title" href="#">{{ course.title }}</a>
           <ul>
-            <li>24 Lessons</li>
+            <li v-if="course.lessons_count">{{ course.lessons_count }} Lessons</li>
             <li>38 Student</li>
           </ul>
           <a class="author" href="#">

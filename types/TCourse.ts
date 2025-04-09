@@ -27,4 +27,5 @@ export type TCourse = {
   created_at: string;
   updated_at: string;
   instructor: TUser;
+  lessons_count?: number;
 };
