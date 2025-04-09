@@ -1,23 +1,38 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { PropType } from "vue";
+import type { TCourse } from "~/types/TCourse";
+
+const props = defineProps({
+  course: {
+    type: Object as PropType<TCourse>,
+    required: true,
+  },
+});
+</script>
 
 <template>
   <div class="wsus__courses_sidebar">
     <div class="wsus__courses_sidebar_video">
-      <img
-        :src="`/images/course_sidebar_video_img.jpg`"
-        alt="Video"
-        class="img-fluid"
-      />
+      <img :src="course.thumbnail" alt="Video" class="img-fluid" />
       <a
+        v-if="course.demo_video_source"
         class="play_btn venobox vbox-item"
         data-autoplay="true"
         data-vbtype="video"
-        href="https://youtu.be/sVPYIRF9RCQ?si=labNkx-xlyOWtptr"
+        target="_blank"
+        :href="course.demo_video_source"
       >
-        <img :src="`/images/play_icon_white.png`" alt="Play" class="img-fluid" />
+        <img
+          :src="`/images/play_icon_white.png`"
+          alt="Play"
+          class="img-fluid"
+        />
       </a>
     </div>
-    <h3 class="wsus__courses_sidebar_price"><del>$36.00</del>$54.00</h3>
+    <h3 class="wsus__courses_sidebar_price">
+      <del v-if="course.discount">${{ course.discount }}</del>
+      ${{ course.price }}
+    </h3>
     <div class="wsus__courses_sidebar_list_info">
       <ul>
         <li>
@@ -30,7 +45,7 @@
             /></span>
             Course Duration
           </p>
-          34 min 54 sec
+          {{ course.duration }}
         </li>
         <li>
           <p>

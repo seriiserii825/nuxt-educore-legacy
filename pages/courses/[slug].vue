@@ -73,7 +73,7 @@ onMounted(async () => {
               </div>
             </div>
             <div class="col-lg-4 col-md-8 wow fadeInRight">
-              <CourseSidebar />
+              <CourseSidebar :course="course" v-if="course" />
             </div>
           </div>
         </div>
