@@ -27,11 +27,39 @@ const approved_options = [
   { key: "pending", value: "Pending" },
   { key: "rejected", value: "Rejected" },
 ];
+
+const status_options = [
+  { key: "active", value: "Active" },
+  { key: "inactive", value: "Inactive" },
+  { key: "draft", value: "Draft" },
+];
+
 async function updateApproved(course_id: number, status: string) {
   loading.value = true;
   try {
     const data = await axiosInstance.put(`/admin/courses/${course_id}/approved`, {
       is_approved: status,
+    });
+    useSweetAlert("success", "Success", data.data.message);
+    await getCourses();
+    setTimeout(() => {
+      loading.value = false;
+    }, 1000);
+  } catch (error: any) {
+    if (error.response.data.message) {
+      console.log(error.response.data.message);
+      useSweetAlert("error", "Error", error.response.data.message);
+      loading.value = false;
+    }
+  }
+}
+
+async function updateStatus(course_id: number, status: string) {
+  loading.value = true;
+    console.log(status, "status");
+  try {
+    const data = await axiosInstance.put(`/admin/courses/${course_id}/status`, {
+      status: status,
     });
     useSweetAlert("success", "Success", data.data.message);
     await getCourses();
@@ -72,20 +100,13 @@ onMounted(async () => {
               <td>{{ course.price }}</td>
               <td>{{ course.instructor.name }}</td>
               <td>
-                <UiBadge
-                  v-if="course.is_approved === 'approved'"
-                  type="success"
-                  text="Approved"
-                />
-                <UiBadge
-                  v-if="course.is_approved === 'pending'"
-                  type="warning"
-                  text="Pending"
-                />
-                <UiBadge
-                  v-if="course.is_approved === 'rejected'"
-                  type="error"
-                  text="Rejected"
+                <FormSelect
+                  label=""
+                  name="status"
+                  :options="status_options"
+                  :value="course.status"
+                  @emit_select="updateStatus(course.id, $event)"
+                  :errors="[]"
                 />
               </td>
               <td>
