@@ -44,6 +44,18 @@ onMounted(() => {
               </div>
               <FrontCoursesPagination />
             </div>
+            <h3
+              v-else
+              class="text-center"
+              style="
+                min-height: 70vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              No courses found
+            </h3>
           </div>
         </div>
       </div>
