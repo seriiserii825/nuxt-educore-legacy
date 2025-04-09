@@ -33,10 +33,7 @@ const props = defineProps({
       <del v-if="course.discount">${{ course.discount }}</del>
       <span v-if="course.price"> ${{ course.price }} </span>
       <span v-else class="text-success p-2">
-        <UiBadge
-          type="success"
-          text="Free"
-          />
+        <UiBadge type="success" text="Free" />
       </span>
     </h3>
     <div class="wsus__courses_sidebar_list_info">
@@ -101,34 +98,17 @@ const props = defineProps({
         ><i class="far fa-heart"></i> Add to Wishlist</a
       >
     </div>
-    <div class="wsus__courses_sidebar_share_area">
-      <span>Share:</span>
-      <ul>
-        <li>
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-        </li>
-        <li>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </li>
-        <li>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-        </li>
-        <li>
-          <a href="#"><i class="fab fa-behance"></i></a>
-        </li>
-      </ul>
-    </div>
     <div class="wsus__courses_sidebar_info">
       <h3>This Course Includes</h3>
       <ul>
-        <li>
+        <li v-if="course.duration">
           <span
             ><img
               :src="`/images/video_icon_black.png`"
               alt="video"
               class="img-fluid"
           /></span>
-          54 min 24 sec Video Lectures
+          {{ useMinuteToTime(course.duration) }}
         </li>
         <li>
           <span
@@ -148,68 +128,22 @@ const props = defineProps({
           /></span>
           Certificate of Completion
         </li>
-        <li>
-          <span
-            ><img
-              :src="`/images/life_time_icon.png`"
-              alt="Certificate"
-              class="img-fluid"
-          /></span>
-          Course Lifetime Access
-        </li>
       </ul>
     </div>
     <div class="wsus__courses_sidebar_instructor">
       <div class="image_area d-flex flex-wrap align-items-center">
         <div class="img">
           <img
-            :src="`/images/testimonial_user_1.png`"
+            :src="course.instructor?.image"
             alt="Instructor"
             class="img-fluid"
           />
         </div>
         <div class="text">
-          <h3>Dominic L. Ement</h3>
+          <h3>{{ course.instructor.name }}</h3>
           <p><span>Instructor</span> Level 2</p>
         </div>
       </div>
-      <ul class="d-flex flex-wrap">
-        <li
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          data-bs-title="Exclusive Author"
-        >
-          <img :src="`/images/badge_1.png`" alt="Badge" class="img-fluid" />
-        </li>
-        <li
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          data-bs-title="Top Earning"
-        >
-          <img :src="`/images/badge_2.png`" alt="Badge" class="img-fluid" />
-        </li>
-        <li
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          data-bs-title="Trending"
-        >
-          <img :src="`/images/badge_3.png`" alt="Badge" class="img-fluid" />
-        </li>
-        <li
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          data-bs-title="2 Years of Membership"
-        >
-          <img :src="`/images/badge_4.png`" alt="Badge" class="img-fluid" />
-        </li>
-        <li
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          data-bs-title="Collector Lavel 1"
-        >
-          <img :src="`/images/badge_5.png`" alt="Badge" class="img-fluid" />
-        </li>
-      </ul>
     </div>
   </div>
 </template>
