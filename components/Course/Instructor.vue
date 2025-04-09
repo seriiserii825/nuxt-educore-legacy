@@ -1,4 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type {TCourse} from '~/types/TCourse';
+
+const props = defineProps({
+  course: {
+    type: Object as PropType<TCourse>,
+    required: true,
+  }
+});
+</script>
 
 <template>
   <div class="wsus__courses_instructor box_area">
@@ -7,7 +16,7 @@
       <div class="col-lg-4 col-md-6">
         <div class="wsus__courses_instructor_img">
           <img
-            :src="`/images/course_instructor_img.jpg`"
+            :src="course.instructor.image"
             alt="Instructor"
             class="img-fluid"
           />
@@ -15,22 +24,22 @@
       </div>
       <div class="col-lg-8 col-md-6">
         <div class="wsus__courses_instructor_text">
-          <h4>Ravi O'Leigh</h4>
-          <p class="designation">IT Technician at IBM</p>
+          <h4>{{ course.instructor.name }}</h4>
+          <p class="designation">{{ course.instructor.headline }}</p>
           <ul class="list">
             <li>
               <i class="fas fa-star"></i>
               <b>74,537 Reviews</b>
             </li>
             <li><strong>4.7 Rating</strong></li>
-            <li>
+            <li v-if="course.instructor && course.instructor.courses_count">
               <span
                 ><img
                   :src="`/images/book_icon.png`"
                   alt="book"
                   class="img-fluid"
               /></span>
-              8 Courses
+              {{course.instructor.courses_count}} Courses
             </li>
             <li>
               <span
@@ -85,17 +94,14 @@
             enim Nam maximus pretium consectetu lacinia finibus.
           </p>
           <ul class="link d-flex flex-wrap">
-            <li>
-              <a href="#"><i class="fab fa-twitter"></i></a>
+            <li v-if="course.instructor.twitter">
+              <a :href="course.instructor.twitter" target="_blank"><i class="fab fa-twitter"></i></a>
             </li>
-            <li>
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <li v-if="course.instructor.facebook">
+              <a :href="course.instructor.facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
             </li>
-            <li>
-              <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            </li>
-            <li>
-              <a href="#"><i class="fab fa-pinterest-p"></i></a>
+            <li v-if="course.instructor.linkedin">
+              <a :href="course.instructor.linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
             </li>
           </ul>
         </div>
