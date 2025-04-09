@@ -22,7 +22,7 @@ useHead({
 });
 </script>
 <template>
-  <div class="layout">
+  <div class="layout" style="min-height: 80vh">
     <AdminSidebar />
     <div class="page-wrapper">
       <HeaderAdmin />

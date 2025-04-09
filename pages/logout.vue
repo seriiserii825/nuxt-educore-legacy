@@ -6,5 +6,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="logout"></div>
+  <div class="layout"></div>
 </template>
