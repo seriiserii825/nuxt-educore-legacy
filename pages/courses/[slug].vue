@@ -52,6 +52,15 @@ onMounted(async () => {
                       :class="{ active: current_tab === 1 }"
                       @click="current_tab = 1"
                     >
+                      Lessons
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link"
+                      :class="{ active: current_tab === 2 }"
+                      @click="current_tab = 2"
+                    >
                       Instructor
                     </button>
                   </li>
@@ -67,7 +76,16 @@ onMounted(async () => {
                     class="tab-pane fade"
                     :class="{ 'show active': current_tab === 1 }"
                   >
-                    <CourseInstructor :course="course" />
+                    <CourseLessons :course="course" />
+                  </div>
+                  <div
+                    class="tab-pane fade"
+                    :class="{ 'show active': current_tab === 2 }"
+                  >
+                  <CourseInstructor
+                      :course="course"
+                      v-if="course.instructor"
+                    />
                   </div>
                 </div>
               </div>

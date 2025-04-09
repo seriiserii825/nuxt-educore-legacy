@@ -12,4 +12,5 @@ export type TLesson = {
   duration: string;
   downloadable: number;
   is_preview: number;
+  chapter_id: number;
 }

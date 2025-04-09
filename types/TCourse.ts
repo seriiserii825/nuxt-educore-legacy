@@ -1,5 +1,7 @@
 import type {TCategory} from "./TCategory";
+import type {TCourseChapter} from "./TCourseChapter";
 import type {TLanguage} from "./TLanguage";
+import type {TLesson} from "./TLesson";
 import type {TLevel} from "./TLevel";
 import type {TUser} from "./TUser";
 
@@ -34,4 +36,6 @@ export type TCourse = {
   category?: TCategory;
   level?: TLevel;
   language?: TLanguage;
+  chapters?: TCourseChapter[];
+  lessons?: TLesson[];
 };
