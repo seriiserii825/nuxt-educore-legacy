@@ -1,3 +1,4 @@
+import type {TCategory} from "./TCategory";
 import type {TUser} from "./TUser";
 
 export type TCourse = {
@@ -28,4 +29,5 @@ export type TCourse = {
   updated_at: string;
   instructor: TUser;
   lessons_count?: number;
+  category?: TCategory;
 };

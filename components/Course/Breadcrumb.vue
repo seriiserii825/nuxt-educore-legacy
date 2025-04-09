@@ -1,4 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { TCourse } from "~/types/TCourse";
+
+const props = defineProps({
+  course: {
+    type: Object as PropType<TCourse>,
+    required: true,
+  },
+});
+</script>
 
 <template>
   <section
@@ -18,7 +27,7 @@
                 <i class="fas fa-star"></i>
                 <span>(4 Reviews)</span>
               </p>
-              <h1>Total Android App Programming Learning Experience.</h1>
+              <h1>{{ course.title }}</h1>
               <ul class="list">
                 <li>
                   <span
@@ -27,16 +36,13 @@
                       alt="user"
                       class="img-fluid"
                   /></span>
-                  By Quiche Hollandaise
+                  By {{ course.instructor.name }}
                 </li>
-                <li>
-                  <span
-                    ><img
-                      src="/images/globe_icon_blue.png"
-                      alt="Globe"
-                      class="img-fluid"
-                  /></span>
-                  Java Developer
+                <li v-if="course.category">
+                  <span><img 
+                    :src="`/images/globe_icon_blue.png`"
+                    alt="Globe" class="img-fluid"/></span>
+                  {{ course.category.name }}
                 </li>
                 <li>
                   <span
@@ -45,7 +51,7 @@
                       alt="Calendar"
                       class="img-fluid"
                   /></span>
-                  Last updated 25/2024
+                  Last updated {{ useFormatDate(course.updated_at) }}
                 </li>
               </ul>
             </div>
