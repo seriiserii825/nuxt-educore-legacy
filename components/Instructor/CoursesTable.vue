@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { UiBadge } from "#components";
 import type { TCourse } from "~/types/TCourse";
 
 const loading = ref(false);
@@ -32,6 +33,7 @@ onMounted(async () => {
                 <th class="details"></th>
                 <th class="sale">STUDENT</th>
                 <th class="status">STATUS</th>
+                <th class="status">Approved</th>
                 <th class="action">ACTION</th>
               </tr>
               <template v-if="courses && courses.length">
@@ -39,7 +41,9 @@ onMounted(async () => {
                   <td class="image">
                     <div class="image_category">
                       <img
-                        :src="`${useRuntimeConfig().public.apiBase}/${course.thumbnail}`"
+                        :src="`${useRuntimeConfig().public.apiBase}/${
+                          course.thumbnail
+                        }`"
                         alt="img"
                         class="img-fluid w-100"
                       />
@@ -62,9 +66,34 @@ onMounted(async () => {
                   <td class="status">
                     <p class="active">{{ course.status }}</p>
                   </td>
-                  <td class="action d-flex gap-2">
-                    <nuxt-link class="edit" :to="`/instructor/course/${course.id}/edit/1`"><i class="far fa-edit"></i></nuxt-link>
-                    <a class="del" href="#"><i class="fas fa-trash-alt"></i></a>
+                  <td>
+                    <UiBadge
+                      v-if="course.is_approved === 'approved'"
+                      type="success"
+                      text="Approved"
+                    />
+                    <UiBadge
+                      v-if="course.is_approved === 'pending'"
+                      type="warning"
+                      text="Pending"
+                    />
+                    <UiBadge
+                      v-if="course.is_approved === 'rejected'"
+                      type="error"
+                      text="Rejected"
+                    />
+                  </td>
+                  <td class="action">
+                    <div class="d-flex gap-2">
+                      <nuxt-link
+                        class="edit"
+                        :to="`/instructor/course/${course.id}/edit/1`"
+                        ><i class="far fa-edit"></i
+                      ></nuxt-link>
+                      <a class="del" href="#"
+                        ><i class="fas fa-trash-alt"></i
+                      ></a>
+                    </div>
                   </td>
                 </tr>
               </template>
