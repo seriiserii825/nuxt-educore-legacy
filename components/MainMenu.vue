@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {useUserStore} from '~/store/useUserStore';
+import { useUserStore } from "~/store/useUserStore";
 
 const user_store = useUserStore();
-const {user} = storeToRefs(user_store);
+const { user } = storeToRefs(user_store);
 const dashboard_link = ref("");
 
 onMounted(() => {
@@ -31,86 +31,12 @@ onMounted(() => {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="menu_category">
-          <div class="icon">
-            <img src="/images/grid_icon.png" alt="Category" class="img-fluid" />
-          </div>
-          Category
-          <ul>
-            <li>
-              <a href="#">
-                <span>
-                  <img
-                    src="/images/menu_category_icon_1.png"
-                    alt="Category"
-                    class="img-fluid"
-                  />
-                </span>
-                Development
-              </a>
-              <ul class="category_sub_menu">
-                <li><a href="#">Web Design</a></li>
-                <li><a href="#">Web Development</a></li>
-                <li><a href="#">UI/UX Design</a></li>
-                <li><a href="#">Graphic Design</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
         <ul class="navbar-nav m-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="index.html">Home</a>
+            <nuxt-link class="nav-link" to="/">Home</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/courses">Courses</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"
-              >Courses <i class="far fa-angle-down"></i
-            ></a>
-            <ul class="droap_menu">
-              <li><a href="courses.html">Courses</a></li>
-              <li><a href="courses_details.html">Course details</a></li>
-              <li><a href="course_video.html">Course video</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"
-              >pages <i class="far fa-angle-down"></i
-            ></a>
-            <ul class="droap_menu">
-              <li><a href="category.html">Categories</a></li>
-              <li><a href="cart_view.html">cart view</a></li>
-              <li><a href="checkout.html">checkout</a></li>
-              <li><a href="payment.html">payment</a></li>
-              <li><a href="pricing.html">pricing</a></li>
-              <li><a href="student_reviews.html">student review</a></li>
-              <li><a href="instructor.html">Instructor</a></li>
-              <li><a href="instructor_details.html">Instructor details</a></li>
-              <li><a href="instructor_finder.html">Instructor finder</a></li>
-              <li><a href="error.html">error</a></li>
-              <li><a href="faq.html">faq</a></li>
-              <li><a href="sign_in.html">sign in</a></li>
-              <li><a href="sign_up.html">sign up</a></li>
-              <li><a href="forum.html">forum</a></li>
-              <li><a href="forum_categories.html">forum Categories</a></li>
-              <li><a href="forum_create_topic.html">forum create topic</a></li>
-              <li><a href="forum_single_topic.html">forum single topic</a></li>
-              <li><a href="dashboard.html">Dashboard</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"
-              >blog <i class="far fa-angle-down"></i
-            ></a>
-            <ul class="droap_menu">
-              <li><a href="blogs.html">blog grid view</a></li>
-              <li><a href="blog_list.html">blog list view</a></li>
-              <li><a href="blog_details.html">blog details</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">contact us</a>
           </li>
         </ul>
 
@@ -160,3 +86,27 @@ onMounted(() => {
     </div>
   </div>
 </template>
+<style>
+.main-menu .nav-link {
+  position: relative;
+}
+.main-menu .nav-link::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 4px;
+  background: blue;
+  opacity: 0;
+}
+.main-menu .router-link-active.router-link-exact-active {
+  position: relative;
+  color: var(--colorPrimary) !important;
+  background: transparent;
+}
+.main-menu .router-link-active.router-link-exact-active::before {
+  opacity: 1;
+}
+</style>
