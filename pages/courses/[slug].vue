@@ -280,7 +280,7 @@
                       <div class="col-lg-4 col-md-6">
                         <div class="wsus__courses_instructor_img">
                           <img
-                            src="images/course_instructor_img.jpg"
+                            src="/images/course_instructor_img.jpg"
                             alt="Instructor"
                             class="img-fluid"
                           />
@@ -298,7 +298,7 @@
                             <li>
                               <span
                                 ><img
-                                  src="images/book_icon.png"
+                                  src="/images/book_icon.png"
                                   alt="book"
                                   class="img-fluid"
                               /></span>
@@ -307,7 +307,7 @@
                             <li>
                               <span
                                 ><img
-                                  src="images/user_icon_gray.png"
+                                  src="/images/user_icon_gray.png"
                                   alt="user"
                                   class="img-fluid"
                               /></span>
@@ -321,7 +321,7 @@
                               data-bs-title="Exclusive Author"
                             >
                               <img
-                                src="images/badge_1.png"
+                                src="/images/badge_1.png"
                                 alt="Badge"
                                 class="img-fluid"
                               />
@@ -332,7 +332,7 @@
                               data-bs-title="Top Earning"
                             >
                               <img
-                                src="images/badge_2.png"
+                                src="/images/badge_2.png"
                                 alt="Badge"
                                 class="img-fluid"
                               />
@@ -343,7 +343,7 @@
                               data-bs-title="Trending"
                             >
                               <img
-                                src="images/badge_3.png"
+                                src="/images/badge_3.png"
                                 alt="Badge"
                                 class="img-fluid"
                               />
@@ -354,7 +354,7 @@
                               data-bs-title="2 Years of Membership"
                             >
                               <img
-                                src="images/badge_4.png"
+                                src="/images/badge_4.png"
                                 alt="Badge"
                                 class="img-fluid"
                               />
@@ -365,7 +365,7 @@
                               data-bs-title="Collector Lavel 1"
                             >
                               <img
-                                src="images/badge_5.png"
+                                src="/images/badge_5.png"
                                 alt="Badge"
                                 class="img-fluid"
                               />
@@ -606,7 +606,7 @@
                     <div class="wsus__course_single_reviews">
                       <div class="wsus__single_review_img">
                         <img
-                          src="images/testimonial_user_1.png"
+                          src="/images/testimonial_user_1.png"
                           alt="user"
                           class="img-fluid"
                         />
@@ -635,7 +635,7 @@
                     <div class="wsus__course_single_reviews">
                       <div class="wsus__single_review_img">
                         <img
-                          src="images/testimonial_user_2.png"
+                          src="/images/testimonial_user_2.png"
                           alt="user"
                           class="img-fluid"
                         />
@@ -712,7 +712,7 @@
             <div class="wsus__courses_sidebar">
               <div class="wsus__courses_sidebar_video">
                 <img
-                  src="images/course_sidebar_video_img.jpg"
+                  src="/images/course_sidebar_video_img.jpg"
                   alt="Video"
                   class="img-fluid"
                 />
@@ -723,7 +723,7 @@
                   href="https://youtu.be/sVPYIRF9RCQ?si=labNkx-xlyOWtptr"
                 >
                   <img
-                    src="images/play_icon_white.png"
+                    src="/images/play_icon_white.png"
                     alt="Play"
                     class="img-fluid"
                   />
@@ -738,7 +738,7 @@
                     <p>
                       <span
                         ><img
-                          src="images/clock_icon_black.png"
+                          src="/images/clock_icon_black.png"
                           alt="clock"
                           class="img-fluid"
                       /></span>
@@ -750,7 +750,7 @@
                     <p>
                       <span
                         ><img
-                          src="images/network_icon_black.png"
+                          src="/images/network_icon_black.png"
                           alt="network"
                           class="img-fluid"
                       /></span>
@@ -762,7 +762,7 @@
                     <p>
                       <span
                         ><img
-                          src="images/user_icon_black_2.png"
+                          src="/images/user_icon_black_2.png"
                           alt="User"
                           class="img-fluid"
                       /></span>
@@ -774,7 +774,7 @@
                     <p>
                       <span
                         ><img
-                          src="images/language_icon_black.png"
+                          src="/images/language_icon_black.png"
                           alt="Language"
                           class="img-fluid"
                       /></span>
@@ -817,7 +817,7 @@
                   <li>
                     <span
                       ><img
-                        src="images/video_icon_black.png"
+                        src="/images/video_icon_black.png"
                         alt="video"
                         class="img-fluid"
                     /></span>
@@ -826,7 +826,7 @@
                   <li>
                     <span
                       ><img
-                        src="images/file_download_icon_black.png"
+                        src="/images/file_download_icon_black.png"
                         alt="download"
                         class="img-fluid"
                     /></span>
@@ -835,7 +835,7 @@
                   <li>
                     <span
                       ><img
-                        src="images/certificate_icon_black.png"
+                        src="/images/certificate_icon_black.png"
                         alt="Certificate"
                         class="img-fluid"
                     /></span>
@@ -844,7 +844,7 @@
                   <li>
                     <span
                       ><img
-                        src="images/life_time_icon.png"
+                        src="/images/life_time_icon.png"
                         alt="Certificate"
                         class="img-fluid"
                     /></span>
@@ -856,7 +856,7 @@
                 <div class="image_area d-flex flex-wrap align-items-center">
                   <div class="img">
                     <img
-                      src="images/testimonial_user_1.png"
+                      src="/images/testimonial_user_1.png"
                       alt="Instructor"
                       class="img-fluid"
                     />
@@ -873,7 +873,7 @@
                     data-bs-title="Exclusive Author"
                   >
                     <img
-                      src="images/badge_1.png"
+                      src="/images/badge_1.png"
                       alt="Badge"
                       class="img-fluid"
                     />
@@ -884,7 +884,7 @@
                     data-bs-title="Top Earning"
                   >
                     <img
-                      src="images/badge_2.png"
+                      src="/images/badge_2.png"
                       alt="Badge"
                       class="img-fluid"
                     />
@@ -895,7 +895,7 @@
                     data-bs-title="Trending"
                   >
                     <img
-                      src="images/badge_3.png"
+                      src="/images/badge_3.png"
                       alt="Badge"
                       class="img-fluid"
                     />
@@ -906,7 +906,7 @@
                     data-bs-title="2 Years of Membership"
                   >
                     <img
-                      src="images/badge_4.png"
+                      src="/images/badge_4.png"
                       alt="Badge"
                       class="img-fluid"
                     />
@@ -917,7 +917,7 @@
                     data-bs-title="Collector Lavel 1"
                   >
                     <img
-                      src="images/badge_5.png"
+                      src="/images/badge_5.png"
                       alt="Badge"
                       class="img-fluid"
                     />

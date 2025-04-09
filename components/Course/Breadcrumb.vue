@@ -23,7 +23,7 @@
                 <li>
                   <span
                     ><img
-                      src="images/user_icon_blue.png"
+                      src="/images/user_icon_blue.png"
                       alt="user"
                       class="img-fluid"
                   /></span>
@@ -32,7 +32,7 @@
                 <li>
                   <span
                     ><img
-                      src="images/globe_icon_blue.png"
+                      src="/images/globe_icon_blue.png"
                       alt="Globe"
                       class="img-fluid"
                   /></span>
@@ -41,7 +41,7 @@
                 <li>
                   <span
                     ><img
-                      src="images/calendar_blue.png"
+                      src="/images/calendar_blue.png"
                       alt="Calendar"
                       class="img-fluid"
                   /></span>

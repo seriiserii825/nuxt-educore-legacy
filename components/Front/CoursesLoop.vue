@@ -83,9 +83,7 @@ const props = defineProps({
           </a>
         </div>
         <div class="wsus__single_courses_3_footer">
-          <a class="common_btn" href="#"
-            >Enroll <i class="far fa-arrow-right"></i
-          ></a>
+          <nuxt-link class="common_btn" :to="`/courses/${course.slug}`"> Enroll <i class="far fa-arrow-right"></i > </nuxt-link>
           <p><del v-if="course.discount">${{ course.discount }}</del> ${{course.price}}</p>
         </div>
       </div>
