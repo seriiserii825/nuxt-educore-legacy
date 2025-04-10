@@ -27,7 +27,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+  <div class="layout">
     <UiLoading v-if="loading" />
     <template v-else-if="course">
       <CourseBreadcrumb :course="course" />

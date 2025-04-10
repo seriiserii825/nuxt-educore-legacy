@@ -15,3 +15,10 @@ useHead({
     <slot />
   </div>
 </template>
+<style>
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+</style>
