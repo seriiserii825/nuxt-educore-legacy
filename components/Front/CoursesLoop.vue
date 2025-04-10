@@ -7,6 +7,19 @@ const props = defineProps({
     required: true,
   },
 });
+
+const user = useCookie("user");
+
+async function addToCart(course: TCourse) {
+  try {
+    await axiosInstance.post("/cart", {
+      course_id: course.id,
+    });
+    useSweetAlert("success", "Course added to cart successfully", "ok");
+  } catch (error: any) {
+    handleAxiosError(error, {});
+  }
+}
 </script>
 
 <template>
@@ -18,11 +31,7 @@ const props = defineProps({
     >
       <div class="wsus__single_courses_3">
         <div class="wsus__single_courses_3_img">
-          <img
-            :src="course.thumbnail"
-            alt="Courses"
-            class="img-fluid"
-          />
+          <img :src="course.thumbnail" alt="Courses" class="img-fluid" />
           <ul>
             <li>
               <a href="#">
@@ -33,17 +42,8 @@ const props = defineProps({
                 />
               </a>
             </li>
-            <li>
-              <a href="#">
-                <img
-                  src="/images/compare_icon_black.png"
-                  alt="Compare"
-                  class="img-fluid"
-                />
-              </a>
-            </li>
-            <li>
-              <a href="#">
+            <li v-if="user && user.role == 'student'">
+              <a @click.prevent="addToCart(course)" href="#">
                 <img
                   src="/images/cart_icon_black_2.png"
                   alt="Cart"
@@ -52,7 +52,9 @@ const props = defineProps({
               </a>
             </li>
           </ul>
-          <span class="time"><i class="far fa-clock"></i> {{ course.duration }}</span>
+          <span class="time"
+            ><i class="far fa-clock"></i> {{ course.duration }}</span
+          >
         </div>
         <div class="wsus__single_courses_text_3">
           <div class="rating_area">
@@ -68,7 +70,9 @@ const props = defineProps({
           </div>
           <a class="title" href="#">{{ course.title }}</a>
           <ul>
-            <li v-if="course.lessons_count">{{ course.lessons_count }} Lessons</li>
+            <li v-if="course.lessons_count">
+              {{ course.lessons_count }} Lessons
+            </li>
             <li>38 Student</li>
           </ul>
           <a class="author" href="#">
@@ -83,8 +87,14 @@ const props = defineProps({
           </a>
         </div>
         <div class="wsus__single_courses_3_footer">
-          <nuxt-link class="common_btn" :to="`/courses/${course.slug}`"> Enroll <i class="far fa-arrow-right"></i > </nuxt-link>
-          <p v-if="course.price"><del v-if="course.discount">${{ course.discount }}</del> ${{course.price}}</p>
+          <nuxt-link class="common_btn" :to="`/courses/${course.slug}`">
+            Enroll <i class="far fa-arrow-right"></i>
+          </nuxt-link>
+          <p v-if="course.price">
+            <del v-if="course.discount">${{ course.discount }}</del> ${{
+              course.price
+            }}
+          </p>
           <p v-else>FREE</p>
         </div>
       </div>
