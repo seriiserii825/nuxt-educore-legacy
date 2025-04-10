@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 export default function useSweetAlert(
   icon: string,
   title: string,
-  text: string,
+  text: string = '',
   confirmButtonText: string = "Ok"
 ) {
   Swal.fire({

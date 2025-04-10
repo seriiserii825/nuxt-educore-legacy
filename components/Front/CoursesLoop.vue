@@ -14,6 +14,7 @@ async function addToCart(course: TCourse) {
       course_id: course.id,
     });
     await useGetUserApi();
+    await useGetCart();
     useSweetAlert("success", "Course added to cart successfully", "ok");
   } catch (error: any) {
     handleAxiosError(error, {});

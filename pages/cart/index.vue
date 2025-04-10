@@ -11,6 +11,21 @@ const total = computed(() => {
   });
   return total;
 });
+
+async function deleteCartItem(id: number) {
+  const agree = await useSweetAlertConfirm(
+    "Are you sure?",
+    "You won't be able to revert this!"
+  );
+  if (!agree) return;
+  try {
+    await axiosInstance.delete(`/cart/${id}`);
+    await useGetCart();
+    useSweetAlert("success", "Item removed from cart");
+  } catch (error) {
+    handleAxiosError(error);
+  }
+}
 </script>
 <template>
   <div class="cart">
@@ -57,7 +72,7 @@ const total = computed(() => {
                         </td>
                         <td>
                           <div class="p-4 d-flex align-items-center gap-4">
-                            <div style="flex: 0 0 50px;">
+                            <div style="flex: 0 0 50px">
                               <img
                                 :src="item.course.instructor.image"
                                 class="img-fluid rounded-circle"
@@ -68,7 +83,7 @@ const total = computed(() => {
                           </div>
                         </td>
                         <td class="pro_icon">
-                          <a href="#"
+                          <a @click.pevent="deleteCartItem(item.id)" href="#"
                             ><i class="fal fa-times" aria-hidden="true"></i
                           ></a>
                         </td>
@@ -99,10 +114,16 @@ const total = computed(() => {
             style="visibility: visible; animation-name: fadeInUp"
           >
             <div class="total_price">
-              <h4>total<span>${{ total }}.00</span></h4>
+              <h4>
+                total<span>${{ total }}.00</span>
+              </h4>
               <div class="subtotal_area">
-                <h5>Subtotal<span>${{ total }}.00</span></h5>
-                <nuxt-link to="/checkout" class="common_btn">proceed checkout</nuxt-link>
+                <h5>
+                  Subtotal<span>${{ total }}.00</span>
+                </h5>
+                <nuxt-link to="/checkout" class="common_btn"
+                  >proceed checkout</nuxt-link
+                >
               </div>
             </div>
           </div>

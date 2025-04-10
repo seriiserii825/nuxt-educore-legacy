@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useHead } from "#imports";
-import {useUserStore} from "~/store/useUserStore";
 
 useHead({
   link: [
@@ -11,15 +10,8 @@ useHead({
   ],
 });
 
-const user_store = useUserStore();
-
 async function getCart(){
-  try {
-  const data = await axiosInstance.get("/cart");
-  user_store.setCart(data.data);
-  } catch (error) {
-   handleAxiosError(error); 
-  }
+  await useGetCart();
 }
 
 onMounted(() => {
