@@ -1,3 +1,5 @@
+import type {TCourse} from "./TCourse";
+
 export type TUser = {
   id: number;
   name: string;
@@ -18,13 +20,13 @@ export type TUser = {
   linkedin: string;
   website: string;
   github: string;
-  cart: TUserCartItem[];
 };
 
-interface TUserCartItem {
+export type TCart = {
   id: number;
   user_id: number;
   course_id: number;
   created_at: string;
   updated_at: string;
+  course: TCourse;
 }

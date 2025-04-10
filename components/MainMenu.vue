@@ -2,7 +2,7 @@
 import { useUserStore } from "~/store/useUserStore";
 
 const user_store = useUserStore();
-const { user } = storeToRefs(user_store);
+const { user, cart } = storeToRefs(user_store);
 const dashboard_link = ref("");
 
 onMounted(() => {
@@ -45,7 +45,7 @@ onMounted(() => {
             <img src="/images/search_icon.png" alt="Search" class="img-fluid" />
           </div>
           <ul class="d-flex gap-3">
-            <li v-if="user && user.cart">
+            <li v-if="cart">
               <nuxt-link class="menu_signin" to="/cart">
                 <span>
                   <img
@@ -54,7 +54,7 @@ onMounted(() => {
                     class="img-fluid"
                     />
                 </span>
-                <b>{{ user.cart.length }}</b>
+                <b>{{ cart.length }}</b>
               </nuxt-link>
             </li>
             <li if="user && user.email">
