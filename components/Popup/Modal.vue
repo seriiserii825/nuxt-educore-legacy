@@ -18,6 +18,29 @@ const closeModal = () => {
 defineExpose({ openModal, closeModal });
 </script>
 
+<template>
+  <Teleport to="body">
+    <Transition name="fade">
+      <div v-if="isOpen" class="modal-overlay" @click="closeModal">
+        <div class="modal-content" @click.stop>
+          <div class="modal-header">
+            <button
+              @click="closeModal"
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <component :is="modalContent" v-bind="modalProps" />
+          </div>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
+</template>
+
 <style scoped>
 .modal-overlay {
   position: fixed;
@@ -67,26 +90,3 @@ defineExpose({ openModal, closeModal });
   opacity: 0;
 }
 </style>
-<template>
-  <Teleport to="body">
-    <Transition name="fade">
-      <div v-if="isOpen" class="modal-overlay" @click="closeModal">
-        <div class="modal-content" @click.stop>
-          <div class="modal-header">
-            <button
-              @click="closeModal"
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <component :is="modalContent" v-bind="modalProps" />
-          </div>
-        </div>
-      </div>
-    </Transition>
-  </Teleport>
-</template>
-

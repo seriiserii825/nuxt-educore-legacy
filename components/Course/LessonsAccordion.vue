@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { TChapterLessons } from "~/types/TChapterLessons";
-
+import type {TLesson} from "~/types/TLesson";
+import VideoPopup from "../Popup/VideoPopup.vue";
+const openModal = inject("openModal");
 const props = defineProps({
   item: {
     type: Object as PropType<TChapterLessons>,
@@ -13,6 +15,17 @@ const props = defineProps({
 });
 
 const active = ref(false);
+
+function showVideo(item: TLesson){
+  // // if item.filepath contains youtube link open in new tab
+  // if (item.file_path.includes("youtube.com")) {
+  //   window.open(item.file_path, "_blank");
+  //   return;
+  // }
+  // @ts-ignore
+  openModal(VideoPopup, { youtube: item.file_path });
+}
+
 onMounted(() => {
   if (props.opened) {
     active.value = true;
@@ -41,7 +54,7 @@ onMounted(() => {
             :key="lesson.id"
           >
             <p>{{ lesson.title }}</p>
-            <span v-if="lesson.is_preview" class="right_text">Preview</span>
+            <a href="#" v-if="lesson.is_preview" @click.prevent="showVideo(lesson)" class="right_text">Preview</a>
             <span v-else class="right_text">{{ useMinuteToTime(parseInt(lesson.duration)) }} min</span>
           </li>
         </ul>
