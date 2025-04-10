@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import useLogout from '~/composable/useLogout';
-onMounted(() => {
-  useLogout();
+onMounted( async () => {
+  await useLogout();
+  await useGetCart();
+  useSweetAlert(
+    'success',
+    'Logout Successfully',
+    'You have been logged out successfully'
+  );
 });
 </script>
 

@@ -1,9 +1,9 @@
 import { useUserStore } from "~/store/useUserStore";
 
-export default function useLogout() {
+export default async function useLogout() {
   const router = useRouter();
   const user_store = useUserStore();
-  axiosInstance
+  await axiosInstance
     .post("/logout")
     .then(() => {
       const cookie_user = useCookie("user");

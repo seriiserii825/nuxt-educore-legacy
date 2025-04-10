@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { useUserStore } from "~/store/useUserStore";
+definePageMeta({
+  middleware: ["student"],
+});
 const user_store = useUserStore();
 const { cart } = storeToRefs(user_store);
 
