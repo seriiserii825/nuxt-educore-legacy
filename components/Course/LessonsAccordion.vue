@@ -6,9 +6,18 @@ const props = defineProps({
     type: Object as PropType<TChapterLessons>,
     required: true,
   },
+  opened: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const active = ref(false);
+onMounted(() => {
+  if (props.opened) {
+    active.value = true;
+  }
+});
 </script>
 
 <template>
@@ -29,6 +38,10 @@ const active = ref(false);
           <li class="active" v-for="lesson in item.lessons" :key="lesson.id">
             <p>{{ lesson.title }}</p>
             <span class="right_text">Preview</span>
+          </li>
+          <li>
+            <a href="">User Experience Fundamentals Course</a>
+            <span class="right_text">24 minutes</span>
           </li>
         </ul>
       </div>

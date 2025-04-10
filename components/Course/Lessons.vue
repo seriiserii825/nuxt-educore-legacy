@@ -41,9 +41,10 @@ onMounted(() => {
       id="accordionExample"
     >
       <CourseLessonsAccordion
-        v-for="item in chapter_lessons"
+        v-for="(item, index) in chapter_lessons"
         :key="item.chapter.id"
         :item="item"
+        :opened="index === 0"
       />
     </div>
   </div>
