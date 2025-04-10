@@ -42,7 +42,7 @@ async function addToCart(course: TCourse) {
                 />
               </a>
             </li>
-            <li v-if="user && user.role == 'student'">
+            <li>
               <a @click.prevent="addToCart(course)" href="#">
                 <img
                   src="/images/cart_icon_black_2.png"

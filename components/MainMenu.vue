@@ -45,15 +45,20 @@ onMounted(() => {
             <img src="/images/search_icon.png" alt="Search" class="img-fluid" />
           </div>
           <ul class="d-flex gap-3">
-            <li if="user && user.email">
-              <span class="admin d-flex">
+            <li if="user">
+              <nuxt-link class="menu_signin" to="/cart">
                 <span>
                   <img
-                    src="/images/user_icon_black.png"
+                    src="/images/cart_icon_black.png"
                     alt="user"
                     class="img-fluid"
-                  />
+                    />
                 </span>
+                <b v-if="user">{{ user.cart.length }}</b>
+              </nuxt-link>
+            </li>
+            <li if="user && user.email">
+              <span class="admin d-flex">
                 <span style="text-transform: lowercase; width: auto">{{
                   user && user.email
                 }}</span>
