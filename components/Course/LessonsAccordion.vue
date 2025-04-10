@@ -35,13 +35,14 @@ onMounted(() => {
     <div class="accordion-collapse collapse" :class="{ show: active }">
       <div v-if="item.lessons && item.lessons.length" class="accordion-body">
         <ul>
-          <li class="active" v-for="lesson in item.lessons" :key="lesson.id">
+          <li
+            :class="{ active: lesson.is_preview }"
+            v-for="lesson in item.lessons"
+            :key="lesson.id"
+          >
             <p>{{ lesson.title }}</p>
-            <span class="right_text">Preview</span>
-          </li>
-          <li>
-            <a href="">User Experience Fundamentals Course</a>
-            <span class="right_text">24 minutes</span>
+            <span v-if="lesson.is_preview" class="right_text">Preview</span>
+            <span v-else class="right_text">24 minutes</span>
           </li>
         </ul>
       </div>
