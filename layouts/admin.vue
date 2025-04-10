@@ -12,7 +12,7 @@ useHead({
     },
     { rel: "stylesheet", href: "/dist/css/tabler-vendors.min.css?1692870487" },
     { rel: "stylesheet", href: "/dist/css/demo.min.css?1692870487" },
-    { rel: "stylesheet", href: "/css/style.css" },
+    { rel: "stylesheet", href: "/style.css" },
   ],
   script: [
     // { src: "/dist/js/demo-theme.min.js?1692870487" },

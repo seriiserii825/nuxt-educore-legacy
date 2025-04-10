@@ -9,7 +9,7 @@ useHead({
     { rel: "stylesheet", href: "/dist/css/demo.min.css?1692870487" },
     { rel: "stylesheet", href: "/css/all.min.css" },
     { rel: "stylesheet", href: "/css/bootstrap.min.css" },
-    { rel: "stylesheet", href: "/css/style.css" },
+    { rel: "stylesheet", href: "/style.css" },
     { rel: "stylesheet", href: "/css/responsive.css" },
   ],
 });
