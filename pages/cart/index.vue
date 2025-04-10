@@ -1,11 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from "~/store/useUserStore";
+
+const user_store = useUserStore();
+const { user } = storeToRefs(user_store);
+</script>
 
 <template>
   <div class="cart">
-    <UiBreadcrumb
-      image="/images/breadcrumb_bg.jpg"
-      title="Shopping Cart"
-      />
+    <UiBreadcrumb image="/images/breadcrumb_bg.jpg" title="Shopping Cart" />
     <section class="p-6 wsus__cart_view mt_120 xs_mt_100 pb_120 xs_pb_100">
       <div class="container">
         <div class="row">
@@ -24,140 +26,45 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td class="pro_img">
-                        <img
-                          src="/images/course_product_img_1.jpg"
-                          alt="product"
-                          class="img-fluid w-100"
-                        />
-                      </td>
-                      <td class="pro_name">
-                        <a href="#">Life Child No Plan B</a>
-                      </td>
-                      <td class="pro_tk">
-                        <h6>$99.00</h6>
-                      </td>
-                      <td class="pro_select">
-                        <div class="quentity_btn">
-                          <button class="btn btn-danger">
-                            <i class="fal fa-minus" aria-hidden="true"></i>
-                          </button>
-                          <input type="text" placeholder="1" />
-                          <button class="btn btn-success">
-                            <i class="fal fa-plus" aria-hidden="true"></i>
-                          </button>
-                        </div>
-                      </td>
-                      <td class="pro_tk">
-                        <h6>$99.00</h6>
-                      </td>
-                      <td class="pro_icon">
-                        <a href="#"
-                          ><i class="fal fa-times" aria-hidden="true"></i
-                        ></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="pro_img">
-                        <img
-                          src="/images/course_product_img_2.jpg"
-                          alt="product"
-                          class="img-fluid w-100"
-                        />
-                      </td>
-                      <td class="pro_name">
-                        <a href="#">Mitch Rapp Novel Kyle</a>
-                      </td>
-                      <td class="pro_tk">
-                        <h6>$59.00</h6>
-                      </td>
-                      <td class="pro_select">
-                        <div class="quentity_btn">
-                          <button>
-                            <i class="fal fa-minus" aria-hidden="true"></i>
-                          </button>
-                          <input type="text" placeholder="2" />
-                          <button>
-                            <i class="fal fa-plus" aria-hidden="true"></i>
-                          </button>
-                        </div>
-                      </td>
-                      <td class="pro_tk">
-                        <h6>$118.00</h6>
-                      </td>
-                      <td class="pro_icon">
-                        <a href="#"
-                          ><i class="fal fa-times" aria-hidden="true"></i
-                        ></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="pro_img">
-                        <img
-                          src="/images/course_product_img_3.jpg"
-                          alt="product"
-                          class="img-fluid w-100"
-                        />
-                      </td>
-                      <td class="pro_name">
-                        <a href="#">Run For Life Stephen</a>
-                      </td>
-                      <td class="pro_tk">
-                        <h6>$45.00</h6>
-                      </td>
-                      <td class="pro_select">
-                        <div class="quentity_btn">
-                          <button>
-                            <i class="fal fa-minus" aria-hidden="true"></i>
-                          </button>
-                          <input type="text" placeholder="3" />
-                          <button>
-                            <i class="fal fa-plus" aria-hidden="true"></i>
-                          </button>
-                        </div>
-                      </td>
-                      <td class="pro_tk">
-                        <h6>$135.00</h6>
-                      </td>
-                      <td class="pro_icon">
-                        <a href="#"
-                          ><i class="fal fa-times" aria-hidden="true"></i
-                        ></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="pro_img">
-                        <img
-                          src="/images/course_product_img_4.jpg"
-                          alt="product"
-                          class="img-fluid w-100"
-                        />
-                      </td>
-                      <td class="pro_name">
-                        <a href="#">The Hidden Curriculum</a>
-                      </td>
-                      <td class="pro_tk">
-                        <h6>$49.00</h6>
-                      </td>
-                      <td class="pro_select">
-                        <div class="quentity_btn">
-                          <button>
-                            <i class="fal fa-minus" aria-hidden="true"></i>
-                          </button>
-                          <input type="text" placeholder="2" />
-                          <button>
-                            <i class="fal fa-plus" aria-hidden="true"></i>
-                          </button>
-                        </div>
-                      </td>
-                      <td class="pro_tk">
-                        <h6>$98.00</h6>
-                      </td>
-                      <td class="pro_icon">
-                        <a href="#"
-                          ><i class="fal fa-times" aria-hidden="true"></i
-                        ></a>
+                    <template v-if="user && user.cart.length">
+                      <tr>
+                        <td class="pro_img">
+                          <img
+                            src="/images/course_product_img_1.jpg"
+                            alt="product"
+                            class="img-fluid w-100"
+                          />
+                        </td>
+                        <td class="pro_name">
+                          <a href="#">Life Child No Plan B</a>
+                        </td>
+                        <td class="pro_tk">
+                          <h6>$99.00</h6>
+                        </td>
+                        <td class="pro_select">
+                          <div class="quentity_btn">
+                            <button class="btn btn-danger">
+                              <i class="fal fa-minus" aria-hidden="true"></i>
+                            </button>
+                            <input type="text" placeholder="1" />
+                            <button class="btn btn-success">
+                              <i class="fal fa-plus" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </td>
+                        <td class="pro_tk">
+                          <h6>$99.00</h6>
+                        </td>
+                        <td class="pro_icon">
+                          <a href="#"
+                            ><i class="fal fa-times" aria-hidden="true"></i
+                          ></a>
+                        </td>
+                      </tr>
+                    </template>
+                    <tr v-else>
+                      <td colspan="6" class="text-center">
+                        <h4 class="text-danger p-8">Your cart is empty</h4>
                       </td>
                     </tr>
                   </tbody>
@@ -166,11 +73,8 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-between">
-          <div
-            class="col-xxl-7 col-md-5 col-lg-6 wow fadeInUp"
-            style="visibility: visible; animation-name: fadeInUp"
-          >
+        <div class="row justify-content-between" v-if="user && user.cart.length">
+          <div class="col-xxl-7 col-md-5 col-lg-6 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp">
             <div class="continue_shopping">
               <a href="#" class="common_btn">continue shopping</a>
             </div>

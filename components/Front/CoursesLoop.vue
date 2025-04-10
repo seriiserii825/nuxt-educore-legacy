@@ -8,13 +8,12 @@ const props = defineProps({
   },
 });
 
-const user = useCookie("user");
-
 async function addToCart(course: TCourse) {
   try {
     await axiosInstance.post("/cart", {
       course_id: course.id,
     });
+    await useGetUserApi();
     useSweetAlert("success", "Course added to cart successfully", "ok");
   } catch (error: any) {
     handleAxiosError(error, {});

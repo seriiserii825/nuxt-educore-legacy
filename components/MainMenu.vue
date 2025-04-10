@@ -45,7 +45,7 @@ onMounted(() => {
             <img src="/images/search_icon.png" alt="Search" class="img-fluid" />
           </div>
           <ul class="d-flex gap-3">
-            <li if="user">
+            <li v-if="user && user.cart">
               <nuxt-link class="menu_signin" to="/cart">
                 <span>
                   <img
@@ -54,7 +54,7 @@ onMounted(() => {
                     class="img-fluid"
                     />
                 </span>
-                <b v-if="user">{{ user.cart.length }}</b>
+                <b>{{ user.cart.length }}</b>
               </nuxt-link>
             </li>
             <li if="user && user.email">
