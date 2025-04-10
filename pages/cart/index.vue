@@ -6,15 +6,6 @@ definePageMeta({
 const user_store = useUserStore();
 const { cart } = storeToRefs(user_store);
 
-const total = computed(() => {
-  let total = 0;
-  if (!cart.value) return total;
-  cart.value.forEach((item) => {
-    total += item.course.discount ? item.course.discount : item.course.price;
-  });
-  return total;
-});
-
 async function deleteCartItem(id: number) {
   const agree = await useSweetAlertConfirm(
     "Are you sure?",
@@ -114,12 +105,12 @@ async function deleteCartItem(id: number) {
             style="visibility: visible; animation-name: fadeInUp"
           >
             <div class="total_price">
-              <h4>
-                total<span>${{ total }}.00</span>
+              <h4 v-if="cart">
+                total<span>${{ useCartTotal(cart) }}.00</span>
               </h4>
               <div class="subtotal_area">
-                <h5>
-                  Subtotal<span>${{ total }}.00</span>
+                <h5 v-if="cart">
+                  Subtotal<span>${{ useCartTotal(cart) }}.00</span>
                 </h5>
                 <nuxt-link to="/checkout" class="common_btn"
                   >proceed checkout</nuxt-link
