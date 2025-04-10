@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import { useUserStore } from "~/store/useUserStore";
-
 const user_store = useUserStore();
 const { cart } = storeToRefs(user_store);
-</script>
 
+const total = computed(() => {
+  let total = 0;
+  if (!cart.value) return total;
+  cart.value.forEach((item) => {
+    total += item.course.discount ? item.course.discount : item.course.price;
+  });
+  return total;
+});
+</script>
 <template>
   <div class="cart">
     <UiBreadcrumb image="/images/breadcrumb_bg.jpg" title="Shopping Cart" />
@@ -20,17 +27,18 @@ const { cart } = storeToRefs(user_store);
                       <th class="pro_img">Product</th>
                       <th class="pro_name"></th>
                       <th class="pro_tk">Price</th>
+                      <th class="pro_tk">Instructor</th>
                       <th class="pro_icon">Remove</th>
                     </tr>
                   </thead>
                   <tbody>
                     <template v-if="cart && cart.length">
                       <tr v-for="item in cart" :key="item.id">
-                        <td class="pro_img">
+                        <td>
                           <img
                             :src="item.course.thumbnail"
+                            :width="80"
                             alt="product"
-                            class="img-fluid w-100"
                           />
                         </td>
                         <td class="pro_name">
@@ -46,6 +54,18 @@ const { cart } = storeToRefs(user_store);
                                 : item.course.price
                             }}
                           </h6>
+                        </td>
+                        <td>
+                          <div class="p-4 d-flex align-items-center gap-4">
+                            <div style="flex: 0 0 50px;">
+                              <img
+                                :src="item.course.instructor.image"
+                                class="img-fluid rounded-circle"
+                                alt="instructor"
+                              />
+                            </div>
+                            <h6>{{ item.course.instructor.name }}</h6>
+                          </div>
                         </td>
                         <td class="pro_icon">
                           <a href="#"
@@ -79,13 +99,10 @@ const { cart } = storeToRefs(user_store);
             style="visibility: visible; animation-name: fadeInUp"
           >
             <div class="total_price">
-              <h4>total<span>$999.00</span></h4>
+              <h4>total<span>${{ total }}.00</span></h4>
               <div class="subtotal_area">
-                <h5>Subtotal<span>$999.00</span></h5>
-                <h6>Shipping Address</h6>
-                <p>2801 Lafayette Blvd, Norfolk, Vermont 23509, united state</p>
-                <h5>Subtotal<span>$999.00</span></h5>
-                <a href="checkout.html" class="common_btn">proceed checkout</a>
+                <h5>Subtotal<span>${{ total }}.00</span></h5>
+                <nuxt-link to="/checkout" class="common_btn">proceed checkout</nuxt-link>
               </div>
             </div>
           </div>
@@ -94,5 +111,4 @@ const { cart } = storeToRefs(user_store);
     </section>
   </div>
 </template>
-
 <style lang="scss"></style>
