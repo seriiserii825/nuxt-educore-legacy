@@ -42,7 +42,7 @@ onMounted(() => {
           >
             <p>{{ lesson.title }}</p>
             <span v-if="lesson.is_preview" class="right_text">Preview</span>
-            <span v-else class="right_text">24 minutes</span>
+            <span v-else class="right_text">{{ useMinuteToTime(parseInt(lesson.duration)) }} min</span>
           </li>
         </ul>
       </div>
