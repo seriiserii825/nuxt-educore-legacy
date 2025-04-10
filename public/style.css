@@ -15804,6 +15804,21 @@ footer {
 .pb-10 {
   padding-bottom: 10rem !important;
 }
+.p-6 {
+  padding: 6rem 0;
+}
+.p-7 {
+  padding: 7rem 0;
+}
+.p-8 {
+  padding: 8rem 0;
+}
+.p-9 {
+  padding: 9rem 0;
+}
+.p-10 {
+  padding: 10rem 0;
+}
 
 .btn {
   --tblr-btn-padding-y: 0.3625rem;
