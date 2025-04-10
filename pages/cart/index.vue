@@ -63,11 +63,8 @@ async function deleteCartItem(id: number) {
                         </td>
                         <td class="pro_tk">
                           <h6>
-                            ${{
-                              item.course.discount
-                                ? item.course.discount
-                                : item.course.price
-                            }}
+                            <span v-if="item.course.discount" style="text-decoration: line-through;">{{ item.course.discount }}</span>
+                            ${{ item.course.price }}
                           </h6>
                         </td>
                         <td>
