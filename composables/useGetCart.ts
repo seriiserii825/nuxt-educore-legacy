@@ -11,6 +11,6 @@ export default async function useGetCart() {
     }
   } catch (error) {
     user_store.setCart([]);
-    handleAxiosError(error);
+    // handleAxiosError(error);
   }
 }
