@@ -11,10 +11,34 @@ const current_active = ref(0);
     <div class="container">
       <div class="row">
         <div class="col-md-3">
-          <button :class="{'active': current_active == 0}" @click="current_active = 0" class="link d-block mb-2">Button</button>
-          <button :class="{'active': current_active == 1}" @click="current_active = 1" class="link d-block mb-2">Checkbox</button>
+          <button
+            :class="{ active: current_active == 0 }"
+            @click="current_active = 0"
+            class="link d-block mb-2"
+          >
+            Button
+          </button>
+          <button
+            :class="{ active: current_active == 1 }"
+            @click="current_active = 1"
+            class="link d-block mb-2"
+          >
+            Checkbox
+          </button>
         </div>
-        <div class="col-md-9">Content</div>
+        <div class="col-md-9">
+          <div v-if="current_active === 0">
+            <StyleguidePreviewCode>
+              <template #default>
+                <button class="btn btn-primary">Primary Button</button>
+              </template>
+              <template #code>
+                &lt;button class="btn btn-primary"&gt;Primary
+                Button&lt;/button&gt;
+              </template>
+            </StyleguidePreviewCode>
+          </div>
+        </div>
       </div>
     </div>
   </div>
