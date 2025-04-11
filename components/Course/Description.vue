@@ -13,6 +13,6 @@ const props = defineProps({
 <template>
   <div class="wsus__courses_overview box_area">
     <h3 class="mb-4">Course Description</h3>
-    <div v-html="course.description"></div>
+    <div v-html="$md.render(course.description)"></div>
   </div>
 </template>

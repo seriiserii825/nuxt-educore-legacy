@@ -995,6 +995,16 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@nuxt-alt/markdown-it@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@nuxt-alt/markdown-it/-/markdown-it-0.0.2.tgz#ce62e0c11c708a9a4cd765a2c62d1ba084395bc2"
+  integrity sha512-aepXSyg0ZJtFdqumbsjEYLNaGmVVuqq+clL/nOLWfPvf9NU0qQtr5+VsUUDRyclTcN52W02yjKxhWM6nXcjafA==
+  dependencies:
+    "@nuxt/kit" "^3.9.1"
+    "@refactorjs/serialize" "^1.0.7"
+    defu "^6.1.4"
+    markdown-it "^14.0.0"
+
 "@nuxt/cli@^3.24.0":
   version "3.24.1"
   resolved "https://registry.yarnpkg.com/@nuxt/cli/-/cli-3.24.1.tgz#7a864e3133506859254547dc221fab2f11b852a6"
@@ -1091,7 +1101,7 @@
     which "^5.0.0"
     ws "^8.18.1"
 
-"@nuxt/kit@3.16.2", "@nuxt/kit@^3.15.4", "@nuxt/kit@^3.16.1", "@nuxt/kit@^3.9.0":
+"@nuxt/kit@3.16.2", "@nuxt/kit@^3.15.4", "@nuxt/kit@^3.16.1", "@nuxt/kit@^3.9.0", "@nuxt/kit@^3.9.1":
   version "3.16.2"
   resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.16.2.tgz#9fbb2ef3bd9ebeb499b4cc5215e2f857c54b75d7"
   integrity sha512-K1SAUo2vweTfudKZzjKsZ5YJoxPLTspR5qz5+G61xtZreLpsdpDYfBseqsIAl5VFLJuszeRpWQ01jP9LfQ6Ksw==
@@ -1390,6 +1400,11 @@
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@poppinss/exception/-/exception-1.2.1.tgz#8a5f2120fabb64a99772166d537d8a97490209ff"
   integrity sha512-aQypoot0HPSJa6gDPEPTntc1GT6QINrSbgRlRhadGW2WaYqUK3tK4Bw9SBMZXhmxd3GeAlZjVcODHgiu+THY7A==
+
+"@refactorjs/serialize@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@refactorjs/serialize/-/serialize-1.0.7.tgz#413bc69ff7bc8790859bd4e46a9be9e8608a07c4"
+  integrity sha512-6fdXkxp06pZ/E8YjxxCBm0gF234VadKvma2ut1vNkG991IDOnCr0DjIlxKmB44yg0hSMYfiG9s6rMOKg03WDSg==
 
 "@rollup/plugin-alias@^5.1.1":
   version "5.1.1"
