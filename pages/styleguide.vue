@@ -58,6 +58,13 @@ onMounted(() => {
           >
           Select Group
           </button>
+          <button
+            :class="{ active: current_active == 6 }"
+            @click="current_active = 6"
+            class="link d-block mb-2"
+          >
+          File upload
+          </button>
         </div>
         <div class="col-md-9">
           <div v-if="current_active === 0">
@@ -77,6 +84,9 @@ onMounted(() => {
           </div>
           <div v-if="current_active === 5">
             <StyleguideSelectGroup />
+          </div>
+          <div v-if="current_active === 6">
+            <StyleguideFileUpload />
           </div>
         </div>
       </div>
