@@ -12,6 +12,8 @@ import {
   StyleguideTextarea,
 } from "#components";
 
+const router = useRouter();
+
 const current_active = ref(0);
 const layout = ref<HTMLElement | null>(null);
 
@@ -27,6 +29,10 @@ const components = [
   { name: "Select Group", component: StyleguideSelectGroup },
   { name: "File upload", component: StyleguideFileUpload },
 ];
+
+function goBack() {
+  router.back();
+}
 
 onMounted(() => {
   if (layout.value) {
@@ -56,6 +62,9 @@ onMounted(() => {
           </div>
         </div>
         <div class="col-md-9">
+          <div class="d-flex justify-content-end p-4">
+            <FormBtn @emit_click="goBack">Back</FormBtn>
+          </div>
           <component :is="components[current_active].component" />
         </div>
       </div>
