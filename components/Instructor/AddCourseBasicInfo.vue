@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type {TCourse} from "~/types/TCourse";
+import type { TCourse } from "~/types/TCourse";
 import { demo_video_storage_options } from "../data/demo_video_storage_options";
+import { ref } from "vue";
 const props = defineProps({
   update: {
     type: Boolean,
@@ -15,6 +16,7 @@ const router = useRouter();
 const route = useRoute();
 const form = ref({
   title: "",
+  description: "",
   seo_description: "",
   thumbnail: "",
   demo_video_storage: "",
@@ -35,6 +37,7 @@ function videoStorageChange(value: string) {
 async function setCourse() {
   if (!props.course) return;
   form.value.title = props.course.title;
+  form.value.description = props.course.description;
   form.value.seo_description = props.course.seo_description;
   form.value.thumbnail = props.course.thumbnail;
   form.value.demo_video_storage = props.course.demo_video_storage;
@@ -110,6 +113,13 @@ onMounted(async () => {
           label="SEO Description *"
           v-model:value="form.seo_description"
           :errors="errors ? errors.seo_description : []"
+        />
+      </div>
+      <div class="mb-3 col-xl-12">
+        <WysiwygEditor
+          label="Description *"
+          v-model:value="form.description"
+          :errors="errors ? errors.description : []"
         />
       </div>
       <div class="mb-3 col-xl-6">
