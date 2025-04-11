@@ -44,6 +44,13 @@ onMounted(() => {
           >
           Input
           </button>
+          <button
+            :class="{ active: current_active == 4 }"
+            @click="current_active = 4"
+            class="link d-block mb-2"
+          >
+          Select
+          </button>
         </div>
         <div class="col-md-9">
           <div v-if="current_active === 0">
@@ -57,6 +64,9 @@ onMounted(() => {
           </div>
           <div v-if="current_active === 3">
             <StyleguideInput />
+          </div>
+          <div v-if="current_active === 4">
+            <StyleguideSelect />
           </div>
         </div>
       </div>
