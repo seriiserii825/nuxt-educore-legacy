@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import {useUserStore} from '~/store/useUserStore';
+import { useUserStore } from "~/store/useUserStore";
 
 definePageMeta({
   middleware: ["student"],
 });
 const use_store = useUserStore();
-const {user, cart} = storeToRefs(use_store);
+const { order, cart } = storeToRefs(use_store);
+console.log(order.value, "order.value");
 </script>
 
 <template>
@@ -190,9 +191,13 @@ const {user, cart} = storeToRefs(use_store);
           </div>
           <div class="col-xl-4 col-lg-5 wow fadeInUp">
             <div class="total_payment_price">
-              <h4 v-if="cart">Total Cart <span>({{ cart.length }})</span></h4>
+              <h4 v-if="cart">
+                Total Cart <span>({{ cart.length }})</span>
+              </h4>
               <ul>
-                <li v-if="cart">Subtotal :<span>${{ useCartTotal(cart) }}</span></li>
+                <li v-if="cart">
+                  Subtotal :<span>${{ useCartTotal(cart) }}</span>
+                </li>
               </ul>
               <a href="#" class="common_btn">now payment</a>
             </div>

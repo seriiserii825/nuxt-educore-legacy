@@ -1,11 +1,16 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import type { TCart, TUser } from "~/types/TUser";
+import type {TOrder} from "~/types/TOrder";
 export const useUserStore = defineStore("user", () => {
   const user = ref<TUser | null>(null);
   const cart = ref<TCart[] | null>(null);
   const setCart = (new_cart: TCart[]) => {
     cart.value = new_cart;
+  }
+  const order = ref<TOrder | null>(null);
+  function setOrder(new_order: TOrder) {
+    order.value = new_order;
   }
   return {
     user,
@@ -13,6 +18,8 @@ export const useUserStore = defineStore("user", () => {
       user.value = newUser;
     },
     cart,
-    setCart
+    setCart,
+    order,
+    setOrder,
   };
 });
