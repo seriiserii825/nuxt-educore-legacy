@@ -20,7 +20,7 @@ const errors = ref();
 />
 `;
 
-const title = ref("");
+const title = ref("title");
 const errors = ref();
 
 const source = `
