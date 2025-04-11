@@ -14,12 +14,7 @@ var(--contrast)
 `;
 
 function onClick(variable: string){
-// copy to clipboard
-  navigator.clipboard.writeText(variable).then(() => {
-    useSweetAlert('success', 'Copied to clipboard', variable);
-  }).catch(err => {
-    useSweetAlert('error', 'Failed to copy', err);
-  });
+  useCopyToClipboard(variable);
 }
 </script>
 
@@ -28,7 +23,7 @@ function onClick(variable: string){
     <StyleguidePreviewCode>
       <template #default>
         <div
-          style="width: 30px; height: 30px; background-color: var(--accent)"
+          style="width: 30px; height: 30px; background-color: var(--accent); cursor: pointer;"
           title="var(--accent)"
           @click="onClick('var(--accent)')"
         ></div>
@@ -36,7 +31,7 @@ function onClick(variable: string){
           style="
             width: 30px;
             height: 30px;
-            background-color: var(--accent-light);
+            background-color: var(--accent-light); cursor: pointer;
           "
           title="var(--accent-light)"
           @click="onClick('var(--accent-light)')"
@@ -46,12 +41,13 @@ function onClick(variable: string){
             width: 30px;
             height: 30px;
             background-color: var(--accent-dark);
+            cursor: pointer;
           "
           title="var(--accent-dark)"
           @click="onClick('var(--accent-dark)')"
         ></div>
         <div
-          style="width: 30px; height: 30px; background-color: var(--contrast)"
+          style="width: 30px; height: 30px; background-color: var(--contrast); cursor: pointer;"
           title="var(--contrast)"
           @click="onClick('var(--contrast)')"
         ></div>
