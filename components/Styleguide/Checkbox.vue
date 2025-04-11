@@ -1,4 +1,25 @@
 <script setup lang="ts">
+const code = `
+const form = ref({
+  qna: false,
+});
+const errors = ref({});
+
+<FormCheckbox
+  label="Checkbox label"
+  v-model:value="form.qna"
+  :errors="errors ? errors.qna : []"
+  name="qna"
+  @emit_checkbox="form.qna = $event"
+/>
+`;
+
+const form = ref({
+  qna: false,
+});
+const errors = ref();
+
+const source = `
 const emits = defineEmits(['emit_checkbox'])
 const props = defineProps({
   label: {
@@ -23,8 +44,7 @@ function emitCheckbox(event: Event) {
   const target = event.target as HTMLInputElement;
   emits('emit_checkbox', target.checked);
 }
-</script>
-<template>
+
   <div class="checkbox">
     <label class="form-check">
       <input
@@ -45,13 +65,30 @@ function emitCheckbox(event: Event) {
       </p>
     </div>
   </div>
-</template>
-<style>
-.form-check {
-  display: flex;
-  gap: 10px;
-}
 .checkbox {
   margin-bottom: 1.6rem;
 }
-</style>
+`;
+</script>
+
+<template>
+  <div class="buttons">
+    <StyleguidePreviewCode>
+      <template #default>
+        <FormCheckbox
+          label="Checkbox label"
+          v-model:value="form.qna"
+          :errors="errors ? errors.qna : []"
+          name="qna"
+          @emit_checkbox="form.qna = $event"
+        />
+      </template>
+      <template #code>
+        {{ code }}
+      </template>
+      <template #source>
+        {{ source }}
+      </template>
+    </StyleguidePreviewCode>
+  </div>
+</template>

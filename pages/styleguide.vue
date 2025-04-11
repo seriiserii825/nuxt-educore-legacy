@@ -12,7 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="layout pt-10" ref="layout">
+  <div class="layout pt-10 pb-10" ref="layout">
     <div class="container">
       <div class="row">
         <div class="col-md-3">
@@ -33,7 +33,10 @@ onMounted(() => {
         </div>
         <div class="col-md-9">
           <div v-if="current_active === 0">
-            <StyleguideButtons/>
+            <StyleguideButtons />
+          </div>
+          <div v-if="current_active === 1">
+            <StyleguideCheckbox />
           </div>
         </div>
       </div>

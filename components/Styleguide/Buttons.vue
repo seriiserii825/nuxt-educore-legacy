@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const btn_default = `
+const btn_code = `
 <FormBtn @emit_click="console.log('')">Edit</FormBtn>
 <FormBtn color="btn-secondary" @emit_click="console.log('')">Edit</FormBtn>
 <FormBtn color="btn-danger" @emit_click="console.log('')">Edit</FormBtn>
@@ -50,7 +50,7 @@ const handleClick = (event: MouseEvent) => {
         <FormBtn color="btn-warning" @emit_click="console.log('')">Edit</FormBtn>
       </template>
       <template #code>
-        {{ btn_default }}
+        {{ btn_code }}
       </template>
       <template #source>
         {{ btn_source }}
