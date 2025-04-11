@@ -65,6 +65,13 @@ onMounted(() => {
           >
           File upload
           </button>
+          <button
+            :class="{ active: current_active == 7 }"
+            @click="current_active = 7"
+            class="link d-block mb-2"
+          >
+          Textarea
+          </button>
         </div>
         <div class="col-md-9">
           <div v-if="current_active === 0">
@@ -87,6 +94,9 @@ onMounted(() => {
           </div>
           <div v-if="current_active === 6">
             <StyleguideFileUpload />
+          </div>
+          <div v-if="current_active === 7">
+            <StyleguideTextarea />
           </div>
         </div>
       </div>
