@@ -6,6 +6,11 @@ const btn_code = `
 <FormBtn color="btn-warning" @emit_click="console.log('')">Edit</FormBtn>
 `;
 
+const btn_default = `<FormBtn @emit_click="console.log('')">Edit</FormBtn>`
+const btn_secondary = `<FormBtn color="btn-secondary" @emit_click="console.log('')">Edit</FormBtn>`
+const btn_danger = `<FormBtn color="btn-danger" @emit_click="console.log('')">Edit</FormBtn>`
+const btn_warning = `<FormBtn color="btn-warning" @emit_click="console.log('')">Edit</FormBtn>`
+
 const btn_source = `
 const props = defineProps({
   color: {
@@ -44,10 +49,24 @@ const handleClick = (event: MouseEvent) => {
   <div class="buttons">
     <StyleguidePreviewCode>
       <template #default>
-        <FormBtn @emit_click="console.log('')">Edit</FormBtn>
-        <FormBtn color="btn-secondary" @emit_click="console.log('')">Edit</FormBtn>
-        <FormBtn color="btn-danger" @emit_click="console.log('')">Edit</FormBtn>
-        <FormBtn color="btn-warning" @emit_click="console.log('')">Edit</FormBtn>
+        <div @click="useCopyToClipboard(btn_default)">
+          <FormBtn @emit_click="console.log('')">Edit</FormBtn>
+        </div>
+        <div @click="useCopyToClipboard(btn_secondary)">
+          <FormBtn color="btn-secondary" @emit_click="console.log('')"
+            >Edit</FormBtn
+          >
+        </div>
+        <div @click="useCopyToClipboard(btn_danger)">
+          <FormBtn color="btn-danger" @emit_click="console.log('')"
+            >Edit</FormBtn
+          >
+        </div>
+        <div @click="useCopyToClipboard(btn_warning)">
+          <FormBtn color="btn-warning" @emit_click="console.log('')"
+            >Edit</FormBtn
+          >
+        </div>
       </template>
       <template #code>
         {{ btn_code }}
