@@ -40,7 +40,10 @@ onMounted(() => {
               <td><span>{{ order.customer.name }}</span> | <span>{{ order.customer.email }}</span></td>
               <td>{{ order.paid_amount }}</td>
               <td>{{ order.total_amount }}</td>
-              <td>{{ order.status }}</td>
+              <td>
+                <UiBadge v-if="order.status == 'pending'" :text="order.status" type="warning"/>
+                <UiBadge v-if="order.status == 'approved'" :text="order.status" type="success"/>
+              </td>
             </tr>
           </template>
         </FormTable>
