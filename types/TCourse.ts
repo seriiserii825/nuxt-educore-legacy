@@ -18,7 +18,7 @@ export type TCourse = {
   thumbnail: string;
   demo_video_storage: 'upload' | 'youtube' | 'vimeo' | 'external_link';
   demo_video_source: string;
-  description: null;
+  description: string;
   capacity: null;
   price: number;
   discount: number;

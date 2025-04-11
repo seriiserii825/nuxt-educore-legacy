@@ -37,6 +37,7 @@ function videoStorageChange(value: string) {
 async function setCourse() {
   if (!props.course) return;
   form.value.title = props.course.title;
+  console.log(props.course.description, "props.course.description");
   form.value.description = props.course.description;
   form.value.seo_description = props.course.seo_description;
   form.value.thumbnail = props.course.thumbnail;
@@ -51,6 +52,7 @@ async function setCourse() {
 async function submitForm() {
   const formData = new FormData();
   formData.append("title", form.value.title);
+  formData.append("description", form.value.description);
   formData.append("seo_description", form.value.seo_description);
   formData.append("price", form.value.price);
   formData.append("discount", form.value.discount);
@@ -118,7 +120,8 @@ onMounted(async () => {
       <div class="mb-3 col-xl-12">
         <WysiwygEditor
           label="Description *"
-          v-model:value="form.description"
+          :value="form.description"
+          @emit_value="form.description = $event"
           :errors="errors ? errors.description : []"
         />
       </div>

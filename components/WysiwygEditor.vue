@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { MdEditor } from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(["emit_value"]);
 const props = defineProps({
   label: {
     type: String,
@@ -18,8 +18,15 @@ const props = defineProps({
 });
 const modelValue = ref(props.value);
 watch(modelValue, (newValue) => {
-  emits("update:modelValue", newValue);
+  emits("emit_value", newValue);
 });
+watch(
+  () => props.value,
+  (newValue) => {
+    modelValue.value = newValue;
+  },
+  { immediate: true }
+);
 onMounted(() => {
   modelValue.value = props.value;
 });
@@ -28,7 +35,9 @@ onMounted(() => {
 <template>
   <div class="editor">
     <label v-if="label">{{ label }}</label>
-    <MdEditor v-model="modelValue" />
+    <ClientOnly>
+      <MdEditor v-model="modelValue" />
+    </ClientOnly>
     <div
       v-if="errors && errors.length"
       class="input__message input__message--error"
