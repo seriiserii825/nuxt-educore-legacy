@@ -2,6 +2,7 @@
 import {
   StyleguideButtons,
   StyleguideCheckbox,
+  StyleguideColors,
   StyleguideFileUpload,
   StyleguideInput,
   StyleguideRadio,
@@ -15,6 +16,7 @@ const current_active = ref(0);
 const layout = ref<HTMLElement | null>(null);
 
 const components = [
+  { name: "Colors", component: StyleguideColors },
   { name: "Button", component: StyleguideButtons },
   { name: "Input", component: StyleguideInput },
   { name: "Textarea", component: StyleguideTextarea },
