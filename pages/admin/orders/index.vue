@@ -32,17 +32,42 @@ onMounted(() => {
   <div class="page-body">
     <div class="container-xl">
       <UiCard title="Orders">
-        <FormTable :headers="['Id', 'Name', 'Paid Amount',  'Total Amount', 'Status']">
+        <FormTable
+          :headers="[
+            'Id',
+            'Name',
+            'Paid Amount',
+            'Total Amount',
+            'Status',
+            'Action',
+          ]"
+        >
           <UiLoading v-if="loading" />
           <template v-else>
             <tr v-for="order in orders" :key="order.id">
               <td>{{ order.id }}</td>
-              <td><span>{{ order.customer.name }}</span> | <span>{{ order.customer.email }}</span></td>
+              <td>
+                <span>{{ order.customer.name }}</span> |
+                <span>{{ order.customer.email }}</span>
+              </td>
               <td>{{ order.paid_amount }}</td>
               <td>{{ order.total_amount }}</td>
               <td>
-                <UiBadge v-if="order.status == 'pending'" :text="order.status" type="warning"/>
-                <UiBadge v-if="order.status == 'approved'" :text="order.status" type="success"/>
+                <UiBadge
+                  v-if="order.status == 'pending'"
+                  :text="order.status"
+                  type="warning"
+                />
+                <UiBadge
+                  v-if="order.status == 'approved'"
+                  :text="order.status"
+                  type="success"
+                />
+              </td>
+              <td>
+                <nuxt-link :to="`/admin/orders/${order.id}`">
+                  <i class="fa-solid fa-eye"></i>
+                </nuxt-link>
               </td>
             </tr>
           </template>
