@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted, useSlots } from 'vue';
 
-const slots = useSlots();
-const codeHTML = ref('');
-
 onMounted(() => {
-  if (slots.code) {
-    // Extracts the code slot and turns it into raw text
-    const el = document.createElement('div');
-    el.appendChild(slots.code()[0].el.cloneNode(true));
-    codeHTML.value = el.innerHTML.trim();
-  }
+    // console.log(slots.code, "slots.code");
+  // if (slots.code) {
+  //   // Extracts the code slot and turns it into raw text
+  //   const el = document.createElement('div');
+  //   el.appendChild(slots.code()[0].el.cloneNode(true));
+  //   codeHTML.value = el.innerHTML.trim();
+  // }
 });
 </script>
 
@@ -20,7 +18,7 @@ onMounted(() => {
       <slot></slot> <!-- Renders the actual component -->
     </div>
     <div class="code-snippet">
-      <pre><code class="language-html" v-html="codeHTML"></code></pre>
+      <slot name="code"></slot> <!-- Renders the code slot -->
       <button class="copy-button" @click="navigator.clipboard.writeText(codeHTML)">Copy</button>
     </div>
   </div>

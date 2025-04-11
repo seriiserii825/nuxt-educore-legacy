@@ -4,6 +4,11 @@ definePageMeta({
 });
 
 const current_active = ref(0);
+const btn_default = `
+<Button @click="clickHandler">
+  <span>Partecipa</span>
+</Button>
+`;
 </script>
 
 <template>
@@ -33,8 +38,7 @@ const current_active = ref(0);
                 <button class="btn btn-primary">Primary Button</button>
               </template>
               <template #code>
-                &lt;button class="btn btn-primary"&gt;Primary
-                Button&lt;/button&gt;
+                {{ btn_default }}
               </template>
             </StyleguidePreviewCode>
           </div>
