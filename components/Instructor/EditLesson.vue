@@ -18,7 +18,6 @@ const route = useRoute();
 const course_id = route.params.course_id;
 const form = ref({
   title: "",
-  description: "",
   lesson_type: "lesson",
   storage: "",
   video_file: "",
@@ -60,7 +59,6 @@ async function emitClick() {
 async function editLesson() {
   const formData = new FormData();
   formData.append("title", form.value.title);
-  formData.append("description", form.value.description);
   formData.append("lesson_type", form.value.lesson_type);
   formData.append("storage", form.value.storage);
   formData.append("video_file", form.value.video_file);
@@ -91,7 +89,6 @@ async function editLesson() {
 onMounted(() => {
   if (props.lesson) {
     form.value.title = props.lesson.title;
-    form.value.description = props.lesson.description;
     form.value.lesson_type = props.lesson.lesson_type;
     form.value.storage = props.lesson.storage;
     form.value.video_file = props.lesson.file_path;
@@ -108,21 +105,13 @@ onMounted(() => {
 <template>
   <div class="chapter">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <InputComponent
           label="Title"
           v-model:value="form.title"
           type="text"
           name="title"
           :errors="errors ? errors.title : []"
-        />
-      </div>
-      <div class="col-md-6">
-        <FormTextarea
-          label="Description"
-          v-model:value="form.description"
-          name="description"
-          :errors="errors ? errors.description : []"
         />
       </div>
       <div class="col-md-6">
@@ -193,7 +182,7 @@ onMounted(() => {
           :errors="errors ? errors.duration : []"
         />
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
         <FormSwitch
           label="Downloadable"
           name="downloadable"
@@ -202,7 +191,7 @@ onMounted(() => {
           @emit_checked="form.downloadable = $event"
         />
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
         <FormSwitch
           label="Is Preview"
           name="is_preview"
