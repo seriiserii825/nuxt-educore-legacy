@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+  StyleguideBadge,
   StyleguideButtons,
   StyleguideCheckbox,
   StyleguideColors,
@@ -21,6 +22,7 @@ const layout = ref<HTMLElement | null>(null);
 const components = [
   { name: "Colors", component: StyleguideColors },
   { name: "Button", component: StyleguideButtons },
+  { name: "Badge", component: StyleguideBadge },
   { name: "Input", component: StyleguideInput },
   { name: "Textarea", component: StyleguideTextarea },
   { name: "Checkbox", component: StyleguideCheckbox },
