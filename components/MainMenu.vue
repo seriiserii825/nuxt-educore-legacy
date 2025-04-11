@@ -1,9 +1,22 @@
 <script setup lang="ts">
 import { useUserStore } from "~/store/useUserStore";
 
+const router = useRouter();
 const user_store = useUserStore();
 const { user, cart } = storeToRefs(user_store);
 const dashboard_link = ref("");
+
+function goToCart() {
+  if (!user.value) {
+    useSweetAlert("error", "You are not allowed to access the cart page");
+  } else if (user.value.role !== "student") {
+    useSweetAlert("error", "You are not allowed to access the cart page");
+  } else if (cart.value && cart.value.length > 0) {
+    router.push("/cart");
+  } else {
+    useSweetAlert("error", "Your cart is empty");
+  }
+}
 
 onMounted(() => {
   dashboard_link.value =
@@ -50,8 +63,8 @@ onMounted(() => {
             <img src="/images/search_icon.png" alt="Search" class="img-fluid" />
           </div>
           <ul class="d-flex gap-3">
-            <li v-if="cart">
-              <nuxt-link class="menu_signin" to="/cart">
+            <li>
+              <a class="menu_signin" href="#" @click.prevent="goToCart">
                 <span>
                   <img
                     src="/images/cart_icon_black.png"
@@ -59,8 +72,8 @@ onMounted(() => {
                     class="img-fluid"
                   />
                 </span>
-                <b>{{ cart.length }}</b>
-              </nuxt-link>
+                <b>{{ cart ? cart.length : 0 }}</b>
+              </a>
             </li>
             <li if="user && user.email">
               <span class="admin d-flex">

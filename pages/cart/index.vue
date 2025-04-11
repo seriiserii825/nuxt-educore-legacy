@@ -75,8 +75,7 @@ async function deleteCartItem(id: number) {
                         </td>
                         <td class="pro_icon">
                           <a @click.pevent="deleteCartItem(item.id)" href="#"
-                            ><i class="fal fa-times" aria-hidden="true"></i
-                          ></a>
+                            ><i class="fa-solid fa-trash-can text-danger"></i></a>
                         </td>
                       </tr>
                     </template>

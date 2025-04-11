@@ -3,9 +3,9 @@ import { useHead } from "#imports";
 
 useHead({
   link: [
-    { rel: "stylesheet", href: "/css/fontawesome.min.css" },
     { rel: "stylesheet", href: "/css/all.min.css" },
     { rel: "stylesheet", href: "/css/bootstrap.min.css" },
+    { rel: "stylesheet", href: "/css/fontawesome.min.css" },
     { rel: "stylesheet", href: "/style.css" },
     { rel: "stylesheet", href: "/css/responsive.css" },
   ],
@@ -22,7 +22,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="layout">
+  <div class="layout default-layout">
     <FrontHeader />
     <MainMenu />
     <MenuMobile />
