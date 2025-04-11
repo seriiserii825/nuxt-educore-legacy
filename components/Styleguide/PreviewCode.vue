@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { Vue3SlideUpDown } from "vue3-slide-up-down";
+const emits = defineEmits(['emit_click']);
 const show_code = ref(false);
 const show_source = ref(false);
 
-// @emit_click="navigator.clipboard.writeText(codeJS)"
+function emitClick() {
+  emits('emit_click');
+}
 </script>
 
 <template>
@@ -13,6 +16,11 @@ const show_source = ref(false);
       <!-- Renders the actual component -->
     </div>
     <footer class="d-flex wrap gap-2 justify-content-end border p-2">
+      <FormBtn
+        color="btn-warning"
+        @emit_click="emitClick"
+        >Copy to clipboard</FormBtn
+      >
       <FormBtn @emit_click="() => (show_code = !show_code)">How to use</FormBtn>
       <FormBtn
         color="btn-secondary"

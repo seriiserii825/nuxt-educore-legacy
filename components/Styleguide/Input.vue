@@ -20,6 +20,16 @@ const errors = ref();
 />
 `;
 
+const input_copy = `
+<InputComponent
+  label="Name"
+  v-model:value="title"
+  type="text"
+  name="title"
+  :errors="errors ? errors.title : []"
+/>
+`;
+
 const title = ref("title");
 const errors = ref();
 
@@ -139,7 +149,7 @@ function togglePassword() {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode>
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(input_copy)">
       <template #default>
         <InputComponent
           label="Name"
