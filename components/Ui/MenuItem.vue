@@ -13,7 +13,7 @@ const props = defineProps({
 
 <template>
   <li class="nav-item">
-    <nuxt-link class="nav-link" to="/admin">
+    <nuxt-link class="nav-link" :to="url">
       <span class="nav-link-icon d-md-none d-lg-inline-block">
         <i :class="icon"></i>
       </span>
@@ -21,3 +21,9 @@ const props = defineProps({
     </nuxt-link>
   </li>
 </template>
+<style>
+.router-link-active.router-link-exact-active .nav-link-title,
+.router-link-active.router-link-exact-active {
+  color: white;
+}
+</style>

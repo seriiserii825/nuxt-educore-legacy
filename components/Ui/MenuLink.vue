@@ -18,7 +18,7 @@ const props = defineProps({
 </template>
 <style>
 .router-link-active.router-link-exact-active {
-  color: white;
+  color: white !important;
   background: var(--colorPrimary);
   border-color: #a6bef8;
 }

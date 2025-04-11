@@ -9,6 +9,7 @@ import {
   StyleguideSelect,
   StyleguideSelectGroup,
   StyleguideSwitch,
+  StyleguideTable,
   StyleguideTextarea,
 } from "#components";
 
@@ -28,6 +29,7 @@ const components = [
   { name: "Select", component: StyleguideSelect },
   { name: "Select Group", component: StyleguideSelectGroup },
   { name: "File upload", component: StyleguideFileUpload },
+  { name: "Table", component: StyleguideTable },
 ];
 
 function goBack() {

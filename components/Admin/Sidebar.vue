@@ -43,6 +43,7 @@
               { title: 'Categories', link: '/admin/courses/categories' },
             ]"
           />
+          <UiMenuItem title="Orders" icon="fa fa-home" url="/admin/orders" />
         </ul>
       </div>
     </div>
