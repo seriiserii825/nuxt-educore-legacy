@@ -1,14 +1,35 @@
 <script setup lang="ts">
 import { useUserStore } from "~/store/useUserStore";
-
 definePageMeta({
   middleware: ["student"],
 });
-const use_store = useUserStore();
-const { order, cart } = storeToRefs(use_store);
-console.log(order.value, "order.value");
+const router = useRouter();
+const user_store = useUserStore();
+const { order, cart } = storeToRefs(user_store);
+function emitClick(title: string) {
+  if (!order.value) {
+    router.push("/checkout");
+    useSweetAlert("error", "CheckoutFields are empty");
+  }
+  if (order.value) {
+    user_store.setOrder({
+      ...order.value,
+      payment_method: title,
+    });
+  }
+}
+function onSubmit() {
+  if (!order.value) {
+    router.push("/checkout");
+    useSweetAlert("error", "CheckoutFields are empty");
+  }
+  if (order.value && !order.value.payment_method) {
+    useSweetAlert("error", "Please select a payment method");
+  } else if (order.value && order.value.payment_method) {
+    useSweetAlert("success", "Payment method selected");
+  }
+}
 </script>
-
 <template>
   <div class="payment">
     <UiBreadcrumb title="Payment" image="/images/breadcrumb_bg.jpg" />
@@ -19,172 +40,36 @@ console.log(order.value, "order.value");
             <div class="payment_area">
               <div class="row">
                 <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_1.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
+                  <FrontOrderPayment
+                    @emit_click="emitClick"
+                    :active="order?.payment_method === 'Skrill'"
+                    title="Skrill"
+                    image="/images/payment_1.png"
+                  />
                 </div>
                 <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_2.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
+                  <FrontOrderPayment
+                    @emit_click="emitClick"
+                    :active="order?.payment_method === 'Paypal'"
+                    title="Paypal"
+                    image="/images/payment_2.png"
+                  />
                 </div>
                 <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_3.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
+                  <FrontOrderPayment
+                    @emit_click="emitClick"
+                    :active="order?.payment_method === 'Mastercard'"
+                    title="Mastercard"
+                    image="/images/payment_3.png"
+                  />
                 </div>
                 <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_4.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
-                </div>
-                <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_4.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
-                </div>
-                <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_5.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
-                </div>
-                <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_6.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
-                </div>
-                <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_7.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
-                </div>
-                <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_8.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
-                </div>
-                <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_1.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
-                </div>
-                <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_2.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
-                </div>
-                <div class="col-xl-3 col-6 col-md-4 wow fadeInUp">
-                  <a
-                    href="#"
-                    class="payment_mathod"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                  >
-                    <img
-                      src="/images/payment_3.png"
-                      alt="payment"
-                      class="img-fluid w-100"
-                    />
-                  </a>
+                  <FrontOrderPayment
+                    @emit_click="emitClick"
+                    :active="order?.payment_method === 'Stripe'"
+                    title="Stripe"
+                    image="/images/payment_4.png"
+                  />
                 </div>
               </div>
             </div>
@@ -199,7 +84,9 @@ console.log(order.value, "order.value");
                   Subtotal :<span>${{ useCartTotal(cart) }}</span>
                 </li>
               </ul>
-              <a href="#" class="common_btn">now payment</a>
+              <a @click.prevent="onSubmit" href="#" class="common_btn"
+                >now payment</a
+              >
             </div>
           </div>
         </div>

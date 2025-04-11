@@ -4,4 +4,5 @@ export type TOrder = {
   address: string;
   phone: string;
   company: string;
+  payment_method?: string;
 }
