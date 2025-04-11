@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import type { TOrder, TOrderResponse } from "~/types/TOrder";
-
+import type { TOrderResponse } from "~/types/TOrder";
 definePageMeta({
   layout: "admin",
   middleware: ["admin"],
 });
+const route = useRoute();
 const loading = ref(false);
-
-const orders = ref<TOrderResponse[]>([]);
-
-async function getOrders() {
+const order = ref<TOrderResponse>();
+async function getOrder() {
   loading.value = true;
   try {
-    const data = await axiosInstance.get("/admin/orders");
-    orders.value = data.data;
+    const data = await axiosInstance.get("/admin/orders/" + route.params.id);
+    order.value = data.data;
     loading.value = false;
   } catch (error) {
     console.error("Error fetching orders:", error);
@@ -23,13 +21,25 @@ async function getOrders() {
     loading.value = false;
   }
 }
+
+const total = computed(() => {
+  if (order.value && order.value.order_items) {
+    return order.value.order_items.reduce((acc, item) => {
+      if (item.course) {
+        return acc + (item.course.discount || item.course.price);
+      }
+      return acc;
+    }, 0);
+  }
+  return 0;
+});
+
 onMounted(() => {
-  getOrders();
+  getOrder();
 });
 </script>
-
 <template>
-  <div class="page-body">
+  <div class="page-body" v-if="order">
     <div class="container">
       <div class="wsus__dashboard_contant">
         <div class="wsus__invoice_top">
@@ -42,14 +52,20 @@ onMounted(() => {
           <div class="row justify-content-between">
             <div class="col-xl-6 col-sm-6">
               <div class="wsus__invoice_address">
-                <h5>United States</h5>
-                <p>7232 Broadway Suite 3087 Madison Heights, 57256</p>
+                <h5>{{ order?.customer.name }}</h5>
+                <p>{{ order?.customer.email }}</p>
               </div>
             </div>
             <div class="col-xl-4 col-sm-5">
               <div class="wsus__invoice_date">
-                <h5>Invoice#<span>565487</span></h5>
-                <h5 class="date">Date<span>04 / 05 / 2025</span></h5>
+                <h5>
+                  Invoice#<span>{{ order?.invoice_id }}</span>
+                </h5>
+                <h5 class="date">
+                  Date<span>{{
+                    useFormatDate(new Date(order?.created_at))
+                  }}</span>
+                </h5>
               </div>
             </div>
           </div>
@@ -61,86 +77,53 @@ onMounted(() => {
                 <table class="table">
                   <tbody>
                     <tr>
-                      <th class="serial">SL</th>
-                      <th class="description">Item Description</th>
+                      <th class="serial">Image</th>
+                      <th class="serial">Invoice ID</th>
+                      <th class="serial">Title</th>
+                      <th class="description">Instructor</th>
                       <th class="price">Price</th>
-                      <th class="quantity">Quantity</th>
-                      <th class="total">Total</th>
                     </tr>
-                    <tr>
-                      <td class="serial">
-                        <p>1</p>
-                      </td>
-                      <td class="description">
-                        <p>HTML Course</p>
-                      </td>
-                      <td class="price">
-                        <p>$80.00</p>
-                      </td>
-                      <td class="quantity">
-                        <p>2</p>
-                      </td>
-                      <td class="total">
-                        <p>$160.00</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="serial">
-                        <p>2</p>
-                      </td>
-                      <td class="description">
-                        <p>PHP Course</p>
-                      </td>
-                      <td class="price">
-                        <p>$140.00</p>
-                      </td>
-                      <td class="quantity">
-                        <p>1</p>
-                      </td>
-                      <td class="total">
-                        <p>$140.00</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="serial">
-                        <p>3</p>
-                      </td>
-                      <td class="description">
-                        <p>JAVA Course</p>
-                      </td>
-                      <td class="price">
-                        <p>$160.00</p>
-                      </td>
-                      <td class="quantity">
-                        <p>2</p>
-                      </td>
-                      <td class="total">
-                        <p>$320.00</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="serial">
-                        <p>4</p>
-                      </td>
-                      <td class="description">
-                        <p>C++ Course</p>
-                      </td>
-                      <td class="price">
-                        <p>$220.00</p>
-                      </td>
-                      <td class="quantity">
-                        <p>1</p>
-                      </td>
-                      <td class="total">
-                        <p>$220.00</p>
-                      </td>
-                    </tr>
+                    <template
+                      v-if="order.order_items && order.order_items.length"
+                    >
+                      <tr v-for="item in order.order_items">
+                        <td class="serial" v-if="item.course">
+                          <p>
+                            <img
+                              :src="item.course.thumbnail"
+                              :width="60"
+                              alt=""
+                            />
+                          </p>
+                        </td>
+                        <td class="serial" v-if="item.course">
+                          <p>{{ item.id }}</p>
+                        </td>
+                        <td class="serial" v-if="item.course">
+                          <p>{{ item.course.title }}</p>
+                        </td>
+                        <td class="description" v-if="item.course">
+                          <p>{{ item.course.instructor.name }}</p>
+                        </td>
+                        <td class="price" v-if="item.course">
+                          <p v-if="item.course?.discount">
+                            ${{ item.course.discount }}
+                          </p>
+                          <p v-else>${{ item.course.price }}</p>
+                        </td>
+                      </tr>
+                    </template>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
+        <canvas
+          class="GenerativePattern_Canvas__Gt6G3"
+          width="1227"
+          height="751"
+        ></canvas>
         <div class="wsus__invoice_final_total">
           <div class="row">
             <div class="col-xl-6">
@@ -150,15 +133,15 @@ onMounted(() => {
             </div>
             <div class="col-xl-6">
               <div class="wsus__invoice_final_total_right">
-                <h6>Subtotal:<span>$840.00</span></h6>
-                <h6>Tax:<span>$120.00</span></h6>
-                <h5>Subtotal: <span>$960.00</span></h5>
+                <h5>
+                  Subtotal: <span>${{ total }}</span>
+                </h5>
               </div>
             </div>
           </div>
         </div>
         <div class="wsus__invoice_bottom">
-          <p>7232 Broadway Suite 3087 <span>+880 458 321 457</span></p>
+          <p>Chisinau, Nadejda Russo 8 <span>VAT: 328416890</span></p>
         </div>
       </div>
     </div>

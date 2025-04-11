@@ -1,3 +1,4 @@
+import type {TCourse} from "./TCourse";
 import type {TUser} from "./TUser";
 
 export type TOrder = {
@@ -27,5 +28,16 @@ export type TOrderResponse = {
   created_at: string;
   updated_at: string;
   customer: TUser;
+  order_items?: TOrderItem[];
 }
 
+export type TOrderItem = {
+  id: number;
+  order_id: number;
+  course_id: number;
+  qty: number;
+  price: number;
+  created_at: string;
+  updated_at: string;
+  course?: TCourse;
+}
