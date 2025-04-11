@@ -20,6 +20,8 @@ const handleClick = (event: MouseEvent) => {
     emit("emit_click", event);
   }
 };
+
+
 </script>
 
 <template>

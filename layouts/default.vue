@@ -3,6 +3,7 @@ import { useHead } from "#imports";
 
 useHead({
   link: [
+    { rel: "stylesheet", href: "/css/fontawesome.min.css" },
     { rel: "stylesheet", href: "/css/all.min.css" },
     { rel: "stylesheet", href: "/css/bootstrap.min.css" },
     { rel: "stylesheet", href: "/style.css" },

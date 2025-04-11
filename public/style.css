@@ -2881,9 +2881,9 @@ header .wsus__header_right li .nice-select .list {
 /* subscriprion end */
 
 /* footer start */
-footer {
-  background: #030611;
-}
+/* footer { */
+/*   background: #030611; */
+/* } */
 
 .wsus__footer_top {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);

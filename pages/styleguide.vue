@@ -1,18 +1,18 @@
 <script setup lang="ts">
-definePageMeta({
-  middleware: ["admin"],
-});
-
 const current_active = ref(0);
-const btn_default = `
-<Button @click="clickHandler">
-  <span>Partecipa</span>
-</Button>
-`;
+const layout = ref(null);
+onMounted(() => {
+  if (layout.value) {
+    layout.value.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+});
 </script>
 
 <template>
-  <div class="layout pt-8">
+  <div class="layout pt-10" ref="layout">
     <div class="container">
       <div class="row">
         <div class="col-md-3">
@@ -33,14 +33,7 @@ const btn_default = `
         </div>
         <div class="col-md-9">
           <div v-if="current_active === 0">
-            <StyleguidePreviewCode>
-              <template #default>
-                <button class="btn btn-primary">Primary Button</button>
-              </template>
-              <template #code>
-                {{ btn_default }}
-              </template>
-            </StyleguidePreviewCode>
+            <StyleguideButtons/>
           </div>
         </div>
       </div>

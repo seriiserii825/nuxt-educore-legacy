@@ -41,6 +41,11 @@ onMounted(() => {
         </ul>
 
         <div class="right_menu">
+          <li>
+            <nuxt-link to="/styleguide">
+              <i class="fa-brands fa-guilded"></i>
+            </nuxt-link>
+          </li>
           <div class="menu_search_btn">
             <img src="/images/search_icon.png" alt="Search" class="img-fluid" />
           </div>
@@ -52,7 +57,7 @@ onMounted(() => {
                     src="/images/cart_icon_black.png"
                     alt="user"
                     class="img-fluid"
-                    />
+                  />
                 </span>
                 <b>{{ cart.length }}</b>
               </nuxt-link>

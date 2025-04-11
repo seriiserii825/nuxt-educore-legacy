@@ -1,48 +1,63 @@
 <script setup lang="ts">
-import { ref, onMounted, useSlots } from 'vue';
+import { Vue3SlideUpDown } from "vue3-slide-up-down";
+const show_code = ref(false);
+const show_source = ref(false);
 
-onMounted(() => {
-    // console.log(slots.code, "slots.code");
-  // if (slots.code) {
-  //   // Extracts the code slot and turns it into raw text
-  //   const el = document.createElement('div');
-  //   el.appendChild(slots.code()[0].el.cloneNode(true));
-  //   codeHTML.value = el.innerHTML.trim();
-  // }
-});
+// @emit_click="navigator.clipboard.writeText(codeJS)"
 </script>
 
 <template>
   <div class="preview-code">
     <div class="preview">
-      <slot></slot> <!-- Renders the actual component -->
+      <slot></slot>
+      <!-- Renders the actual component -->
     </div>
-    <div class="code-snippet">
-      <slot name="code"></slot> <!-- Renders the code slot -->
-      <button class="copy-button" @click="navigator.clipboard.writeText(codeHTML)">Copy</button>
-    </div>
+    <footer class="d-flex wrap gap-2 justify-content-end border p-2">
+      <FormBtn @emit_click="() => (show_code = !show_code)">How to use</FormBtn>
+      <FormBtn
+        color="btn-secondary"
+        @emit_click="() => (show_source = !show_source)"
+        >Source Code</FormBtn
+      >
+    </footer>
+    <Vue3SlideUpDown v-model="show_code">
+      <div class="code-snippet">
+        <pre>
+          <slot name="code"></slot>
+        </pre>
+      </div>
+    </Vue3SlideUpDown>
+    <Vue3SlideUpDown v-model="show_source">
+      <div class="code-snippet">
+        <pre>
+        <slot name="source"></slot>
+      </pre>
+      </div>
+    </Vue3SlideUpDown>
   </div>
 </template>
 
-<style scoped>
+<style>
+.preview-code {
+  position: relative;
+}
 .preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   padding: 10px;
   border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+.preview > * {
   margin-bottom: 10px;
 }
 
 .code-snippet {
   position: relative;
-}
-
-.copy-button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  padding: 5px 10px;
-  background: #007bff;
+  padding: 10px 20px;
+  font-size: 20px;
   color: white;
-  border: none;
-  cursor: pointer;
+  background: #333;
 }
 </style>
