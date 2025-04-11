@@ -13,6 +13,15 @@ const errors = ref({});
 />
 `;
 
+const elem_copy = `
+<FormTextarea
+  label="Description"
+  v-model:value="form.description"
+  name="description"
+  :errors="errors ? errors.description : []"
+/>
+`
+
 const form = ref({
   description: "",
 });
@@ -72,7 +81,7 @@ function changeHandler(e: any) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode>
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
       <template #default>
         <FormTextarea
           label="Description"

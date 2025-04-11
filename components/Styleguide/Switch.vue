@@ -14,6 +14,16 @@ const errors = ref({});
 />
 `;
 
+const elem_copy = `
+<FormSwitch
+  label="Downloadable"
+  name="downloadable"
+  :checked="Boolean(form.downloadable)"
+  :errors="errors ? errors.downloadable : []"
+  @emit_checked="form.downloadable = $event"
+/>
+`;
+
 const form = ref({
   downloadable: false,
 });
@@ -59,7 +69,7 @@ function onChange(e: any){
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode>
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
       <template #default>
         <FormSwitch
           label="Downloadable"

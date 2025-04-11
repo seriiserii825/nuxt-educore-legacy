@@ -22,6 +22,17 @@ const errors = ref({});
 />
 `;
 
+const elem_copy = `
+<FormSelect
+  label="File Type"
+  name="file_type"
+  :options="file_type_options"
+  :value="form.file_type"
+  @emit_select="form.file_type = $event"
+  :errors="errors ? errors.file_type : []"
+/>
+`;
+
 const form = ref({
   file_type: "",
 });
@@ -82,7 +93,7 @@ function onChange(event: Event) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode>
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
       <template #default>
         <FormSelect
           label="File Type"

@@ -3,6 +3,12 @@ import { Vue3SlideUpDown } from "vue3-slide-up-down";
 const emits = defineEmits(['emit_click']);
 const show_code = ref(false);
 const show_source = ref(false);
+const props = defineProps({
+show_copy_btn: {
+  type: Boolean,
+  default: false,
+},
+});
 
 function emitClick() {
   emits('emit_click');
@@ -17,6 +23,7 @@ function emitClick() {
     </div>
     <footer class="d-flex wrap gap-2 justify-content-end border p-2">
       <FormBtn
+        v-if="show_copy_btn"
         color="btn-warning"
         @emit_click="emitClick"
         >Copy to clipboard</FormBtn

@@ -14,6 +14,16 @@ const errors = ref({});
 />
 `;
 
+const elem_copy = `
+<FormCheckbox
+  label="Checkbox label"
+  v-model:value="form.qna"
+  :errors="errors ? errors.qna : []"
+  name="qna"
+  @emit_checkbox="form.qna = $event"
+  />
+`;
+
 const form = ref({
   qna: false,
 });
@@ -73,7 +83,7 @@ function emitCheckbox(event: Event) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode>
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
       <template #default>
         <FormCheckbox
           label="Checkbox label"

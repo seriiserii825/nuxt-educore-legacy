@@ -14,6 +14,16 @@ const errors = ref({});
   @emit_file="form.video_file = $event"
 />
 `;
+const elem_copy = `
+<FormFileUpload
+  label="Video File"
+  name="video_file"
+  v-model:value="form.video_file"
+  accept="video/*"
+  :errors="errors ? errors.video_file : []"
+  @emit_file="form.video_file = $event"
+/>
+`;
 
 const form = ref({
   video_file: "",
@@ -79,7 +89,7 @@ function changeHandler(e: any) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode>
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
       <template #default>
         <FormFileUpload
           label="Video File"

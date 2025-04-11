@@ -149,7 +149,7 @@ function togglePassword() {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode @emit_click="useCopyToClipboard(input_copy)">
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(input_copy)" :show_copy_btn="true">
       <template #default>
         <InputComponent
           label="Name"

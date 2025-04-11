@@ -40,7 +40,16 @@ const errors = ref({});
   name="category_id"
 />
 `;
-
+const elem_copy = `
+<FormSelectGroup
+  label="Category*"
+  v-model:value="form.category_id"
+  :options="categories"
+  :errors="errors ? errors.category_id : []"
+  @emit_select="form.category_id = $event"
+  name="category_id"
+/>
+`;
 const form = ref({
   category_id: 0,
 });
@@ -121,7 +130,7 @@ function onChange(event: Event) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode>
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
       <template #default>
         <FormSelectGroup
           label="Category*"

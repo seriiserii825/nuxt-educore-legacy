@@ -19,6 +19,17 @@ const levels = ref([
 />
 `;
 
+const elem_copy = `
+<FormRadio
+  label="Course Level*"
+  v-model:value="form.course_level_id"
+  :options="levels"
+  :errors="errors ? errors.course_level_id : []"
+  name="course_level_id"
+  @emit_radio="form.course_level_id = $event"
+/>
+`;
+
 const form = ref({
   course_level_id: 0,
 });
@@ -96,7 +107,7 @@ function emitRadio(event: Event, key: number) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode>
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
       <template #default>
         <FormRadio
           label="Course Level*"
