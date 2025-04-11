@@ -30,6 +30,13 @@ onMounted(() => {
           >
             Checkbox
           </button>
+          <button
+            :class="{ active: current_active == 2 }"
+            @click="current_active = 2"
+            class="link d-block mb-2"
+          >
+          Radio
+          </button>
         </div>
         <div class="col-md-9">
           <div v-if="current_active === 0">
@@ -37,6 +44,9 @@ onMounted(() => {
           </div>
           <div v-if="current_active === 1">
             <StyleguideCheckbox />
+          </div>
+          <div v-if="current_active === 2">
+            <StyleguideRadio />
           </div>
         </div>
       </div>

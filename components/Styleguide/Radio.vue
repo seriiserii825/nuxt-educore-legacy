@@ -1,4 +1,35 @@
 <script setup lang="ts">
+const code = `
+const form = ref({
+  course_level_id: 0,
+});
+const levels = ref([
+  { key: 1, value: 'Beginner' },
+  { key: 2, value: 'Intermediate' },
+  { key: 3, value: 'Advanced' },
+]);
+
+<FormRadio
+  label="Course Level*"
+  v-model:value="form.course_level_id"
+  :options="levels"
+  :errors="errors ? errors.course_level_id : []"
+  name="course_level_id"
+  @emit_radio="form.course_level_id = $event"
+/>
+`;
+
+const form = ref({
+  course_level_id: 0,
+});
+const levels = ref([
+  { key: 1, value: 'Beginner' },
+  { key: 2, value: 'Intermediate' },
+  { key: 3, value: 'Advanced' },
+]);
+const errors = ref();
+
+const source = `
 import type { TSelectOption } from "~/types/TSelectOption";
 
 const emits = defineEmits(['emit_radio']);
@@ -31,8 +62,6 @@ function emitRadio(event: Event, key: number) {
     emits('emit_radio', key);
   }
 }
-</script>
-<template>
   <div class="radio">
     <div class="add_course_more_info_radio_box">
       <h3>{{ label }}</h3>
@@ -41,11 +70,11 @@ function emitRadio(event: Event, key: number) {
           class="form-check-input"
           type="radio"
           :name="name"
-          :id="`js-${name}-${option.key}`"
+          :id="js-{name}-{option.key}"
           :checked="option.key === value"
           @change="emitRadio($event, option.key)"
         />
-        <label class="form-check-label" :for="`js-${name}-${option.key}`">
+        <label class="form-check-label" :for="js-{name}-{option.key}">
           {{ option.value }}
         </label>
       </div>
@@ -59,14 +88,31 @@ function emitRadio(event: Event, key: number) {
       </p>
     </div>
   </div>
-</template>
-<style>
 .radio {
   margin-bottom: 1.6rem;
 }
-.form-check {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-</style>
+`;
+</script>
+
+<template>
+  <div class="buttons">
+    <StyleguidePreviewCode>
+      <template #default>
+        <FormRadio
+          label="Course Level*"
+          v-model:value="form.course_level_id"
+          :options="levels"
+          :errors="errors ? errors.course_level_id : []"
+          name="course_level_id"
+          @emit_radio="form.course_level_id = $event"
+        />
+      </template>
+      <template #code>
+        {{ code }}
+      </template>
+      <template #source>
+        {{ source }}
+      </template>
+    </StyleguidePreviewCode>
+  </div>
+</template>
