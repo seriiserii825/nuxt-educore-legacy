@@ -85,6 +85,13 @@
               </a>
             </div>
           </div>
+          <ul class="d-flex align-items-center pl-2 pr-2">
+            <li class="d-flex align-items-center">
+              <nuxt-link class="d-flex align-items-center" to="/styleguide">
+                <i class="fa-brands fa-guilded"></i>
+              </nuxt-link>
+            </li>
+          </ul>
           <div class="d-none d-md-flex">
             <a
               href="?theme=dark"
