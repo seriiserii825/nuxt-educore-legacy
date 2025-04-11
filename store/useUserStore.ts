@@ -9,7 +9,7 @@ export const useUserStore = defineStore("user", () => {
     cart.value = new_cart;
   }
   const order = ref<TOrder | null>(null);
-  function setOrder(new_order: TOrder) {
+  function setOrder(new_order: TOrder | null) {
     order.value = new_order;
   }
   return {

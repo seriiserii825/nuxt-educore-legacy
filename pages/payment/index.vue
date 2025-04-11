@@ -5,7 +5,7 @@ definePageMeta({
 });
 const router = useRouter();
 const user_store = useUserStore();
-const { order, cart } = storeToRefs(user_store);
+const { order, cart, user } = storeToRefs(user_store);
 function emitClick(title: string) {
   if (!order.value) {
     router.push("/checkout");
@@ -18,7 +18,35 @@ function emitClick(title: string) {
     });
   }
 }
-function onSubmit() {
+async function makeOrder() {
+  const buyer_id = user.value?.id;
+  let total_amount = 0;
+  if (cart.value && cart.value.length === 0) {
+    useSweetAlert("error", "Cart is empty");
+    return;
+  }
+  if (cart.value && cart.value.length) {
+    total_amount = useCartTotal(cart.value);
+  }
+  if (!total_amount) {
+    useSweetAlert("error", "Total amount is zero");
+    return;
+  }
+  try {
+    await axiosInstance.post("/order", {
+      total_amount,
+      buyer_id,
+      ...order.value,
+    });
+    user_store.setOrder(null);
+    user_store.setCart([]);
+    router.push("/courses")
+    useSweetAlert("success", "Order created successfully");
+  } catch (error) {
+    handleAxiosError(error);
+  }
+}
+async function onSubmit() {
   if (!order.value) {
     router.push("/checkout");
     useSweetAlert("error", "CheckoutFields are empty");
@@ -27,6 +55,7 @@ function onSubmit() {
     useSweetAlert("error", "Please select a payment method");
   } else if (order.value && order.value.payment_method) {
     useSweetAlert("success", "Payment method selected");
+    await makeOrder();
   }
 }
 </script>
