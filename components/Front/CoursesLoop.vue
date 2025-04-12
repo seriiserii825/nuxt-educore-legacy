@@ -10,14 +10,23 @@ const props = defineProps({
 
 async function addToCart(course: TCourse) {
   try {
-    await axiosInstance.post("/cart", {
-      course_id: course.id,
-    });
-    await useGetUserApi();
-    await useGetCart();
-    useSweetAlert("success", "Course added to cart successfully", "ok");
-  } catch (error: any) {
-    handleAxiosError(error, {});
+    const data = await axiosInstance.get(`/order/${course.id}`);
+    if (data.data.order) {
+      useSweetAlert("error", "Cart Error", "Course already in order");
+      return;
+    }
+    try {
+      await axiosInstance.post("/cart", {
+        course_id: course.id,
+      });
+      await useGetUserApi();
+      await useGetCart();
+      useSweetAlert("success", "Course added to cart successfully", "ok");
+    } catch (error: any) {
+      handleAxiosError(error, {});
+    }
+  } catch (error) {
+    handleAxiosError(error);
   }
 }
 </script>
