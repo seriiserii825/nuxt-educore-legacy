@@ -39,8 +39,8 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="page-body" v-if="order">
-    <div class="container">
+  <div class="page-body">
+    <div class="container" v-if="order">
       <div class="wsus__dashboard_contant">
         <div class="wsus__invoice_top">
           <div class="wsus__invoice_logo">
@@ -110,6 +110,13 @@ onMounted(() => {
                             ${{ item.course.discount }}
                           </p>
                           <p v-else>${{ item.course.price }}</p>
+                        </td>
+                      </tr>
+                    </template>
+                    <template v-else>
+                      <tr>
+                        <td colspan="5" class="text-center">
+                          <p>No items found</p>
                         </td>
                       </tr>
                     </template>

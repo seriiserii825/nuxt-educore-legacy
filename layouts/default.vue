@@ -11,14 +11,6 @@ useHead({
   ],
 });
 
-async function getCart(){
-  await useGetCart();
-}
-
-onMounted(() => {
-  getCart();
-});
-
 </script>
 
 <template>

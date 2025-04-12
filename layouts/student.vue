@@ -10,6 +10,15 @@ useHead({
     { rel: "stylesheet", href: "/css/responsive.css" }
   ]
 });
+
+async function getCart(){
+  await useGetCart();
+}
+
+onMounted(() => {
+  getCart();
+});
+
 </script>
 <template>
   <div class="layout">
