@@ -30,19 +30,19 @@
           <UiMenuItem title="Dashboard" icon="fa fa-home" url="/admin" />
           <UiMenuItemDropdown
             title="Settings"
-            icon="fa fa-cube"
+            icon="fa-solid fa-gear"
             :items="[
               { title: 'Index', link: '/admin/settings' },
             ]"
           />
           <UiMenuItemDropdown
             title="Requests"
-            icon="fa fa-cube"
+            icon="fa-solid fa-hand-point-up"
             :items="[{ title: 'All', link: '/admin/instructor/requests' }]"
           />
           <UiMenuItemDropdown
             title="Course"
-            icon="fa fa-cube"
+            icon="fa-solid fa-chalkboard-user"
             :items="[
               { title: 'Courses', link: '/admin/courses/courses' },
               { title: 'Languages', link: '/admin/courses/languages' },
@@ -50,7 +50,7 @@
               { title: 'Categories', link: '/admin/courses/categories' },
             ]"
           />
-          <UiMenuItem title="Orders" icon="fa fa-home" url="/admin/orders" />
+          <UiMenuItem title="Orders" icon="fa-regular fa-id-card" url="/admin/orders" />
         </ul>
       </div>
     </div>
