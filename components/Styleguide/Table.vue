@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type { TCodeProps } from "~/types/TCodeProps";
+
+const code_props: TCodeProps[] = [{ key: "headers", value: "string[]" }];
 const loading = ref<boolean>(false);
 const code = `
 const levels = [
@@ -102,6 +105,7 @@ const props = defineProps({
     <StyleguidePreviewCode
       @emit_click="useCopyToClipboard(elem_copy)"
       :show_copy_btn="true"
+      :show_props="true"
     >
       <template #default>
         <UiCard
@@ -123,15 +127,16 @@ const props = defineProps({
                       class="fa fa-edit text-primary"
                     >
                     </nuxt-link>
-                    <span
-                      class="cursor-pointer fa fa-trash text-danger"
-                    ></span>
+                    <span class="cursor-pointer fa fa-trash text-danger"></span>
                   </div>
                 </td>
               </tr>
             </template>
           </FormTable>
         </UiCard>
+      </template>
+      <template #code_props>
+        <StyleguideCodeProps :code_props="code_props" />
       </template>
       <template #code>
         {{ code }}
