@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import type { TCodeProps } from "~/types/TCodeProps";
+
+const code_props: TCodeProps[] = [
+  { key: "label", value: "string" },
+  { key: "errors", value: "string[]" },
+  { key: "value", value: "boolean" },
+  { key: "name", value: "string", required: true },
+];
+
 const code = `
 const form = ref({
   qna: false,
@@ -42,7 +51,7 @@ const props = defineProps({
   },
   name: {
     type: String,
-    required: false,
+    required: true,
   },
   value: {
     type: Boolean,
@@ -83,7 +92,7 @@ function emitCheckbox(event: Event) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true" :show_props="true">
       <template #default>
         <FormCheckbox
           label="Checkbox label"
@@ -92,6 +101,9 @@ function emitCheckbox(event: Event) {
           name="qna"
           @emit_checkbox="form.qna = $event"
         />
+      </template>
+      <template #code_props>
+        <StyleguideCodeProps :code_props="code_props" />
       </template>
       <template #code>
         {{ code }}
