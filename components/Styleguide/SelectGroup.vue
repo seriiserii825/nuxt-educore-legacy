@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import type { TCodeProps } from "~/types/TCodeProps";
+
+const code_props: TCodeProps[] = [
+  { key: "label", value: "string" },
+  { key: "errors", value: "string[]" },
+  { key: "options", value: "TSelectOptionGroup[]" },
+  { key: "value", value: "string | number" },
+  { key: "name", value: "string", required: true },
+];
 const code = `
 const form = ref({
   category_id: 0,
@@ -130,7 +139,7 @@ function onChange(event: Event) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true" :show_props="true">
       <template #default>
         <FormSelectGroup
           label="Category*"
@@ -140,6 +149,9 @@ function onChange(event: Event) {
           @emit_select="form.category_id = $event"
           name="category_id"
         />
+      </template>
+      <template #code_props>
+        <StyleguideCodeProps :code_props="code_props" />
       </template>
       <template #code>
         {{ code }}
