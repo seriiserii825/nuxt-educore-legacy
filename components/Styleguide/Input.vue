@@ -1,4 +1,17 @@
 <script setup lang="ts">
+import { StyleguideCodeProps } from "#components";
+import type { TCodeProps } from "~/types/TCodeProps";
+
+const code_props: TCodeProps[] = [
+  { key: "type", value: "string", default: "text", values: ["text", "email", "password"] },
+  { key: "label", value: "string" },
+  { key: "placeholder", value: "string" },
+  { key: "errors", value: "string[]" },
+  { key: "value", value: "string | number", required: true },
+  { key: "name", value: "string", required: true },
+  { key: "fontawesome", value: "boolean", default: false },
+];
+
 const code = `
 const title = ref("");
 const errors = ref();
@@ -55,7 +68,7 @@ const props = defineProps({
   },
   value: {
     type: [String, Number],
-    required: false,
+    required: true,
   },
   name: {
     type: String,
@@ -149,7 +162,11 @@ function togglePassword() {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode @emit_click="useCopyToClipboard(input_copy)" :show_copy_btn="true">
+    <StyleguidePreviewCode
+      @emit_click="useCopyToClipboard(input_copy)"
+      :show_copy_btn="true"
+      :show_props="true"
+    >
       <template #default>
         <InputComponent
           label="Name"
@@ -165,6 +182,9 @@ function togglePassword() {
           name="title"
           :errors="errors ? errors.title : []"
         />
+      </template>
+      <template #code_props>
+        <StyleguideCodeProps :code_props="code_props" />
       </template>
       <template #code>
         {{ code }}

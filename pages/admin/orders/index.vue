@@ -31,6 +31,7 @@ onMounted(() => {
 <template>
   <div class="page-body">
     <div class="container-xl">
+      <i class="fa fa-lg fa-cart-plus"></i>
       <UiCard title="Orders">
         <FormTable
           :headers="[

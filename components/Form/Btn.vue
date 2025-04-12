@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
   color: {
-    type: String as () => "btn-primary" | "btn-secondary" | "btn-danger" | "btn-warning",
+    type: String as () => "btn-primary" | "btn-secondary" | "btn-danger" | "btn-warning" | "btn-success",
     default: "btn-primary",
   },
   disabled: {
@@ -34,3 +34,9 @@ const handleClick = (event: MouseEvent) => {
     </button>
   </div>
 </template>
+<style scped>
+.btn {
+  padding: 4px 20px;
+  font-size: 14px;
+}
+</style>

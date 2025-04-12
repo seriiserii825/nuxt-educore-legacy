@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import type {TCodeProps} from '~/types/TCodeProps';
+
+const code_props: TCodeProps[] = [
+  {key: 'color', value: 'string', default: 'btn-primary', values: ['btn-primary', 'btn-secondary', 'btn-danger', 'btn-warning', 'btn-success']},
+  {key: 'disabled', value: 'boolean', default: false},
+  {key: 'url', value: 'string', default: ''},
+];
+
 const btn_code = `
 <FormBtn @emit_click="console.log('')">Edit</FormBtn>
 <FormBtn color="btn-secondary" @emit_click="console.log('')">Edit</FormBtn>
@@ -14,7 +22,7 @@ const btn_warning = `<FormBtn color="btn-warning" @emit_click="console.log('')">
 const btn_source = `
 const props = defineProps({
   color: {
-    type: String as () => "btn-primary" | "btn-secondary" | "btn-danger" | "btn-warning",
+    type: String as () => "btn-primary" | "btn-secondary" | "btn-danger" | "btn-warning" | "btn-success",
     default: "btn-primary",
   },
   disabled: {
@@ -47,7 +55,7 @@ const handleClick = (event: MouseEvent) => {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode>
+    <StyleguidePreviewCode :show_props="true">
       <template #default>
         <div @click="useCopyToClipboard(btn_default)">
           <FormBtn @emit_click="console.log('')">Edit</FormBtn>
@@ -67,6 +75,9 @@ const handleClick = (event: MouseEvent) => {
             >Edit</FormBtn
           >
         </div>
+      </template>
+      <template #code_props>
+        <StyleguideCodeProps :code_props="code_props" />
       </template>
       <template #code>
         {{ btn_code }}

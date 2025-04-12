@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import { Vue3SlideUpDown } from "vue3-slide-up-down";
-const emits = defineEmits(['emit_click']);
+const emits = defineEmits(["emit_click"]);
+defineProps({
+  show_copy_btn: {
+    type: Boolean,
+    default: false,
+  },
+  show_props: {
+    type: Boolean,
+    default: false,
+  },
+});
 const show_code = ref(false);
 const show_source = ref(false);
-const props = defineProps({
-show_copy_btn: {
-  type: Boolean,
-  default: false,
-},
-});
+const toggle_props = ref(false);
 
 function emitClick() {
-  emits('emit_click');
+  emits("emit_click");
 }
 </script>
 
@@ -23,9 +28,12 @@ function emitClick() {
     </div>
     <footer class="d-flex wrap gap-2 justify-content-end border p-2">
       <FormBtn
-        v-if="show_copy_btn"
-        color="btn-warning"
-        @emit_click="emitClick"
+        v-if="show_props"
+        color="btn-success"
+        @emit_click="() => (toggle_props = !toggle_props)"
+        >Props</FormBtn
+      >
+      <FormBtn v-if="show_copy_btn" color="btn-warning" @emit_click="emitClick"
         >Copy to clipboard</FormBtn
       >
       <FormBtn @emit_click="() => (show_code = !show_code)">How to use</FormBtn>
@@ -49,10 +57,15 @@ function emitClick() {
       </pre>
       </div>
     </Vue3SlideUpDown>
+    <Vue3SlideUpDown v-model="toggle_props">
+      <div class="code-props">
+        <slot name="code_props"></slot>
+      </div>
+    </Vue3SlideUpDown>
   </div>
 </template>
 
-<style>
+<style scoped>
 .preview-code {
   position: relative;
 }
@@ -74,5 +87,10 @@ function emitClick() {
   font-size: 20px;
   color: white;
   background: #333;
+}
+.code-props{
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: 1px solid #ddd;
 }
 </style>
