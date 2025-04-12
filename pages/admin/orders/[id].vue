@@ -5,6 +5,7 @@ definePageMeta({
   middleware: ["admin"],
 });
 const route = useRoute();
+const router = useRouter();
 const loading = ref(false);
 const order = ref<TOrderResponse>();
 async function getOrder() {
@@ -20,6 +21,10 @@ async function getOrder() {
   } finally {
     loading.value = false;
   }
+}
+
+function goBack() {
+  router.back();
 }
 
 const total = computed(() => {
@@ -42,10 +47,11 @@ onMounted(() => {
   <div class="page-body">
     <div class="container" v-if="order">
       <div class="wsus__dashboard_contant">
-        <div class="wsus__invoice_top">
+        <div class="wsus__invoice_top d-flex justify-content-between">
           <div class="wsus__invoice_logo">
             <img src="/images/logo.png" alt="logo" class="img-fluid w-100" />
           </div>
+          <FormBtn @emit_click="goBack">Back</FormBtn>
         </div>
         <div class="wsus__invoice_description">
           <h4>Invoice to:</h4>
