@@ -95,13 +95,14 @@ function togglePassword() {
 </template>
 <style>
 .input {
+  position: relative;
   margin-bottom: 1.6rem;
 }
 .input--error {
   border-color: red !important;
 }
-.input {
-  position: relative;
+.input input {
+  height: 28px;
 }
 /* .input label { */
 /*   margin-bottom: 0.8rem; */
