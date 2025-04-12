@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import type { TCodeProps } from "~/types/TCodeProps";
+
+const code_props: TCodeProps[] = [
+  { key: "label", value: "string" },
+  { key: "errors", value: "string[]" },
+  { key: "value", value: "string | number" },
+  { key: "name", value: "string", required: true },
+];
+
 const code = `
 const form = ref({
   description: "",
@@ -81,7 +90,7 @@ function changeHandler(e: any) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true" :show_props="true">
       <template #default>
         <FormTextarea
           label="Description"
@@ -89,6 +98,9 @@ function changeHandler(e: any) {
           name="description"
           :errors="errors ? errors.description : []"
         />
+      </template>
+      <template #code_props>
+        <StyleguideCodeProps :code_props="code_props" />
       </template>
       <template #code>
         {{ code }}
