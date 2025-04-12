@@ -29,6 +29,13 @@
         <ul class="navbar-nav pt-lg-3">
           <UiMenuItem title="Dashboard" icon="fa fa-home" url="/admin" />
           <UiMenuItemDropdown
+            title="Settings"
+            icon="fa fa-cube"
+            :items="[
+              { title: 'Index', link: '/admin/settings' },
+            ]"
+          />
+          <UiMenuItemDropdown
             title="Requests"
             icon="fa fa-cube"
             :items="[{ title: 'All', link: '/admin/instructor/requests' }]"
