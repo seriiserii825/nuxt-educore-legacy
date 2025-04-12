@@ -2,6 +2,7 @@
 import { useUserStore } from "~/store/useUserStore";
 definePageMeta({
   middleware: ["student"],
+  layout: "student",
 });
 const router = useRouter();
 const user_store = useUserStore();

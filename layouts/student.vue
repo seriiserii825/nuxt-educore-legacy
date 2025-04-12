@@ -7,18 +7,13 @@ useHead({
     { rel: "stylesheet", href: "/css/all.min.css" },
     { rel: "stylesheet", href: "/css/bootstrap.min.css" },
     { rel: "stylesheet", href: "/style.css" },
-    { rel: "stylesheet", href: "/css/responsive.css" }
-  ]
+    { rel: "stylesheet", href: "/css/responsive.css" },
+  ],
 });
-
-async function getCart(){
-  await useGetCart();
-}
 
 onMounted(() => {
-  getCart();
+  useGetCart();
 });
-
 </script>
 <template>
   <div class="layout">

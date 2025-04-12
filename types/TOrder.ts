@@ -4,9 +4,6 @@ import type {TUser} from "./TUser";
 export type TOrder = {
   name: string;
   email: string;
-  address: string;
-  phone: string;
-  company: string;
   payment_method?: string;
 }
 

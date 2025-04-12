@@ -1,44 +1,32 @@
 <script setup lang="ts">
 import { useUserStore } from "~/store/useUserStore";
-import type {TOrder} from "~/types/TOrder";
+import type { TOrder } from "~/types/TOrder";
 definePageMeta({
   middleware: ["student"],
+  layout: "student",
 });
-
 
 const router = useRouter();
 const user_store = useUserStore();
-const { user, cart, order } = storeToRefs(user_store);
+const { user, cart } = storeToRefs(user_store);
 
 const coupon = ref(false);
 
 const form = ref<TOrder>({
   name: "",
   email: "",
-  address: "",
-  phone: "",
-  company: "",
 });
 
 const errors = ref({
   name: [],
   email: [],
-  address: [],
-  phone: [],
-  company: [],
 });
 
-function goToPayment(){
+function goToPayment() {
   if (!form.value.name) {
     errors.value.name = ["Name is required"];
   } else {
     errors.value.name = [];
-  }
-
-  if (!form.value.phone) {
-    errors.value.phone = ["Phone is required"];
-  } else {
-    errors.value.phone = [];
   }
 
   if (!form.value.email) {
@@ -47,31 +35,25 @@ function goToPayment(){
     errors.value.email = [];
   }
 
-  if (!form.value.address) {
-    errors.value.address = ["Address is required"];
-  } else {
-    errors.value.address = [];
-  }
-
-  if (!form.value.company) {
-    errors.value.company = ["Company is required"];
-  } else {
-    errors.value.company = [];
-  }
-
-  if (errors.value.name.length || errors.value.email.length || errors.value.address.length || errors.value.phone.length) {
+  if (
+    errors.value.name.length || errors.value.email.length
+  ) {
     return;
   }
   user_store.setOrder(form.value);
   router.push("/payment");
 }
 
-onMounted(() => {
-  if (user.value) {
-    form.value.name = user.value.name;
-    form.value.email = user.value.email;
-  }
-});
+watch(
+  () => user.value,
+  (newUser) => {
+    if (newUser) {
+      form.value.name = newUser.name;
+      form.value.email = newUser.email;
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
@@ -90,6 +72,7 @@ onMounted(() => {
                       label="Name*"
                       v-model:value="form.name"
                       name="name"
+                      :disabled="true"
                       :errors="errors ? errors.name : []"
                     />
                   </div>
@@ -99,31 +82,8 @@ onMounted(() => {
                       type="email"
                       v-model:value="form.email"
                       name="email"
+                      :disabled="true"
                       :errors="errors ? errors.email : []"
-                    />
-                  </div>
-                  <div class="col-xl-6">
-                    <InputComponent
-                      label="Phone*"
-                      v-model:value="form.phone"
-                      name="phone"
-                      :errors="errors ? errors.phone : []"
-                    />
-                  </div>
-                  <div class="col-xl-6">
-                    <InputComponent
-                      label="Company Name"
-                      v-model:value="form.company"
-                      name="company"
-                      :errors="errors ? errors.company : []"
-                    />
-                  </div>
-                  <div class="col-xl-12">
-                    <InputComponent
-                      label="Address"
-                      v-model:value="form.address"
-                      name="address"
-                      :errors="errors ? errors.address : []"
                     />
                   </div>
                 </div>
@@ -142,7 +102,12 @@ onMounted(() => {
                 <input type="text" placeholder="Enter coupon code" />
                 <button class="common_btn">submit</button>
               </form>
-              <a @click.prevent="goToPayment" class="common_btn" style="cursor: pointer;">Select Pay Method</a>
+              <a
+                @click.prevent="goToPayment"
+                class="common_btn"
+                style="cursor: pointer"
+                >Select Pay Method</a
+              >
             </div>
           </div>
         </div>

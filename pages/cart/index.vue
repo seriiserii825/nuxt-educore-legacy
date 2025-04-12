@@ -2,6 +2,7 @@
 import { useUserStore } from "~/store/useUserStore";
 definePageMeta({
   middleware: ["student"],
+  layout: "student",
 });
 const user_store = useUserStore();
 const { cart } = storeToRefs(user_store);
@@ -96,7 +97,7 @@ async function deleteCartItem(id: number) {
             style="visibility: visible; animation-name: fadeInUp"
           >
             <div class="continue_shopping">
-              <a href="#" class="common_btn">continue shopping</a>
+              <nuxt-link to="/courses" class="common_btn">continue shopping</nuxt-link>
             </div>
           </div>
           <div

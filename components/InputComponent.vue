@@ -30,6 +30,10 @@ const props = defineProps({
     type: Boolean,
     required: false,
   },
+  disabled: {
+    type: Boolean,
+    required: false,
+  },
 });
 
 const propsValue = computed(() => {
@@ -54,8 +58,9 @@ function togglePassword() {
   <div class="input" :class="[{ 'input--password': type === 'password' }]">
     <label v-if="label">{{ label }}</label>
     <input
+      :disabled="disabled"
       :type="input_type"
-      :placeholder="placeholder !== undefined ? placeholder : null"
+      :placeholder="placeholder"
       :value="propsValue"
       :name="name"
       @input="changeHandler"

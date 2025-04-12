@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TCourse } from "~/types/TCourse";
 
-const props = defineProps({
+defineProps({
   courses: {
     type: Array as PropType<TCourse[]>,
     required: true,
