@@ -16,7 +16,7 @@ const props = defineProps({
     </nuxt-link>
   </li>
 </template>
-<style>
+<style scoped>
 .router-link-active.router-link-exact-active {
   color: white !important;
   background: var(--colorPrimary);
