@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import type { TCodeProps } from "~/types/TCodeProps";
+
+const code_props: TCodeProps[] = [
+  { key: "label", value: "string" },
+  { key: "options", value: "TSelectOption[]" },
+  { key: "errors", value: "string[]" },
+  { key: "value", value: "string | number" },
+  { key: "name", value: "string", required: true },
+];
 const code = `
 const form = ref({
   file_type: "",
@@ -93,7 +102,7 @@ function onChange(event: Event) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true" :show_props="true">
       <template #default>
         <FormSelect
           label="File Type"
@@ -103,6 +112,9 @@ function onChange(event: Event) {
           @emit_select="form.file_type = $event"
           :errors="errors ? errors.file_type : []"
         />
+      </template>
+      <template #code_props>
+        <StyleguideCodeProps :code_props="code_props" />
       </template>
       <template #code>
         {{ code }}
