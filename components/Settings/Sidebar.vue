@@ -3,7 +3,7 @@
 <template>
   <div class="card-body">
     <div class="list-group list-group-transparent">
-      <SettingsSidebarLink url="/admin/settings" text="Settings" />
+      <SettingsSidebarLink url="/admin/settings" text="General Settings" />
     </div>
   </div>
 </template>
