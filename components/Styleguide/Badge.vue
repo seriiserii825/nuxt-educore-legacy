@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import type { TCodeProps } from "~/types/TCodeProps";
+
+const code_props: TCodeProps[] = [
+  { key: "text", value: "string", required: true },
+  { key: "type", value: "string", required: true, values: ["success", "error", "warning", "info"] },
+];
+
 const btn_code = `
 <UiBadge
   :text="category.show_at_tranding === 1 ? 'Yes' : 'No'"
@@ -80,7 +87,7 @@ onMounted(() => {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode>
+    <StyleguidePreviewCode :show_props="true">
       <template #default>
         <div @click="useCopyToClipboard(badge_success)">
         <UiBadge
@@ -106,6 +113,9 @@ onMounted(() => {
           :type="'info'"
         />
         </div>
+      </template>
+      <template #code_props>
+        <StyleguideCodeProps :code_props="code_props" />
       </template>
       <template #code>
         {{ btn_code }}
