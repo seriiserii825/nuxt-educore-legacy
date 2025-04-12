@@ -54,11 +54,18 @@ onMounted(() => {
         </ul>
 
         <div class="right_menu">
-          <li>
-            <nuxt-link to="/styleguide">
-              <i class="fa-brands fa-guilded"></i>
-            </nuxt-link>
-          </li>
+          <ul class="d-flex gap-3">
+            <li>
+              <nuxt-link to="/admin/login">
+                <i class="fa-solid fa-lock"></i>
+              </nuxt-link>
+            </li>
+            <li>
+              <nuxt-link to="/styleguide">
+                <i class="fa-brands fa-guilded"></i>
+              </nuxt-link>
+            </li>
+          </ul>
           <div class="menu_search_btn">
             <img src="/images/search_icon.png" alt="Search" class="img-fluid" />
           </div>

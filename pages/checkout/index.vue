@@ -106,7 +106,7 @@ onMounted(() => {
                     <InputComponent
                       label="Phone*"
                       v-model:value="form.phone"
-                      name="email"
+                      name="phone"
                       :errors="errors ? errors.phone : []"
                     />
                   </div>

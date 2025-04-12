@@ -6,6 +6,7 @@ definePageMeta({
 const router = useRouter();
 const user_store = useUserStore();
 const { order, cart, user } = storeToRefs(user_store);
+const loading = ref(false);
 function emitClick(title: string) {
   if (!order.value) {
     router.push("/checkout");
@@ -33,17 +34,22 @@ async function makeOrder() {
     return;
   }
   try {
+    loading.value = true;
     await axiosInstance.post("/order", {
       total_amount,
       buyer_id,
       ...order.value,
     });
-    user_store.setOrder(null);
-    user_store.setCart([]);
-    router.push("/courses")
-    useSweetAlert("success", "Order created successfully");
+    setTimeout(() => {
+      user_store.setOrder(null);
+      user_store.setCart([]);
+      router.push("/courses");
+      useSweetAlert("success", "Order created successfully");
+      loading.value = false;
+    }, 2000);
   } catch (error) {
     handleAxiosError(error);
+    loading.value = false;
   }
 }
 async function onSubmit() {
@@ -54,7 +60,6 @@ async function onSubmit() {
   if (order.value && !order.value.payment_method) {
     useSweetAlert("error", "Please select a payment method");
   } else if (order.value && order.value.payment_method) {
-    useSweetAlert("success", "Payment method selected");
     await makeOrder();
   }
 }
@@ -64,6 +69,7 @@ async function onSubmit() {
     <UiBreadcrumb title="Payment" image="/images/breadcrumb_bg.jpg" />
     <section class="p-6 payment pt_95 xs_pt_75 pb_120 xs_pb_100">
       <div class="container">
+        <UiLoading v-if="loading" />
         <div class="row">
           <div class="col-xl-8 col-lg-7 wow fadeInUp">
             <div class="payment_area">

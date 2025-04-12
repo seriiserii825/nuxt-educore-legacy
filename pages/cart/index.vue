@@ -56,9 +56,9 @@ async function deleteCartItem(id: number) {
                           }}</nuxt-link>
                         </td>
                         <td class="pro_tk">
-                          <h6>
-                            <span v-if="item.course.discount" style="text-decoration: line-through;">{{ item.course.discount }}</span>
-                            ${{ item.course.price }}
+                          <h6 class="d-flex gap-1">
+                            <span v-if="item.course.price" class="text-decoration-line-through">${{ item.course.price }}</span>
+                            <span v-if="item.course.discount" style="color: black; font-weight: bold;">${{ item.course.discount }}</span>
                           </h6>
                         </td>
                         <td>
