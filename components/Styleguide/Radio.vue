@@ -1,4 +1,14 @@
 <script setup lang="ts">
+import type { TCodeProps } from "~/types/TCodeProps";
+
+const code_props: TCodeProps[] = [
+  { key: "label", value: "string" },
+  { key: "errors", value: "string[]" },
+  { key: "value", value: "number | null" },
+  { key: "name", value: "string", required: true },
+  { key: "options", value: "TSelectOption[]", required: true },
+];
+
 const code = `
 const form = ref({
   course_level_id: 0,
@@ -107,7 +117,7 @@ function emitRadio(event: Event, key: number) {
 
 <template>
   <div class="buttons">
-    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true">
+    <StyleguidePreviewCode @emit_click="useCopyToClipboard(elem_copy)" :show_copy_btn="true" :show_props="true">
       <template #default>
         <FormRadio
           label="Course Level*"
@@ -117,6 +127,9 @@ function emitRadio(event: Event, key: number) {
           name="course_level_id"
           @emit_radio="form.course_level_id = $event"
         />
+      </template>
+      <template #code_props>
+        <StyleguideCodeProps :code_props="code_props" />
       </template>
       <template #code>
         {{ code }}
