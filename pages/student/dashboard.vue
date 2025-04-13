@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useUserStore } from "~/store/useUserStore";
-import type { TCourse } from "~/types/TCourse";
+import type {TEnrollment} from "~/types/TEnrollment";
 definePageMeta({
   layout: "student",
   middleware: ["student"],
@@ -9,7 +9,7 @@ const user_store = useUserStore();
 const { user } = storeToRefs(user_store);
 const active = ref(false);
 const loading = ref(false);
-const courses = ref<TCourse[]>([]);
+const enrollments = ref<TEnrollment[]>([]);
 const form = ref({
   document: null as File | null,
 });
@@ -44,12 +44,11 @@ function onSubmit() {
     });
 }
 
-async function getCourses() {
+async function getEnrollments() {
   loading.value = true;
   try {
-    const data = await axiosInstance.get("/student/courses");
-    console.log("data.data", data.data);
-    courses.value = data.data;
+    const data = await axiosInstance.get("/student/enrollments");
+    enrollments.value = data.data;
     setTimeout(() => {
       loading.value = false;
     }, 1000);
@@ -60,7 +59,7 @@ async function getCourses() {
 }
 
 onMounted(() => {
-  getCourses();
+  getEnrollments();
 });
 </script>
 <template>
@@ -100,7 +99,7 @@ onMounted(() => {
                   <button @click="onSubmit" class="btn btn-primary">Submit</button>
                 </div>
               </UiCard>
-              <StudentCourses v-if="courses.length" :courses="courses" />
+              <StudentCourses v-if="enrollments.length" :enrollments="enrollments" />
             </template>
           </div>
         </div>

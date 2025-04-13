@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
-import type { TCourse } from "~/types/TCourse";
+import type {TEnrollment} from "~/types/TEnrollment";
 
 defineProps({
-  courses: {
-    type: Array as PropType<TCourse[]>,
+  enrollments: {
+    type: Array as PropType<TEnrollment[]>,
     required: true,
   },
 });
@@ -35,11 +35,11 @@ defineProps({
                   <th class="details"></th>
                   <th class="action">ACTION</th>
                 </tr>
-                <template v-if="courses.length">
-                  <tr v-for="course in courses" :key="course.id">
+                <template v-if="enrollments.length">
+                  <tr v-for="enrollment in enrollments" :key="enrollment.id">
                     <td class="image">
                       <div class="image_category">
-                        <img :src="course.thumbnail" alt="img" class="img-fluid w-100" />
+                        <img :src="enrollment.course.thumbnail" alt="img" class="img-fluid w-100" />
                       </div>
                     </td>
                     <td class="details">
@@ -51,7 +51,10 @@ defineProps({
                         <i class="far fa-star" aria-hidden="true"></i>
                         <span>(5.0)</span>
                       </p>
-                      <nuxt-link class="title" href="#">{{ course.title }}</nuxt-link>
+                      <nuxt-link class="title" href="#">
+                        <p style="color: black; font-weight: bold;">{{ enrollment.course.title }}</p>
+                        <p>by <em>{{enrollment.instructor.name}}</em></p>
+                      </nuxt-link>
                     </td>
                     <td class="action">
                       <FormBtn @emit_click="console.log('')">Watch course</FormBtn>

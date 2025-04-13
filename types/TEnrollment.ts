@@ -1,4 +1,5 @@
 import type {TCourse} from "./TCourse";
+import type {TUser} from "./TUser";
 
 export type TEnrollment = {
   id: number;
@@ -9,4 +10,5 @@ export type TEnrollment = {
   created_at: string;
   updated_at: string;
   course: TCourse;
+  instructor: TUser;
 }
