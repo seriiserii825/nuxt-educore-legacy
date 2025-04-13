@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {AxiosHeaders} from "axios";
 import { useUserStore } from "~/store/useUserStore";
+import type { TCourse } from "~/types/TCourse";
 definePageMeta({
   layout: "student",
   middleware: ["student"],
@@ -9,6 +9,7 @@ const user_store = useUserStore();
 const { user } = storeToRefs(user_store);
 const active = ref(false);
 const loading = ref(false);
+const courses = ref<TCourse[]>([]);
 const form = ref({
   document: null as File | null,
 });
@@ -16,9 +17,10 @@ const errors = ref();
 function emitFile(file: File) {
   form.value.document = file;
 }
+
 function onSubmit() {
   if (!user.value) {
-    useSweetAlert('error', 'No user', 'user not found');
+    useSweetAlert("error", "No user", "user not found");
   }
   loading.value = true;
   const formData = new FormData();
@@ -41,6 +43,25 @@ function onSubmit() {
       loading.value = false;
     });
 }
+
+async function getCourses() {
+  loading.value = true;
+  try {
+    const data = await axiosInstance.get("/student/courses");
+    console.log("data.data", data.data);
+    courses.value = data.data;
+    setTimeout(() => {
+      loading.value = false;
+    }, 1000);
+  } catch (error) {
+    handleAxiosError(error, {});
+    loading.value = false;
+  }
+}
+
+onMounted(() => {
+  getCourses();
+});
 </script>
 <template>
   <div>
@@ -65,9 +86,7 @@ function onSubmit() {
                 v-if="user?.approve_status === 'initial'"
                 class="mb-4 d-flex justify-content-end"
               >
-                <button @click="active = true" class="btn btn-primary">
-                  Become an Instructor
-                </button>
+                <button @click="active = true" class="btn btn-primary">Become an Instructor</button>
               </div>
               <UiCard v-if="active" title="Become instructor">
                 <div class="mb-3">
@@ -78,11 +97,10 @@ function onSubmit() {
                   />
                 </div>
                 <div class="d-flex justify-content-end">
-                  <button @click="onSubmit" class="btn btn-primary">
-                    Submit
-                  </button>
+                  <button @click="onSubmit" class="btn btn-primary">Submit</button>
                 </div>
               </UiCard>
+              <StudentCourses v-if="courses.length" :courses="courses" />
             </template>
           </div>
         </div>
