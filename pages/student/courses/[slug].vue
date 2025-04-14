@@ -57,7 +57,8 @@ onMounted(() => {
           <StudentVideoTabs />
         </div>
         <div class="wsus__course_sidebar d-none d-lg-block">
-          <StudentVideoSidebar />
+          <StudentVideoSidebar v-if="course && course.chapters" :chapters="course.chapters" />
+          <p v-else> No data available</p>
         </div>
       </div>
     </section>
