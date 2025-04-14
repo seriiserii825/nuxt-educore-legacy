@@ -1,12 +1,38 @@
 <script setup lang="ts">
+import { UiLoading } from "#components";
+import type { TCourse } from "~/types/TCourse";
+
 definePageMeta({
   layout: "student",
   middleware: ["student"],
 });
+
+const route = useRoute();
+const loading = ref(false);
+const course = ref<TCourse>();
+
+async function getCourse() {
+  loading.value = true;
+  try {
+    const data = await axiosInstance.get(`/student/course/${route.params.slug}`);
+    course.value = data.data;
+    setTimeout(() => {
+      loading.value = false;
+    }, 1000);
+  } catch (error) {
+    handleAxiosError(error);
+    loading.value = false;
+  }
+}
+
+onMounted(() => {
+  getCourse();
+});
 </script>
 <template>
   <div class="layout pt-8">
-    <section class="wsus__course_video">
+    <UiLoading v-if="loading" />
+    <section v-else class="wsus__course_video">
       <div class="col-12">
         <div class="wsus__course_header">
           <p><i class="fas fa-angle-left"></i> Speaking English for Beginners</p>

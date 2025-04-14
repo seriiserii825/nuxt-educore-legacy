@@ -1011,47 +1011,7 @@
               <h3>All questions in this course (14)</h3>
               <div class="video_qna_list_item">
                 <div class="img">
-                  <img src="/images/testimonial_user_1.png" alt="img" />
-                </div>
-                <div class="text">
-                  <a class="qna_title" href="#"
-                    >mailtrap.io doe not send email verifications directly to the user's email?</a
-                  >
-                  <p>
-                    Hi, how do I make mailtrap.io send the email verification directly to the user's
-                    email?
-                  </p>
-                  <ul>
-                    <li><a href="#">Landry</a></li>
-                    <li><a href="#">Lecture 40</a></li>
-                    <li>1 year ago</li>
-                  </ul>
-                  <span>07 <i class="fas fa-comment"></i></span>
-                </div>
-              </div>
-              <div class="video_qna_list_item">
-                <div class="img">
-                  <img src="/images/testimonial_user_2.png" alt="img" />
-                </div>
-                <div class="text">
-                  <a class="qna_title" href="#"
-                    >mailtrap.io doe not send email verifications directly to the user's email?</a
-                  >
-                  <p>
-                    Hi, how do I make mailtrap.io send the email verification directly to the user's
-                    email?
-                  </p>
-                  <ul>
-                    <li><a href="#">Landry</a></li>
-                    <li><a href="#">Lecture 40</a></li>
-                    <li>1 year ago</li>
-                  </ul>
-                  <span>07 <i class="fas fa-comment"></i></span>
-                </div>
-              </div>
-              <div class="video_qna_list_item">
-                <div class="img">
-                  <img src="/images/testimonial_user_3.png" alt="img" />
+                  <img :src="`/images/testimonial_user_1.png`" alt="img" />
                 </div>
                 <div class="text">
                   <a class="qna_title" href="#"
@@ -1075,7 +1035,7 @@
             <a href="#" class="btn arrow-btn back_qna_list">Back to All Questions</a>
             <div class="video_qna_list_item">
               <div class="img">
-                <img src="/images/review-author.png" alt="img" />
+                <img :src="`/images/review-author.png`" alt="img" />
               </div>
               <div class="text">
                 <a class="qna_title" href="#"
@@ -1098,47 +1058,7 @@
             </div>
             <div class="qns_details_list_item video_qna_list_item">
               <div class="img">
-                <img src="/images/review-author.png" alt="img" />
-              </div>
-              <div class="text">
-                <a class="qna_title" href="#">Smith jhon</a>
-                <span>6 month ago</span>
-                <p>
-                  Thank you for the insight. Please tell me how to implement direct-to-user mail
-                  verification.
-                </p>
-                <div class="dot">
-                  <i class="fas fa-ellipsis-v"></i>
-                  <ul>
-                    <li><a href="#">link 1</a></li>
-                    <li><a href="#">link 2</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="qns_details_list_item video_qna_list_item">
-              <div class="img">
-                <img src="/images/review-author.png" alt="img" />
-              </div>
-              <div class="text">
-                <a class="qna_title" href="#">Smith jhon</a>
-                <span>6 month ago</span>
-                <p>
-                  Thank you for the insight. Please tell me how to implement direct-to-user mail
-                  verification.
-                </p>
-                <div class="dot">
-                  <i class="fas fa-ellipsis-v"></i>
-                  <ul>
-                    <li><a href="#">link 1</a></li>
-                    <li><a href="#">link 2</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="qns_details_list_item video_qna_list_item">
-              <div class="img">
-                <img src="/images/review-author.png" alt="img" />
+                <img :src="`/images/review-author.png`" alt="img" />
               </div>
               <div class="text">
                 <a class="qna_title" href="#">Smith jhon</a>
@@ -1191,7 +1111,7 @@
           <h2>Reviews (09)</h2>
           <div class="course-review-head">
             <div class="review-author-thumb">
-              <img src="/images/review-author.png" alt="img" />
+              <img :src="`/images/review-author.png`" alt="img" />
             </div>
             <div class="review-author-content">
               <div class="author-name">
@@ -1214,7 +1134,7 @@
           </div>
           <div class="course-review-head">
             <div class="review-author-thumb">
-              <img src="/images/review-author.png" alt="img" />
+              <img :src="`/images/review-author.png`" alt="img" />
             </div>
             <div class="review-author-content">
               <div class="author-name">
@@ -1237,7 +1157,7 @@
           </div>
           <div class="course-review-head">
             <div class="review-author-thumb">
-              <img src="/images/review-author.png" alt="img" />
+              <img :src="`/images/review-author.png`" alt="img" />
             </div>
             <div class="review-author-content">
               <div class="author-name">
