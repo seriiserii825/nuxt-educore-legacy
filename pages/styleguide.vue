@@ -9,6 +9,7 @@ import {
   StyleguideRadio,
   StyleguideSelect,
   StyleguideSelectGroup,
+  StyleguideSlideToggle,
   StyleguideSwitch,
   StyleguideTable,
   StyleguideTextarea,
@@ -32,6 +33,7 @@ const components = [
   { name: "Select Group", component: StyleguideSelectGroup },
   { name: "File upload", component: StyleguideFileUpload },
   { name: "Table", component: StyleguideTable },
+  { name: "SlideToggle", component: StyleguideSlideToggle },
 ];
 
 function goBack() {
