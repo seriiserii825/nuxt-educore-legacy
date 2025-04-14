@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
-import type {TEnrollment} from "~/types/TEnrollment";
+import type { TEnrollment } from "~/types/TEnrollment";
 
 defineProps({
   enrollments: {
@@ -51,13 +51,15 @@ defineProps({
                         <i class="far fa-star" aria-hidden="true"></i>
                         <span>(5.0)</span>
                       </p>
-                      <nuxt-link class="title" href="#">
-                        <p style="color: black; font-weight: bold;">{{ enrollment.course.title }}</p>
-                        <p>by <em>{{enrollment.instructor.name}}</em></p>
+                      <nuxt-link class="title" to="`/student/courses/${enrollment.course.slug}`">
+                        <p style="color: black; font-weight: bold">{{ enrollment.course.title }}</p>
+                        <p>
+                          by <em>{{ enrollment.instructor.name }}</em>
+                        </p>
                       </nuxt-link>
                     </td>
                     <td class="action">
-                      <FormBtn @emit_click="console.log('')">Watch course</FormBtn>
+                      <FormBtn @emit_click="console.log('')" :url="`/student/courses/${enrollment.course.slug}`">Watch course</FormBtn>
                     </td>
                   </tr>
                 </template>
