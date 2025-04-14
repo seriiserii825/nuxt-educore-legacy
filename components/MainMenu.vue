@@ -19,10 +19,14 @@ function goToCart() {
 }
 
 onMounted(() => {
-  dashboard_link.value =
-    user.value && user.value.role === "student"
-      ? "/student/dashboard"
-      : "/instructor/dashboard";
+  if (user.value) {
+    if (user.value.role == "student") {
+      dashboard_link.value = "/student/dashboard";
+    }
+    if (user.value.role == "instructor") {
+      dashboard_link.value = "/instructor/dashboard";
+    }
+  }
 });
 </script>
 
@@ -73,26 +77,18 @@ onMounted(() => {
             <li>
               <a class="menu_signin" href="#" @click.prevent="goToCart">
                 <span>
-                  <img
-                    src="/images/cart_icon_black.png"
-                    alt="user"
-                    class="img-fluid"
-                  />
+                  <img src="/images/cart_icon_black.png" alt="user" class="img-fluid" />
                 </span>
                 <b>{{ cart ? cart.length : 0 }}</b>
               </a>
             </li>
             <li if="user && user.email">
               <span class="admin d-flex">
-                <span style="text-transform: lowercase; width: auto">{{
-                  user && user.email
-                }}</span>
+                <span style="text-transform: lowercase; width: auto">{{ user && user.email }}</span>
               </span>
             </li>
             <li v-if="user && user.email">
-              <nuxt-link class="common_btn" :to="dashboard_link"
-                >Dashboard</nuxt-link
-              >
+              <nuxt-link class="common_btn" :to="dashboard_link">Dashboard</nuxt-link>
             </li>
             <li v-if="user && user.role === 'admin'">
               <nuxt-link class="common_btn_2" to="/admin">Admin</nuxt-link>
