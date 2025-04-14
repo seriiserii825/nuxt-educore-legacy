@@ -8,6 +8,7 @@ definePageMeta({
 });
 
 const route = useRoute();
+const router = useRouter();
 const loading = ref(false);
 const course = ref<TCourse>();
 
@@ -21,6 +22,7 @@ async function getCourse() {
     }, 1000);
   } catch (error) {
     handleAxiosError(error);
+    router.push("/student/dashboard");
     loading.value = false;
   }
 }
