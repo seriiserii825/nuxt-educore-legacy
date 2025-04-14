@@ -37,7 +37,7 @@ onMounted(() => {
     <section v-else class="wsus__course_video">
       <div class="col-12">
         <div class="wsus__course_header">
-          <p><i class="fas fa-angle-left"></i> Speaking English for Beginners</p>
+          <p><i class="fas fa-angle-left"></i> {{ course?.title }}</p>
           <p>Your Progress: 20 of 15 (75%)</p>
         </div>
       </div>

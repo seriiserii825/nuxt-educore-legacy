@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const is_active = ref(false);
+</script>
 
 <template>
   <div class="accordion-item">
