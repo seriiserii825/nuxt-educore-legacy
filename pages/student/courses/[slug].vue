@@ -15,20 +15,17 @@ definePageMeta({
       </div>
       <div class="d-flex">
         <div class="wsus__course_video_player">
-          <!-- <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
-                poster="/images/video_thumb.jpg" data-setup="{}">
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/webm" />
-            </video> -->
-          <video
-            id="vid1"
-            class="video-js vjs-default-skin"
-            controls
-            autoplay
-            width="640"
-            height="264"
-            data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://youtu.be/fsSN6jDtJdY?si=E5_FJf6kT2d679GO"}] }'
-          ></video>
+          <div class="video-youtube">
+            <div class="thumb-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/2Vv-BfVoq4g"
+                width="100%"
+                title="YouTube video player"
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
           <div class="video_tabs_area">
             <ul class="nav nav-pills" id="pills-tab2" role="tablist">
               <li class="nav-item d-lg-none" role="presentation">
@@ -2240,3 +2237,20 @@ definePageMeta({
     </section>
   </div>
 </template>
+<style scoped>
+.thumb-wrap {
+  position: relative;
+  padding-bottom: 56.25%; /* задаёт высоту контейнера для 16:9 (если 4:3 — поставьте 75%) */
+  height: 0;
+  overflow: hidden;
+}
+.thumb-wrap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-width: 0;
+  outline-width: 0;
+}
+</style>
