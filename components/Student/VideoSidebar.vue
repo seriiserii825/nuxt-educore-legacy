@@ -12,9 +12,13 @@ const props = defineProps({
 
 <template>
   <div class="video-sidebar">
-    <h2 class="video_heading">Course Content</h2>
-    <div class="accordion" v-for="chapter in chapters">
-      <StudentVideoSidebarItem />
+    <div class="accordion" v-for="(chapter, index) in chapters">
+      <StudentVideoSidebarItem :chapter="chapter" :index="index+1" :chapters_count="chapters.length" :opened="index === 0" />
     </div>
   </div>
 </template>
+<style scoped>
+.accordion {
+  padding-bottom: 0;
+}
+</style>
