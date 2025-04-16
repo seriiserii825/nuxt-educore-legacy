@@ -98,11 +98,15 @@ function togglePassword() {
   position: relative;
   margin-bottom: 1.6rem;
 }
+.input label {
+  display: block;
+  margin-bottom: 10px;
+}
 .input--error {
   border-color: red !important;
 }
 .input input {
-  height: 28px;
+  height: 38px;
 }
 /* .input label { */
 /*   margin-bottom: 0.8rem; */

@@ -20,5 +20,6 @@ const props = defineProps({
 <style scoped>
 .accordion {
   padding-bottom: 0;
+  overflow: initial;
 }
 </style>
