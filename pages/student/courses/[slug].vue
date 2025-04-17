@@ -23,15 +23,7 @@ async function getCourse() {
     const data = await axiosInstance.get(`/student/course/${route.params.slug}`);
     course.value = data.data;
     if (course.value?.lessons && course.value?.lessons.length > 0) {
-      let video_path = course.value.lessons[0].file_path;
-      //console.log(video_path, "video_path");
-      if (video_path.indexOf("watch?")) {
-        video_path = video_path.split("watch?")[1];
-        video_path = video_path.split("&")[0];
-        video_path = video_path.split("=")[1];
-        video_path = `https://www.youtube.com/embed/${video_path}`;
-      }
-      //console.log(video_path, "video_path");
+      let video_path = useVideoToIframe(course.value.lessons[0].file_path);
       video_storage.setVideo(video_path);
 
       setTimeout(() => {
@@ -83,7 +75,11 @@ onMounted(() => {
           <StudentVideoTabs />
         </div>
         <div class="wsus__course_sidebar d-none d-lg-block">
-          <StudentVideoSidebar v-if="course && course.chapters" :chapters="course.chapters" />
+          <StudentVideoSidebar
+            v-if="course && course.chapters"
+            :chapters="course.chapters"
+            :course_id="course.id"
+          />
           <p v-else>No data available</p>
         </div>
       </div>
