@@ -59,19 +59,21 @@ onMounted(() => {
       </div>
       <div class="d-flex">
         <div class="wsus__course_video_player">
-          <UiLoading v-if="video_loading" />
-          <div class="video-youtube" v-else-if="video">
-            <div class="thumb-wrap">
-              <iframe
-                :src="video"
-                width="100%"
-                title="YouTube video player"
-                frameborder="0"
-                allowfullscreen
-              ></iframe>
+          <div style="min-height: 500px">
+            <UiLoading v-if="video_loading" />
+            <div class="video-youtube" v-else-if="video">
+              <div class="thumb-wrap">
+                <iframe
+                  :src="video"
+                  width="100%"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allowfullscreen
+                ></iframe>
+              </div>
             </div>
+            <h3 v-else>No video found</h3>
           </div>
-          <h3 v-else>No video found</h3>
           <StudentVideoTabs />
         </div>
         <div class="wsus__course_sidebar d-none d-lg-block">

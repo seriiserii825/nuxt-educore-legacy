@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Vue3SlideUpDown } from "vue3-slide-up-down";
-import {useVideoStore} from "~/store/useVideoStore";
+import { useVideoStore } from "~/store/useVideoStore";
 import type { TCourseChapter } from "~/types/TCourseChapter";
 const props = defineProps({
   chapter: {
@@ -29,6 +29,8 @@ const video_store = useVideoStore();
 
 const show = ref(props.opened);
 
+const active = ref(0);
+
 function toggleText() {
   show.value = !show.value;
 }
@@ -39,13 +41,18 @@ type TResponse = {
   };
 };
 
-async function getVideoPath(lesson: any) {
+async function getVideoPath(lesson: any, index: number) {
+  active.value = index;
   const lesson_id = lesson.id;
-  const data: TResponse = await axiosInstance.get(`/student/enrollments/get-video?lesson_id=${lesson_id}&course_id=${props.course_id}`);
+  const data: TResponse = await axiosInstance.get(
+    `/student/enrollments/get-video?lesson_id=${lesson_id}&course_id=${props.course_id}`
+  );
   video_store.setVideoLoading(true);
   let video_path = useVideoToIframe(data.data.file_path);
   video_store.setVideo(video_path);
-  video_store.setVideoLoading(false);
+  setTimeout(() => {
+    video_store.setVideoLoading(false);
+  }, 1000);
 }
 </script>
 
@@ -61,7 +68,13 @@ async function getVideoPath(lesson: any) {
       <div class="accordion-collapse collapse show">
         <Vue3SlideUpDown v-model="show">
           <div class="accordion-body">
-            <div v-for="lesson in chapter.lessons" :key="lesson.id" class="form-check" @click.prevent="getVideoPath(lesson)">
+            <div
+              v-for="(lesson, index) in chapter.lessons"
+              :key="lesson.id"
+              class="form-check lesson-item"
+              :class="{ active: active == index }"
+              @click.prevent="getVideoPath(lesson, index)"
+            >
               <input class="form-check-input" type="checkbox" value="" />
               <label class="form-check-label">
                 {{ lesson.title }}
@@ -90,3 +103,13 @@ async function getVideoPath(lesson: any) {
     </div>
   </div>
 </template>
+<style>
+.lesson-item .form-check-label {
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+.lesson-item .form-check-label:hover,
+.lesson-item.active .form-check-label {
+  color: #007bff;
+}
+</style>
