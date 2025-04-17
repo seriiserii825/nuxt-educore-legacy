@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { UiLoading } from "#components";
+import { useVideoStore } from "~/store/useVideoStore";
 import type { TCourse } from "~/types/TCourse";
 
 definePageMeta({
   layout: "student",
   middleware: ["student"],
 });
+
+const video_storage = useVideoStore();
+const { video, video_loading } = storeToRefs(video_storage);
 
 const route = useRoute();
 const router = useRouter();
@@ -14,9 +18,29 @@ const course = ref<TCourse>();
 
 async function getCourse() {
   loading.value = true;
+  video_storage.setVideoLoading(true);
   try {
     const data = await axiosInstance.get(`/student/course/${route.params.slug}`);
     course.value = data.data;
+    if (course.value?.lessons && course.value?.lessons.length > 0) {
+      let video_path = course.value.lessons[0].file_path;
+      //console.log(video_path, "video_path");
+      if (video_path.indexOf("watch?")) {
+        video_path = video_path.split("watch?")[1];
+        video_path = video_path.split("&")[0];
+        video_path = video_path.split("=")[1];
+        video_path = `https://www.youtube.com/embed/${video_path}`;
+      }
+      //console.log(video_path, "video_path");
+      video_storage.setVideo(video_path);
+
+      setTimeout(() => {
+        video_storage.setVideoLoading(false);
+      }, 1000);
+    } else {
+      useSweetAlert("error", "No video found");
+      video_storage.setVideoLoading(false);
+    }
     setTimeout(() => {
       loading.value = false;
     }, 1000);
@@ -43,10 +67,11 @@ onMounted(() => {
       </div>
       <div class="d-flex">
         <div class="wsus__course_video_player">
-          <div class="video-youtube">
+          <UiLoading v-if="video_loading" />
+          <div class="video-youtube" v-else-if="video">
             <div class="thumb-wrap">
               <iframe
-                src="https://www.youtube.com/embed/2Vv-BfVoq4g"
+                :src="video"
                 width="100%"
                 title="YouTube video player"
                 frameborder="0"
@@ -54,11 +79,12 @@ onMounted(() => {
               ></iframe>
             </div>
           </div>
+          <h3 v-else>No video found</h3>
           <StudentVideoTabs />
         </div>
         <div class="wsus__course_sidebar d-none d-lg-block">
           <StudentVideoSidebar v-if="course && course.chapters" :chapters="course.chapters" />
-          <p v-else> No data available</p>
+          <p v-else>No data available</p>
         </div>
       </div>
     </section>

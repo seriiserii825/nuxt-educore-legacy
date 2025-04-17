@@ -2,7 +2,7 @@
 import type { PropType } from "vue";
 import type { TCourseChapter } from "~/types/TCourseChapter";
 
-const props = defineProps({
+defineProps({
   chapters: {
     type: Array as PropType<TCourseChapter[]>,
     required: true,
