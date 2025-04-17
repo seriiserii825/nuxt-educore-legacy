@@ -8,6 +8,8 @@ defineProps({
   },
 });
 
+const router = useRouter();
+
 async function addToCart(course: TCourse) {
   try {
     const data = await axiosInstance.get(`/order/${course.id}`);
@@ -21,6 +23,7 @@ async function addToCart(course: TCourse) {
       });
       await useGetUserApi();
       await useGetCart();
+      router.push("/cart");
       useSweetAlert("success", "Course added to cart successfully", "ok");
     } catch (error: any) {
       handleAxiosError(error, {});
