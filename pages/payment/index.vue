@@ -44,7 +44,7 @@ async function makeOrder() {
     setTimeout(() => {
       user_store.setOrder(null);
       user_store.setCart([]);
-      router.push("/courses");
+      router.push("/student/dashboard");
       useSweetAlert("success", "Order created successfully");
       loading.value = false;
     }, 2000);
