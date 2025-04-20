@@ -4,7 +4,7 @@ import {useUserStore} from '~/store/useUserStore';
 const user_store = useUserStore();
 const {user} = storeToRefs(user_store);
 const form = ref({
-  current_password: "",
+  new_password: "",
   password: "",
   password_confirmation: "",
 });
@@ -17,7 +17,7 @@ async function onSubmit() {
       "/profile/" + user.value.id + "/update-password",
       form.value
     );
-    form.value.current_password = "";
+    form.value.new_password = "";
     form.value.password = "";
     form.value.password_confirmation = "";
     useSweetAlert("success", "Update", "Password updated successfully");
@@ -33,11 +33,11 @@ async function onSubmit() {
     <div class="row">
       <div class="mb-3 col-xl-4">
         <InputComponent
-          label="Current Password"
-          name="current_password"
-          v-model:value="form.current_password"
+          label="New Password"
+          name="new_password"
+          v-model:value="form.new_password"
           type="password"
-          :errors="errors ? errors.current_password : []"
+          :errors="errors ? errors.new_password : []"
         />
       </div>
       <div class="mb-3 col-xl-4">
