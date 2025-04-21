@@ -20,7 +20,7 @@ async function getCourse() {
   loading.value = true;
   video_storage.setVideoLoading(true);
   try {
-    const data = await axiosInstance.get(`/student/course/${route.params.slug}`);
+    const data = await axiosInstance.get(`/student/enrollments/${route.params.slug}`);
     course.value = data.data;
     if (course.value?.lessons && course.value?.lessons.length > 0) {
       let video_path = useVideoToIframe(course.value.lessons[0].file_path);

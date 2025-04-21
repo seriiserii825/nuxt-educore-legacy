@@ -26,7 +26,7 @@ function onSubmit() {
   const formData = new FormData();
   formData.append("document", form.value.document);
   axiosInstance
-    .post("/admin/instructor/requests/" + user.value.id, formData, {
+    .post("/student/requests/" + user.value.id, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -92,6 +92,7 @@ onMounted(() => {
                   <FormFileUpload
                     label="Upload your document"
                     name="document"
+                    accept="application/pdf"
                     @emit_file="emitFile"
                   />
                 </div>

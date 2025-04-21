@@ -45,7 +45,7 @@ async function getVideoPath(lesson: any, index: number) {
   active.value = index;
   const lesson_id = lesson.id;
   const data: TResponse = await axiosInstance.get(
-    `/student/enrollments/get-video?lesson_id=${lesson_id}&course_id=${props.course_id}`
+    `/student/enrollments/${props.course_id}/get-video/${lesson_id}`
   );
   video_store.setVideoLoading(true);
   let video_path = useVideoToIframe(data.data.file_path);
