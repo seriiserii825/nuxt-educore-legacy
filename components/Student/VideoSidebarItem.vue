@@ -23,6 +23,14 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  lesson_id: {
+    type: Number,
+    required: true,
+  },
+  is_completed: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 const video_store = useVideoStore();
@@ -30,6 +38,7 @@ const video_store = useVideoStore();
 const show = ref(props.opened);
 
 const active = ref(0);
+const is_completed = ref(props.is_completed);
 
 function toggleText() {
   show.value = !show.value;
@@ -44,16 +53,43 @@ type TResponse = {
 async function getVideoPath(lesson: any, index: number) {
   active.value = index;
   const lesson_id = lesson.id;
-  const data: TResponse = await axiosInstance.get(
-    `/student/enrollments/${props.course_id}/get-video/${lesson_id}`
-  );
-  video_store.setVideoLoading(true);
-  let video_path = useVideoToIframe(data.data.file_path);
-  video_store.setVideo(video_path);
-  setTimeout(() => {
-    video_store.setVideoLoading(false);
-  }, 1000);
+  const course_id = props.course_id;
+  const chapter_id = props.chapter.id;
+  try {
+    await axiosInstance.post(`/student/watch-history`, {
+      course_id,
+      chapter_id,
+      lesson_id,
+      is_completed: is_completed.value,
+    });
+    try {
+      const data: TResponse = await axiosInstance.get(
+        `/student/enrollments/${props.course_id}/get-video/${lesson_id}`
+      );
+      video_store.setVideoLoading(true);
+      let video_path = useVideoToIframe(data.data.file_path);
+      video_store.setVideo(video_path);
+      setTimeout(() => {
+        video_store.setVideoLoading(false);
+      }, 1000);
+    } catch (error) {
+      handleAxiosError(error);
+    }
+  } catch (error) {
+    handleAxiosError(error);
+  }
 }
+
+onMounted(() => {
+  if (props.lesson_id) {
+    const lessonIndex = props.chapter.lessons.findIndex(
+      (lesson: any) => lesson.id === props.lesson_id
+    );
+    if (lessonIndex !== -1) {
+      active.value = lessonIndex;
+    }
+  }
+});
 </script>
 
 <template>
@@ -75,7 +111,7 @@ async function getVideoPath(lesson: any, index: number) {
               :class="{ active: active == index }"
               @click.prevent="getVideoPath(lesson, index)"
             >
-              <input class="form-check-input" type="checkbox" value="" />
+              <input :checked="is_completed" class="form-check-input" type="checkbox" value="" />
               <label class="form-check-label">
                 {{ lesson.title }}
                 <span>
