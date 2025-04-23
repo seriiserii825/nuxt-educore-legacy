@@ -28,7 +28,9 @@ const props = defineProps({
     default: () => [],
   },
 });
+
 const show = ref(props.opened);
+
 function toggleText() {
   show.value = !show.value;
 }
@@ -37,6 +39,13 @@ function emitActiveLesson(lesson_id: number) {
   active_lesson_id.value = lesson_id;
 }
 const active_lesson_id = ref<number | null>(null);
+
+watch(
+  () => props.opened,
+  (newVal) => {
+    show.value = newVal;
+  }
+);
 </script>
 <template>
   <div>

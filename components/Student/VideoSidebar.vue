@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { UiLoading } from "#components";
 import type { PropType } from "vue";
 import type { TChapterLessons } from "~/types/TChapterLessons";
 import type { TCourseChapter } from "~/types/TCourseChapter";
@@ -33,34 +34,39 @@ function getLessons(chapter_id: number) {
   }
   return chapter.lessons;
 }
+
+const loading = ref(false);
+const max_chapter_id = ref(1);
+
 function getMaxHistoryChapter(chapter_id: number) {
-  if (!props.history_chapters) {
-    return false;
-  }
-  const chapter_ids: number[] = [];
-  props.history_chapters.forEach((chapter: THistoryChapter) => {
-    if (chapter.chapter === chapter_id) {
-      if (chapter.lessons) {
-        chapter.lessons.forEach((lesson: THistoryLesson) => {
-          if (lesson.is_completed) {
-            chapter_ids.push(chapter.chapter);
-          }
-        });
-      }
-    }
-  });
-  if (chapter_ids.length > 0) {
-    const max_id = Math.max(...chapter_ids);
-    return max_id == chapter_id;
+  if (props.history_chapters) {
+    return max_chapter_id.value == chapter_id;
   } else {
     return false;
   }
 }
+onMounted(() => {
+  loading.value = true;
+  if (props.history_chapters) {
+    props.history_chapters.forEach((chapter: THistoryChapter, index) => {
+      if (chapter.lessons) {
+        chapter.lessons.forEach((lesson: THistoryLesson) => {
+          if (lesson.is_completed) {
+            max_chapter_id.value = Math.max(max_chapter_id.value, chapter.chapter);
+          }
+        });
+      }
+    });
+  }
+  loading.value = false;
+  console.log(max_chapter_id.value, "max_chapter_id.value");
+});
 </script>
 
 <template>
   <div class="video-sidebar">
-    <div class="accordion" v-for="(chapter, index) in chapters">
+    <UiLoading v-if="loading" />
+    <div v-else class="accordion" v-for="(chapter, index) in chapters">
       <StudentVideoSidebarChapter
         :chapter="chapter"
         :index="index + 1"
