@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Vue3SlideUpDown } from "vue3-slide-up-down";
 import type { TCourseChapter } from "~/types/TCourseChapter";
-import type {THistoryLesson} from "~/types/TWatchHistory";
+import type { THistoryLesson } from "~/types/TWatchHistory";
 const props = defineProps({
   chapter: {
     type: Object as PropType<TCourseChapter>,
@@ -26,12 +26,17 @@ const props = defineProps({
   history_lessons: {
     type: Array as PropType<THistoryLesson[]>,
     default: () => [],
-  }
+  },
 });
 const show = ref(props.opened);
 function toggleText() {
   show.value = !show.value;
 }
+function emitActiveLesson(lesson_id: number) {
+  active_lesson_id.value = null;
+  active_lesson_id.value = lesson_id;
+}
+const active_lesson_id = ref<number | null>(null);
 </script>
 <template>
   <div>
@@ -45,15 +50,14 @@ function toggleText() {
       <div class="accordion-collapse collapse show">
         <Vue3SlideUpDown v-model="show">
           <div class="accordion-body">
-            <div
-              v-for="(lesson) in chapter.lessons"
-              :key="lesson.id"
-            >
+            <div v-for="lesson in chapter.lessons" :key="lesson.id">
               <StudentVideoSidebarLesson
                 :chapter="chapter"
                 :course_id="course_id"
                 :lesson="lesson"
                 :history_lesson="history_lessons.find((h) => h.id === lesson.id)"
+                :active_lesson_id="active_lesson_id"
+                @emit_active_lesson="emitActiveLesson"
               />
             </div>
           </div>
