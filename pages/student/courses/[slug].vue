@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { UiLoading } from "#components";
 import { useVideoStore } from "~/store/useVideoStore";
+import type {TChapterLessons} from "~/types/TChapterLessons";
 import type { TCourse } from "~/types/TCourse";
+import type {THistoryChapter} from "~/types/TWatchHistory";
 
 definePageMeta({
   layout: "student",
@@ -15,9 +17,7 @@ const route = useRoute();
 const router = useRouter();
 const loading = ref(false);
 const course = ref<TCourse>();
-const chapter_id = ref(0);
-const lesson_id = ref(0);
-const is_completed = ref(false);
+const history_chapters = ref<THistoryChapter[]>([]);
 
 async function getCourse() {
   loading.value = true;
@@ -25,9 +25,7 @@ async function getCourse() {
   try {
     const data = await axiosInstance.get(`/student/enrollments/${route.params.slug}`);
     course.value = data.data.course;
-    chapter_id.value = data.data.chapter_id[0];
-    lesson_id.value = data.data.lesson_id[0];
-    is_completed.value = Boolean(data.data.is_completed[0]);
+    history_chapters.value = data.data.chapter_lessons;
     if (course.value?.lessons && course.value?.lessons.length > 0) {
       let video_path = useVideoToIframe(course.value.lessons[0].file_path);
       video_storage.setVideo(video_path);
@@ -87,9 +85,7 @@ onMounted(() => {
             v-if="course && course.chapters"
             :chapters="course.chapters"
             :course_id="course.id"
-            :chapter_id="chapter_id"
-            :lesson_id="lesson_id"
-            :is_completed="is_completed"
+            :history_chapters="history_chapters"
           />
           <p v-else>No data available</p>
         </div>
