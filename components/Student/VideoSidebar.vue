@@ -33,6 +33,29 @@ function getLessons(chapter_id: number) {
   }
   return chapter.lessons;
 }
+function getMaxHistoryChapter(chapter_id: number) {
+  if (!props.history_chapters) {
+    return false;
+  }
+  const chapter_ids: number[] = [];
+  props.history_chapters.forEach((chapter: THistoryChapter) => {
+    if (chapter.chapter === chapter_id) {
+      if (chapter.lessons) {
+        chapter.lessons.forEach((lesson: THistoryLesson) => {
+          if (lesson.is_completed) {
+            chapter_ids.push(chapter.chapter);
+          }
+        });
+      }
+    }
+  });
+  if (chapter_ids.length > 0) {
+    const max_id = Math.max(...chapter_ids);
+    return max_id == chapter_id;
+  } else {
+    return false;
+  }
+}
 </script>
 
 <template>
@@ -43,7 +66,7 @@ function getLessons(chapter_id: number) {
         :index="index + 1"
         :chapters_count="chapters.length"
         :course_id="course_id"
-        :opened="index === 0"
+        :opened="getMaxHistoryChapter(chapter.id)"
         :history_lessons="getLessons(chapter.id)"
       />
     </div>
