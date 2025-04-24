@@ -51,6 +51,13 @@
             ]"
           />
           <UiMenuItem title="Orders" icon="fa-regular fa-id-card" url="/admin/orders" />
+          <UiMenuItemDropdown
+            title="Sections"
+            icon="fa-solid fa-chalkboard-user"
+            :items="[
+              { title: 'Hero', link: '/admin/sections/hero' },
+            ]"
+          />
         </ul>
       </div>
     </div>

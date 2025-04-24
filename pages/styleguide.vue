@@ -51,7 +51,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="layout pt-10 pb-10" ref="layout">
+  <div class="layout pt-10 pb-10" style="min-height: 100vh;" ref="layout">
     <div class="container">
       <div class="row">
         <div class="col-md-3">

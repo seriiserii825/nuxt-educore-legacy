@@ -18,7 +18,13 @@ const props = defineProps({
     type: String,
     default: "image/*",
   },
+  image: {
+    type: String,
+    required: false,
+  },
 });
+
+
 
 function changeHandler(e: any) {
   const target = e.target as HTMLInputElement;
@@ -39,13 +45,13 @@ function changeHandler(e: any) {
       @input="changeHandler"
       :class="{ 'input--error': errors && errors.length }"
     />
-    <div
-      v-if="errors && errors.length"
-      class="input__message input__message--error"
-    >
+    <div v-if="errors && errors.length" class="input__message input__message--error">
       <p class="text-danger" v-for="(error, index) in errors" :key="index">
         {{ error }}
       </p>
+    </div>
+    <div v-if="image" class="input__message">
+      <img :width="100" :src="`${useBaseUrl()}/${image}`" alt="Preview" class="img-fluid" />
     </div>
   </div>
 </template>
