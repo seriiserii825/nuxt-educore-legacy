@@ -26,10 +26,15 @@ const props = defineProps({
     type: [Number, null],
     default: null,
   },
+  last_watch_history_lesson_id: {
+    type: Number,
+    required: true,
+  },
 });
 const video_store = useVideoStore();
 const is_completed = ref(false);
 const have_resources = ref(false);
+const lesson_was_clicked = ref(false);
 
 type TResponse = {
   data: {
@@ -37,14 +42,17 @@ type TResponse = {
   };
 };
 
-async function checkLesson() {
-  is_completed.value = !is_completed.value;
+async function checkLesson(checked: boolean = false) {
+  if (checked) {
+    is_completed.value = !is_completed.value;
+  }
   try {
     await axiosInstance.post(`/student/watch-history`, {
       course_id: props.course_id,
       chapter_id: props.chapter.id,
       lesson_id: props.lesson.id,
       is_completed: is_completed.value,
+      checked
     });
   } catch (error) {
     handleAxiosError(error);
@@ -52,6 +60,8 @@ async function checkLesson() {
 }
 
 async function getVideoPath() {
+  lesson_was_clicked.value = true;
+  checkLesson();
   emits("emit_active_lesson", props.lesson.id);
   try {
     const data: TResponse = await axiosInstance.get(
@@ -69,10 +79,10 @@ async function getVideoPath() {
 }
 
 function getActiveClass(id: number) {
-  if (!props.active_lesson_id) {
-    return {};
+  if (lesson_was_clicked.value) {
+    return props.active_lesson_id === id ? { active: true } : {};
   }
-  return props.active_lesson_id === id ? { active: true } : {};
+  return props.last_watch_history_lesson_id === id ? { active: true, last: true } : {};
 }
 onMounted(() => {
   if (props.history_lesson) {
@@ -86,7 +96,7 @@ onMounted(() => {
     <div>
       <input
         :checked="is_completed"
-        @change="checkLesson()"
+        @change="checkLesson(true)"
         class="form-check-input"
         type="checkbox"
         value=""
@@ -119,6 +129,9 @@ onMounted(() => {
 .lesson-item .form-check-label:hover,
 .lesson-item.active .form-check-label {
   color: #007bff;
+}
+.lesson-item.last.active .form-check-label {
+  color: green;
 }
 .form-check-input {
   cursor: pointer;

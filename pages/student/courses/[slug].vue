@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { UiLoading } from "#components";
 import { useVideoStore } from "~/store/useVideoStore";
-import type {TChapterLessons} from "~/types/TChapterLessons";
 import type { TCourse } from "~/types/TCourse";
 import type {THistoryChapter} from "~/types/TWatchHistory";
 
@@ -18,6 +17,7 @@ const router = useRouter();
 const loading = ref(false);
 const course = ref<TCourse>();
 const history_chapters = ref<THistoryChapter[]>([]);
+const last_watch_history_lesson_id = ref(1)
 
 async function getCourse() {
   loading.value = true;
@@ -26,6 +26,7 @@ async function getCourse() {
     const data = await axiosInstance.get(`/student/enrollments/${route.params.slug}`);
     course.value = data.data.course;
     history_chapters.value = data.data.chapter_lessons;
+    last_watch_history_lesson_id.value = data.data.last_watch_history.lesson_id;
     if (course.value?.lessons && course.value?.lessons.length > 0) {
       let video_path = useVideoToIframe(course.value.lessons[0].file_path);
       video_storage.setVideo(video_path);
@@ -86,6 +87,7 @@ onMounted(() => {
             :chapters="course.chapters"
             :course_id="course.id"
             :history_chapters="history_chapters"
+            :last_watch_history_lesson_id="last_watch_history_lesson_id"
           />
           <p v-else>No data available</p>
         </div>

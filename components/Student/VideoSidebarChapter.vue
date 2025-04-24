@@ -27,6 +27,14 @@ const props = defineProps({
     type: Array as PropType<THistoryLesson[]>,
     default: () => [],
   },
+  active_lesson_id: {
+    type: [Number, null],
+    default: null,
+  },
+  last_watch_history_lesson_id: {
+    type: Number,
+    required: true,
+  },
 });
 
 const show = ref(props.opened);
@@ -65,6 +73,7 @@ watch(
                 :course_id="course_id"
                 :lesson="lesson"
                 :history_lesson="history_lessons.find((h) => h.id === lesson.id)"
+                :last_watch_history_lesson_id="last_watch_history_lesson_id"
                 :active_lesson_id="active_lesson_id"
                 @emit_active_lesson="emitActiveLesson"
               />
@@ -72,9 +81,6 @@ watch(
           </div>
         </Vue3SlideUpDown>
       </div>
-    </div>
-    <div v-else>
-      <h2 class="accordion-header">No lessons available</h2>
     </div>
   </div>
 </template>

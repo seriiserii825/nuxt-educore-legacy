@@ -3,6 +3,7 @@ import { UiLoading } from "#components";
 import type { PropType } from "vue";
 import type { TChapterLessons } from "~/types/TChapterLessons";
 import type { TCourseChapter } from "~/types/TCourseChapter";
+import type {TLesson} from "~/types/TLesson";
 import type { THistoryChapter, THistoryLesson } from "~/types/TWatchHistory";
 
 const props = defineProps({
@@ -17,6 +18,10 @@ const props = defineProps({
   history_chapters: {
     type: Array as PropType<THistoryChapter[]>,
     default: () => [],
+  },
+  last_watch_history_lesson_id: {
+    type: Number,
+    required: true,
   },
 });
 function getLessons(chapter_id: number) {
@@ -38,12 +43,21 @@ function getLessons(chapter_id: number) {
 const loading = ref(false);
 const max_chapter_id = ref(1);
 
-function getMaxHistoryChapter(chapter_id: number) {
-  if (props.history_chapters) {
-    return max_chapter_id.value == chapter_id;
-  } else {
+function getChapterWithLastLesson(chapter_id: number) {
+  const chapter_with_lesson = props.chapters.find((chapter: TCourseChapter) => {
+    if (chapter.lessons) {
+      return chapter.lessons.some(
+      (lesson: TLesson) => {
+          return lesson.id === props.last_watch_history_lesson_id;
+        }
+      );
+    }
     return false;
+  });
+  if (chapter_with_lesson) {
+    return chapter_with_lesson.id === chapter_id;
   }
+  return false;
 }
 onMounted(() => {
   loading.value = true;
@@ -72,8 +86,9 @@ onMounted(() => {
         :index="index + 1"
         :chapters_count="chapters.length"
         :course_id="course_id"
-        :opened="getMaxHistoryChapter(chapter.id)"
+        :opened="getChapterWithLastLesson(chapter.id)"
         :history_lessons="getLessons(chapter.id)"
+        :last_watch_history_lesson_id="last_watch_history_lesson_id"
       />
     </div>
   </div>
