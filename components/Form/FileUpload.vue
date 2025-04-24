@@ -19,7 +19,7 @@ const props = defineProps({
     default: "image/*",
   },
   image: {
-    type: String,
+    type: [String, File],
     required: false,
   },
 });

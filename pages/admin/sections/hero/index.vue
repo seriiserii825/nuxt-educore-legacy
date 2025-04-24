@@ -46,6 +46,21 @@ async function getHero() {
     loading.value = false;
   }
 }
+function resetForm(){
+  form.value = {
+    id: 0,
+    label: "",
+    title: "",
+    description: "",
+    video_text: "",
+    video_url: "",
+    button_text: "",
+    banner_title: "",
+    banner_text: "",
+    round_text: "",
+    image: "",
+  };
+}
 async function onSubmit() {
   const formData = new FormData();
   // make loop throw form and appedn to formData
@@ -89,6 +104,22 @@ async function updateHero(formData: FormData) {
   } catch (error) {
     handleAxiosError(error);
     errors.value = error.response.data.errors;
+  }
+}
+
+async function deleteHero() {
+  loading.value = true;
+  try {
+    await axiosInstance.delete(`/admin/sections/hero/${form.value.id}`);
+    setTimeout(async () => {
+      resetForm();
+      await getHero();
+      loading.value = false;
+      useSweetAlert("success", "Hero Deleted Successfully");
+    }, 1000);
+  } catch (error) {
+    handleAxiosError(error);
+    loading.value = false;
   }
 }
 
@@ -202,7 +233,10 @@ onMounted(async () => {
           </div>
           <div class="row">
             <div class="col-md-4">
-              <FormBtn @emit_click="onSubmit">Upload</FormBtn>
+              <div class="d-flex gap-4">
+                <FormBtn @emit_click="onSubmit">Upload</FormBtn>
+                <FormBtn color="btn-danger" @emit_click="deleteHero">Delete</FormBtn>
+              </div>
             </div>
           </div>
         </UiCard>
