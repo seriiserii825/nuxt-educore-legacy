@@ -5,8 +5,10 @@ definePageMeta({
   middleware: ["admin"],
 });
 const loading = ref(true);
+const method = ref("POST");
 const hero = ref<THero>();
 const form = ref({
+  id: 0,
   label: "",
   title: "",
   description: "",
@@ -20,10 +22,12 @@ const form = ref({
 });
 const errors = ref();
 async function getHero() {
+  loading.value = true;
   try {
     const data = await axiosInstance.get("/admin/sections/hero");
     hero.value = data.data;
-    if (hero.value) {
+    if (hero.value && hero.value.id) {
+      form.value.id = hero.value.id;
       form.value.label = hero.value.label;
       form.value.title = hero.value.title;
       form.value.description = hero.value.description;
@@ -34,6 +38,7 @@ async function getHero() {
       form.value.banner_text = hero.value.banner_text;
       form.value.round_text = hero.value.round_text;
       form.value.image = hero.value.image;
+      method.value = "PUT";
     }
     loading.value = false;
   } catch (error) {
@@ -41,6 +46,52 @@ async function getHero() {
     loading.value = false;
   }
 }
+async function onSubmit() {
+  const formData = new FormData();
+  // make loop throw form and appedn to formData
+  for (const key in form.value) {
+    if (form.value[key] !== "") {
+      formData.append(key, form.value[key]);
+    }
+  }
+  console.log(method.value, "method.value");
+  if (method.value === "PUT") {
+    await updateHero(formData);
+  } else {
+    await createHero(formData);
+  }
+}
+
+async function createHero(formData: FormData) {
+  try {
+    await axiosInstance.post("/admin/sections/hero", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    useSweetAlert("success", "Hero Created Successfully");
+    await getHero();
+  } catch (error) {
+    handleAxiosError(error);
+    errors.value = error.response.data.errors;
+  }
+}
+
+async function updateHero(formData: FormData) {
+  try {
+    await axiosInstance.post(`/admin/sections/hero/update/${form.value.id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    useSweetAlert("success", "Hero Updated Successfully");
+    await getHero();
+  } catch (error) {
+    handleAxiosError(error);
+    errors.value = error.response.data.errors;
+  }
+}
+
 onMounted(async () => {
   await getHero();
 });
@@ -151,7 +202,7 @@ onMounted(async () => {
           </div>
           <div class="row">
             <div class="col-md-4">
-              <FormBtn @emit_click="console.log('')">Upload</FormBtn>
+              <FormBtn @emit_click="onSubmit">Upload</FormBtn>
             </div>
           </div>
         </UiCard>
