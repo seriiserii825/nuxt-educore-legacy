@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {useUserStore} from '~/store/useUserStore';
+import axios from "axios";
+import { useUserStore } from "~/store/useUserStore";
 
 const user_store = useUserStore();
 const props = defineProps({
@@ -32,10 +33,14 @@ async function submitForm() {
     } else {
       router.push("/instructor/dashboard");
     }
-
-  } catch (error) {
-    console.log(error, "error");
-    errors.value = error.response.data.errors;
+  } catch (err: any) {
+    if (axios.isAxiosError(err)) {
+      const msg =
+        err.response?.data?.message || err.response?.data?.errors || err.message || "Network error";
+      console.error(msg);
+    } else {
+      console.error(err);
+    }
   }
 }
 </script>
@@ -43,7 +48,10 @@ async function submitForm() {
 <template>
   <div class="form-student-login">
     <form action="#">
-      <h2>Log in as {{ role }}<span>!</span></h2>
+      <h2>
+        Log in as {{ role }}
+        <span>!</span>
+      </h2>
       <p class="new_user">
         New {{ title }} ?
         <nuxt-link to="/register">Create an Account</nuxt-link>
@@ -56,8 +64,7 @@ async function submitForm() {
               placeholder="Email"
               name="email"
               v-model:value="form.email"
-              :errors="errors ? errors.email : []"
-            />
+              :errors="errors ? errors.email : []" />
           </div>
         </div>
         <div class="col-xl-12">
@@ -68,19 +75,12 @@ async function submitForm() {
               name="password"
               type="password"
               v-model:value="form.password"
-              :errors="errors ? errors.password : []"
-            />
+              :errors="errors ? errors.password : []" />
           </div>
         </div>
         <div class="col-xl-12">
           <div class="wsus__login_form_input">
-            <button
-              @click.prevent="submitForm"
-              type="button"
-              class="common_btn"
-            >
-              Sign In
-            </button>
+            <button @click.prevent="submitForm" type="button" class="common_btn">Sign In</button>
           </div>
         </div>
       </div>
